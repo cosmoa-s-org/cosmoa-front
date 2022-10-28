@@ -21,14 +21,13 @@ class Main extends React.Component {
                 aria-label="menu"
                 sx={{ mr: 2 }}
               >
-            {/* <MenuIcon /> */}
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </Box>
-            </>
-        )
-    }
+              {/* <MenuIcon /> */}
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+        </Box>
+      </>
+  ) }
 }
 
 export default Main;
