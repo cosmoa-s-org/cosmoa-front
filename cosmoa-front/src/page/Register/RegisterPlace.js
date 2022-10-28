@@ -6,4 +6,4 @@ function RegisterPlace() {
     </>)
 }
 
-export default RegisterPlace;;
+export default RegisterPlace;

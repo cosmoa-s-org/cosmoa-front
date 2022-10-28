@@ -1,9 +1,9 @@
 import React from "react";
 
-function RegisterCourse() {
+function CourseDetail() {
     return(<>
         Register Course Page
     </>)
 }
 
-export default RegisterCourse;
+export default CourseDetail;
