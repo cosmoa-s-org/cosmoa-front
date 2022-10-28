@@ -1,11 +1,13 @@
 import './App.css';
+import AppRouter from './AppRouter';
 
 function App() {
-  return (
-    <div className="App" style={{backgroundColor:"white"}}>
-      <h3>????Hello cosmoa!!!!</h3>
+  return (<>
+    <div className="App" >
+      <AppRouter />
+      
     </div>
-  );
+    </>);
 }
 
 export default App;
