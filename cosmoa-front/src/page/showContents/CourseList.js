@@ -2,7 +2,7 @@ import React from "react";
 
 function CourseList() {
     return(<>
-        Register Course Page
+        Course List Page
     </>)
 }
 

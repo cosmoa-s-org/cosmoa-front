@@ -2,7 +2,7 @@ import React from "react";
 
 function CourseDetail() {
     return(<>
-        Register Course Page
+        Course Detail Page
     </>)
 }
 

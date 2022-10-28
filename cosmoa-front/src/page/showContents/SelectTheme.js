@@ -2,7 +2,7 @@ import React from "react";
 
 function SelectTheme() {
     return(<>
-        Register Course Page
+        Select Theme Page
     </>)
 }
 
