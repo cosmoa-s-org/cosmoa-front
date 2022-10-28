@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import AppRouter from './AppRouter';
 
 function App() {
   return (
     <div className="App" >
-      <h3 style={{backgroundColor:"white"}}>????Hello cosmoa!!!!</h3>
+      <AppRouter.js />
     </div>
   );
 }
