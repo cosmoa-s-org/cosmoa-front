@@ -8,15 +8,18 @@ import Footer from "./components/footer/Footer";
 import Main from "./page/main/Main";
 import Login from "./page/login/Login";
 import SelectTheme from "./page/showContents/SelectTheme";
+import RegisterPlace from "./page/Register/RegisterPlace";
+import RegisterCourse from "./page/Register/RegisterCourse";
+import RegisterType from "./page/Register/RegisterType";
+import Mypage from "./page/user/Mypage";
 
 
-class AppRouter extends React.Component {
-  render() {
+function AppRouter (props) {
     return (
       <BrowserRouter>
-        <Box mt={5}>
+        {/* <Box mt={5}> */}
           <Header />
-        </Box>
+        {/* </Box> */}
         <div>
           <Routes>
             <Route path="/" element={<Main />} />
@@ -24,17 +27,20 @@ class AppRouter extends React.Component {
             <Route path="/main" element={<Main />} />
             <Route path="/login" element={<Login />} />
 
+            <Route path="/Mypage" element={<Mypage />} />
             <Route path="/SelectTheme" element={<SelectTheme />} />
+            <Route path="/registertype" element={<RegisterType />} />
+            <Route path="/registercourse" element={<RegisterCourse />} />
+            <Route path="/registerplace" element={<RegisterPlace />} />
           </Routes>
         </div>
         <div>
-          <Box mt={5}>
+          {/* <Box mt={5}> */}
             <Footer />
-          </Box>
+          {/* </Box> */}
         </div>
       </BrowserRouter>
     );
   }
-}
 
 export default AppRouter;

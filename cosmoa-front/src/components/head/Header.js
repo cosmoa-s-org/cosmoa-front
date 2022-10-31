@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@material-ui/core';
+import { Link, styled, useTheme } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -106,36 +106,49 @@ function Header() {
         </DrawerHeader>
         <Divider />
         <List>
+        <Link href="/Mypage">
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><InboxIcon /></ListItemIcon>
               <ListItemText>내 정보</ListItemText>
             </Button>
           </ListItem>
+          </Link>
+          <Link href="/Mypage">
+          <ListItem disablePadding>
+            <Button>
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText>내가 쓴 글</ListItemText>
+            </Button>
+          </ListItem>
+          </Link>
+          <Link href="/Mypage">
+          <ListItem disablePadding>
+            <Button>
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText>스크랩</ListItemText>
+            </Button>
+          </ListItem>
+          </Link>
           <Divider />
-          {['내정보', '내가 쓴 글', '스크랩'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <Button>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </Button>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
+        </List>        
         <List>
-          {['코스 및 장소 등록', '코스 및 장소 조회'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <Button>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </Button>
-            </ListItem>
-          ))}
+        <Link href="/SelectTheme">
+          <ListItem disablePadding>
+            <Button>
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText>코스 및 장소 등록</ListItemText>
+            </Button>
+          </ListItem>
+          </Link>
+          <Link href="/RegisterType">
+          <ListItem disablePadding>
+            <Button>
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText>코스 및 장소 조회</ListItemText>
+            </Button>
+          </ListItem>
+          </Link>
         </List>
       </Drawer>
       <Main open={open}>
