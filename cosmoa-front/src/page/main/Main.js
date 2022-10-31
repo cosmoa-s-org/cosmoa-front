@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, Typography, Button, IconButton, Container, Link } from "@material-ui/core";
+import { Box, Container, Link, Paper } from "@material-ui/core";
 //import { MenuIcon } from "@material-ui/icons";
 import * as React from 'react';
 
@@ -10,11 +10,17 @@ function Main() {
 
     <Link href="/registertype">
       <Paper variant="contained"
-      sx={{
-        // bgcolor: 
-      }}>코스 및 장소 등록</Paper>
+        style={{height:100, lineHeight:"100px", fontSize:24, width:"85%", margin:"0 auto"}}>
+        코스 및 장소 등록
+      </Paper>
     </Link>
 
+    <Link href="/selectthme">
+      <Paper variant="contained"
+        style={{height:100, lineHeight:"100px", fontSize:24, width:"85%", margin:"0 auto"}}>
+        코스 및 장소 조회
+      </Paper>
+    </Link>
     
   </>)
 }
