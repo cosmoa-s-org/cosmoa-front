@@ -9,8 +9,11 @@ function Main() {
       <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>MainPage</h1></Box>
     </Container>
 
-    <Link href="/registerplace">
-      <Button variant="contained">장소 등록</Button>
+    <Link href="/registertype">
+      <Paper variant="contained"
+      sx={{
+        // bgcolor: 
+      }}>코스 및 장소 등록</Paper>
     </Link>
 
     
