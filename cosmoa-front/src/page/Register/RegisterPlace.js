@@ -15,6 +15,10 @@ function RegisterPlace(props) {
 
     return(<>
         
+        <br />
+        <br />
+        <br />
+
         <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>Register Place Page</h1></Box>
         <img src="../images/test.jpg" ></img>
 
