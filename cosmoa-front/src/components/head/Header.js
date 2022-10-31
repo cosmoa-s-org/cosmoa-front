@@ -108,7 +108,7 @@ function Header() {
         </DrawerHeader>
         <Divider />
         <List>
-        <Link href="/Mypage">
+        <Link href="/signin">
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><InboxIcon /></ListItemIcon>
