@@ -2,7 +2,12 @@ import React from "react";
 
 function PlaceDetail() {
     return(<>
-        Place Detail Page
+    <br />
+    <br />
+    <br />
+        
+        <h1>Place Detail Page</h1>
+        
     </>)
 }
 
