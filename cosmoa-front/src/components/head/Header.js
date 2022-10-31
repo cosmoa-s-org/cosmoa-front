@@ -4,7 +4,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 // import ListItemButton from '@material-ui/core';
 import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
@@ -135,7 +134,7 @@ function Header() {
           <Divider />
         </List>        
         <List>
-        <Link href="/SelectTheme">
+        <Link href="/RegisterType">
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><InboxIcon /></ListItemIcon>
@@ -143,7 +142,7 @@ function Header() {
             </Button>
           </ListItem>
           </Link>
-          <Link href="/RegisterType">
+          <Link href="/SelectTheme">
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><InboxIcon /></ListItemIcon>
