@@ -29,9 +29,9 @@ function AppRouter (props) {
 
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/SelectTheme" element={<SelectTheme />} />
-            <Route path="/registertype" element={<RegisterType />} />
-            <Route path="/registercourse" element={<RegisterCourse />} />
-            <Route path="/registerplace" element={<RegisterPlace />} />
+            <Route path="/registerType" element={<RegisterType />} />
+            <Route path="/registerCourse" element={<RegisterCourse />} />
+            <Route path="/registerPlace" element={<RegisterPlace />} />
           </Routes>
         </div>
         <div>
