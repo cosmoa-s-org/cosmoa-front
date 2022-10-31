@@ -4,21 +4,27 @@ import * as React from 'react';
 
 function Main() {
   return (<>
+    <br />
+    <br />
+    <br />
+    
     <Container maxWidth="sm">
       <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>MainPage</h1></Box>
     </Container>
 
     <Link href="/registertype">
       <Paper variant="contained"
-        style={{height:100, lineHeight:"100px", fontSize:24, width:"85%", margin:"0 auto"}}>
-        코스 및 장소 등록
+            style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto", backgroundColor:"#B1DCF8"}}>
+            코스 및 장소 등록
       </Paper>
     </Link>
 
+    <br />
+
     <Link href="/selectthme">
       <Paper variant="contained"
-        style={{height:100, lineHeight:"100px", fontSize:24, width:"85%", margin:"0 auto"}}>
-        코스 및 장소 조회
+            style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto", backgroundColor:"#B1DCF8"}}>
+            코스 및 장소 조회
       </Paper>
     </Link>
     
