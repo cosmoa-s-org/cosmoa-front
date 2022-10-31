@@ -1,16 +1,21 @@
-import React from "react";
+import { React, useState, useRef } from "react";
 import { Button, Box, Link } from "@material-ui/core";
+import imgName from "../../images/test.png";
 
-function RegisterPlace(props) {
+function RegisterPlace() {
 
-    const fileInput = React.useRef(null);
-    
-    const handleButtonClick = e => {
-        fileInput.current.click();
-    };
+    const [imageURL, setImageURL] = useState(null);
+    const imgRef = useRef();
+    const onChangeImage = () => {
+        const reader = new FileReader();
+        const file = imgRef.current.files[0];
+        console.log(file);
 
-    const handleChange = e => {
-        console.log(e.target.files[0]);
+        reader.readAsDataURL(file);
+        reader.onload = () =>{
+            setImageURL(reader.result);
+            console.log("이미지주소", reader.result);
+        };
     };
 
     return(<>
@@ -20,18 +25,22 @@ function RegisterPlace(props) {
         <br />
 
         <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}><h1>Register Place Page</h1></Box>
-        <img src="../images/test.jpg" ></img>
+
+        <input type="file" id="inputImage" />
+        <button id="sendButton">보내기</button>
+        <img src="" class="uploadImage"></img>
 
         <br />
 
-        <Button onClick={handleButtonClick} variant="contained">이미지 업로드</Button>
+        <img src={imgName} />
+
+        <br />
 
         <input type="file"
-            ref={fileInput}
-            onChange={handleChange}
-            style={{ display: "none" }} 
-        />
-
+            ref={imgRef}
+            onChange={onChangeImage}
+            ></input>
+        
         <br />
         <br />
         
