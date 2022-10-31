@@ -19,17 +19,21 @@ function RegisterPlace(props) {
         <br />
         <br />
 
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>Register Place Page</h1></Box>
+        <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}><h1>Register Place Page</h1></Box>
         <img src="../images/test.jpg" ></img>
 
+        <br />
+
         <Button onClick={handleButtonClick} variant="contained">이미지 업로드</Button>
+
         <input type="file"
             ref={fileInput}
             onChange={handleChange}
-            style={{ display: "none" }} />
+            style={{ display: "none" }} 
+        />
 
-            <br />
-            <br />
+        <br />
+        <br />
         
         <Link href="/main">
             <Button variant="contained">메인으로</Button>

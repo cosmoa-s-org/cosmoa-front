@@ -12,6 +12,7 @@ import RegisterPlace from "./page/Register/RegisterPlace";
 import RegisterCourse from "./page/Register/RegisterCourse";
 import RegisterType from "./page/Register/RegisterType";
 import Mypage from "./page/user/Mypage";
+import CourseList from "./page/showContents/CourseList";
 
 
 function AppRouter (props) {
@@ -32,6 +33,8 @@ function AppRouter (props) {
             <Route path="/registerType" element={<RegisterType />} />
             <Route path="/registerCourse" element={<RegisterCourse />} />
             <Route path="/registerPlace" element={<RegisterPlace />} />
+
+            <Route path="/courselist" element={<CourseList />} />
           </Routes>
         </div>
         <div>

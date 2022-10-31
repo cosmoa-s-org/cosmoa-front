@@ -21,7 +21,7 @@ function Main() {
 
     <br />
 
-    <Link href="/selectthme">
+    <Link href="/selecttheme">
       <Paper variant="contained"
             style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto", backgroundColor:"#B1DCF8"}}>
             코스 및 장소 조회
