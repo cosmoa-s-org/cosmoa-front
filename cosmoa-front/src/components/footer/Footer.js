@@ -11,7 +11,7 @@ function Footer() {
         
         <br />
 
-        금오공과대학교 cosmoa팀
+        <h3>금오공과대학교 cosmoa팀</h3>
     </>)
 }
 

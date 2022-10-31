@@ -13,6 +13,7 @@ import RegisterType from "./page/Register/RegisterType";
 import Mypage from "./page/user/Mypage";
 import SignIn from "./page/user/SignIn";
 import SignUp from "./page/user/SignUp";
+import CourseList from "./page/showContents/CourseList";
 
 
 function AppRouter (props) {
@@ -39,9 +40,11 @@ function AppRouter (props) {
 
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/SelectTheme" element={<SelectTheme />} />
-            <Route path="/registertype" element={<RegisterType />} />
-            <Route path="/registercourse" element={<RegisterCourse />} />
-            <Route path="/registerplace" element={<RegisterPlace />} />
+            <Route path="/registerType" element={<RegisterType />} />
+            <Route path="/registerCourse" element={<RegisterCourse />} />
+            <Route path="/registerPlace" element={<RegisterPlace />} />
+
+            <Route path="/courselist" element={<CourseList />} />
           </Routes>
         </div>
         <div>

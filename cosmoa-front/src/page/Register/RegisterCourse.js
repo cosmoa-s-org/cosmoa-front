@@ -2,7 +2,10 @@ import React from "react";
 
 function RegisterCourse() {
     return(<>
-        Register Course Page
+    <br />
+    <br />
+    <br />
+        <h1>Register Course Page</h1>
     </>)
 }
 

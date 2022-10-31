@@ -58,8 +58,7 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
             />
-            <Divider />
-            
+                        
             <Button
               type="submit"
               fullWidth

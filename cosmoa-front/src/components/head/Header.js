@@ -82,7 +82,9 @@ function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
+            <a href="/main" style={{color:"white", "text-decoration-line":"none"}}>
             CosMoa
+            </a>
           </Typography>
         </Toolbar>
       </AppBar>

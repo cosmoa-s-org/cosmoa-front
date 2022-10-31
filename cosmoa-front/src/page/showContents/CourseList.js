@@ -2,7 +2,12 @@ import React from "react";
 
 function CourseList() {
     return(<>
-        Course List Page
+
+    <br />
+    <br />
+    <br />
+    
+        <h1>Course List Page</h1>
     </>)
 }
 
