@@ -5,7 +5,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@material-ui/core';
+// import ListItemButton from '@material-ui/core';
+import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 const drawerWidth = 240;
 
@@ -54,7 +55,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Header() {
+function Header() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -105,14 +106,21 @@ export default function Header() {
         </DrawerHeader>
         <Divider />
         <List>
+          <ListItem disablePadding>
+            <Button>
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText>내 정보</ListItemText>
+            </Button>
+          </ListItem>
+          <Divider />
           {['내정보', '내가 쓴 글', '스크랩'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              {/* <ListItemButton> */}
+              <Button>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
-              {/* </ListItemButton> */}
+              </Button>
             </ListItem>
           ))}
         </List>
@@ -120,17 +128,22 @@ export default function Header() {
         <List>
           {['코스 및 장소 등록', '코스 및 장소 조회'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              {/* <ListItemButton> */}
+              <Button>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
-              {/* </ListItemButton> */}
+              </Button>
             </ListItem>
           ))}
         </List>
       </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
 
+      </Main>
     </Box>
   );
 }
+
+export default Header;

@@ -7,6 +7,7 @@ import Header from "./components/head/Header";
 import Footer from "./components/footer/Footer";
 import Main from "./page/main/Main";
 import Login from "./page/login/Login";
+import SelectTheme from "./page/showContents/SelectTheme";
 
 
 class AppRouter extends React.Component {
@@ -22,6 +23,8 @@ class AppRouter extends React.Component {
             
             <Route path="/main" element={<Main />} />
             <Route path="/login" element={<Login />} />
+
+            <Route path="/SelectTheme" element={<SelectTheme />} />
           </Routes>
         </div>
         <div>
