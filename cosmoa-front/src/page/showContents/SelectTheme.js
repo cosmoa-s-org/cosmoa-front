@@ -11,14 +11,14 @@ function SelectTheme() {
 
         <Link href="/courselist">
             <Paper elevation={4}
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"40%", margin:"0 auto", float:"left" }}>
+            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#B1DCF8" }}>
                 구성 인원
             </Paper>
         </Link>
 
         <Link href="/">
             <Paper elevation={4}
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"40%", margin:"0 auto", float:"left" }}>
+            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#F8B4E3" }}>
                 계절 및 기간
             </Paper>
         </Link>
@@ -27,19 +27,20 @@ function SelectTheme() {
 
         <Link href="/">
             <Paper elevation={4}
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"40%", margin:"0 auto", float:"left" }}>
+            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#B9F9E6" }}>
                 지역 축제
             </Paper>
         </Link>
 
         <Link href="/">
             <Paper elevation={4}
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"40%", margin:"0 auto", float:"left" }}>
+            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#F5F8AD" }}>
                 추천 명소
             </Paper>
         </Link>
 
         <br />
+        
     </>)
 }
 
