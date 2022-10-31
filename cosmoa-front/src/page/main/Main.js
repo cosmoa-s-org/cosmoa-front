@@ -4,9 +4,6 @@ import * as React from 'react';
 
 function Main() {
   return (<>
-    <br />
-    <br />
-    <br />
     
     <Container maxWidth="sm">
       <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>MainPage</h1></Box>
