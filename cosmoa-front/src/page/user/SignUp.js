@@ -1,22 +1,50 @@
 import React from "react";
 import { useState } from "react";
-import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormHelperText } from "@mui/material";
+import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormHelperText, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import signup from '../../service/ApiService';
 import styled from "@emotion/styled";
 
+
 const FormHelperTexts = styled(FormHelperText)
-`
+    `
   width: 100%;
   padding-left: 16px;
   font-weight: 700 !important;
   color: #d32f2f !important;
 `;
 
+
+
 function SignUp() {
     const [emailError, setEmailError] = useState('');
     const [passwordState, setPasswordState] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    const [nameError, setNameError] = useState('');
+    const [gender, setGender] = useState('');
+    const [age, setAge] = useState('');
+
+    const SelectBox = (props) => {
+        function menuitems() {
+            var array = [];
+            for ( var i = 10; i<90; i++){
+                array.push(<MenuItem value={i}>{i}</MenuItem>)
+            }
+            return array;
+        }
+    
+        return (
+            <Select required fullWidth value={age} onChange={ageChange}>
+                { menuitems()}
+            </Select>
+        )
+    }
+
+    const genderChange = (event, newgender) => {
+        setGender(newgender);
+        console.log(newgender);
+      };
+    const ageChange = (event) => {
+        setAge(event.target.value);
+    };
 
     const onhandlePost = async (data) => {
         //const { email, password } = data;
@@ -36,8 +64,10 @@ function SignUp() {
             password: data.get('password'),
             password2: data.get('password2'),
             nickname: data.get('nickname'),
+            gender: data.get('setGender'),
+            age: data.get('age')
         };
-        const { email, password, password2, nickname} = joinData;
+        const { email, password, password2, nickname , gender} = joinData;
 
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -122,6 +152,7 @@ function SignUp() {
                         />
                     </Grid>
                     <Grid item xs={2}>
+                        <Button type="submit" variant="contained">중복확인</Button>
                     </Grid>
                     <Grid item xs={10}>
                         <TextField
@@ -134,9 +165,32 @@ function SignUp() {
                             label="닉네임" autoFocus
                         />
                     </Grid>
+                    <Grid item xs={2}></Grid>
                     <Grid item xs={2}>
-                        <Button type="submit" variant="contained">중복확인</Button>
+                        <Typography sx={{marginTop:1}}>성별</Typography>
                     </Grid>
+                    <Grid item xs={8}>
+                        <ToggleButtonGroup
+                            color="primary"
+                            value={gender}
+                            exclusive
+                            fullWidth
+                            onChange={genderChange}
+                            aria-label="Platform"
+                        >
+                            <ToggleButton value="men">Men</ToggleButton>
+                            <ToggleButton value="women">Women</ToggleButton>
+                        </ToggleButtonGroup>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={2}>
+                    <Typography sx={{marginTop:1}}>나이</Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <SelectBox></SelectBox>
+                    </Grid>
+
+
                     <Grid item xs={12}>
                         <FormHelperTexts>{emailError}</FormHelperTexts>
                         <FormHelperTexts>{passwordState}</FormHelperTexts>
@@ -144,8 +198,8 @@ function SignUp() {
                         <Button
                             type="submit"
                             fullWidth
-                            sx={{ mt: 4, mb: 2}}
-                            size= "large"
+                            sx={{ mt: 4, mb: 2 }}
+                            size="large"
                             color="primary"
                         >
                             계정생성
