@@ -1,6 +1,7 @@
 import { React, useState, useRef } from "react";
-import { Button, Box, Link } from "@material-ui/core";
+import { Button, Box, Link, TextField } from "@material-ui/core";
 import imgName from "../../images/test.png";
+import MapWrapper from "../../map/MapWrapper";
 
 function RegisterPlace() {
 
@@ -18,13 +19,13 @@ function RegisterPlace() {
         };
     };
 
-    return(<>
-        
-        <br />
-        <br />
-        <br />
 
-        <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}><h1>Register Place Page</h1></Box>
+
+    return(<>
+
+        {/* <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}> */}
+            <h1>Register Place Page</h1>
+        {/* </Box> */}
 
         <input type="file" id="inputImage" />
         <button id="sendButton">보내기</button>
@@ -44,15 +45,35 @@ function RegisterPlace() {
         <form>
             <label>
                 장소 이름:
-                <input type="text" name="placeName" />
+                <input type="text" name="placeName" id="placeName" placeholder="장소 이름을 입력하세요"/>
+
+                <br />
+                <br />
 
                 주소:
-                <input type="text" name="address" />
+                <input type="text" name="address" id="address"/>
+
+                <br />
+                <br />
 
                 장소 설명:
-                <input type="text" name="placeDescription" />
+                <input type="text" 
+                    id="placeDescription"
+                    placeholder="설명을 입력하세요"
+                />
+
+                <br />
+                <br />
+
+                <Link href="/tourmap">
+                    <Button variant="contained">지도 보기</Button>
+                </Link>
+                <br />
+                <div style={{margin:"0 auto"}}>
+                    <MapWrapper />
+                </div>
             </label>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="제출하기" />
         </form>
         
         <br />
