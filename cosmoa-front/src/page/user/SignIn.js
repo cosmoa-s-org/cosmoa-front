@@ -1,18 +1,13 @@
 import * as React from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { createTheme, Divider, ThemeProvider } from '@material-ui/core';
+// import { useNavigate } from 'react-router-dom';
 import { signin } from '../../service/ApiService';
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from '@material-ui/core';
+import { Button, TextField, Link, Grid, Box, Typography, Container, Avatar } from '@material-ui/core';
 // import { authService } from '../../fbase';
-import { onSocialClick } from '../../service/Auth';
+// import { onSocialClick } from '../../service/Auth';
 import { authService, firebaseInstance } from '../../fbase';
 import { useState } from 'react';
-
-
-const theme = createTheme();
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 export default function SignIn() {
     const [email, setEmail] = useState('');
@@ -33,33 +28,35 @@ export default function SignIn() {
     const onSocialClick = async (event) => {
         // console.log(event.target.name);
         const {
-          target: { name },
+            target: { name },
         } = event;
         let provider = '';
         if (name === 'google') {
-          provider = new firebaseInstance.auth.GoogleAuthProvider();
+            provider = new firebaseInstance.auth.GoogleAuthProvider();
         } else if (name === 'github') {
-          provider = new firebaseInstance.auth.GithubAuthProvider();
+            provider = new firebaseInstance.auth.GithubAuthProvider();
         }
-    
+
         const data = await authService.signInWithPopup(provider);
         console.log(data);
-      };
+    };
     //   const history = useNavigate();
     //   const onLogOutClick = () => {
     //     authService.signOut();
-    //     // history.push('/'); // location.href
+    //      history.push('/'); // location.href
     //   };
-    
+
 
     return (<>
-      {/* <button onClick={onLogOutClick}>Log out</button> */}
-            <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
-                <Box sx={{marginTop:8, alignItems:'center', display:'flex'}} >
-
-                    <Typography component="h1" variant="h5">
-                        로그인
-                    </Typography>
+        {/* <button onClick={onLogOutClick}>Log out</button> */}
+        <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
+            <Box sx={{ marginTop: 8, alignItems: 'center', display: 'flex' }} >
+                <Avatar>
+                    <LockOpenIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    로그인
+                </Typography>
 
                 <form onSubmit={handleSubmit}>
                     {" "}
@@ -95,12 +92,12 @@ export default function SignIn() {
                                 로그인
                             </Button>
                         </Grid>
-                        </Grid>
-                        <Link href="/signup" variant="body2">
-                            <Grid item xs={12}>가입하러가기 </Grid>
-                        </Link>
-                        <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12}} >
+                    </Grid>
+                    <Link href="/signup" variant="body2">
+                        <Grid item xs={12}>가입하러가기 </Grid>
+                    </Link>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
                             <Grid item xs={12}>
                                 <br />
                                 <Button
@@ -113,12 +110,11 @@ export default function SignIn() {
                             </Grid>
                         </Grid>
                         <br />
-                        </Box>
-
+                    </Box>
                 </form>
-                </Box>
+            </Box>
 
-            </Container>
-            <br />
+        </Container>
+        <br />
     </>);
 }

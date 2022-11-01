@@ -6,8 +6,6 @@ function Footer() {
     return (<>
 
         <br />
-
-        Footer
         
         <br />
 
