@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormHelperText, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormHelperText, ToggleButton, ToggleButtonGroup, Avatar } from "@mui/material";
 import signup from '../../service/ApiService';
 import styled from "@emotion/styled";
+import PersonIcon from '@mui/icons-material/Person';
 
 
 const FormHelperTexts = styled(FormHelperText)
@@ -14,8 +15,9 @@ const FormHelperTexts = styled(FormHelperText)
 `;
 
 
-
 function SignUp() {
+    const M = window.M
+
     const [emailError, setEmailError] = useState('');
     const [passwordState, setPasswordState] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -25,15 +27,15 @@ function SignUp() {
     const SelectBox = (props) => {
         function menuitems() {
             var array = [];
-            for ( var i = 10; i<90; i++){
+            for (var i = 10; i < 90; i++) {
                 array.push(<MenuItem value={i}>{i}</MenuItem>)
             }
             return array;
         }
-    
+
         return (
             <Select required fullWidth value={age} onChange={ageChange}>
-                { menuitems()}
+                {menuitems()}
             </Select>
         )
     }
@@ -41,7 +43,7 @@ function SignUp() {
     const genderChange = (event, newgender) => {
         setGender(newgender);
         console.log(newgender);
-      };
+    };
     const ageChange = (event) => {
         setAge(event.target.value);
     };
@@ -67,7 +69,7 @@ function SignUp() {
             gender: data.get('setGender'),
             age: data.get('age')
         };
-        const { email, password, password2, nickname , gender} = joinData;
+        const { email, password, password2, nickname, gender } = joinData;
 
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -82,24 +84,26 @@ function SignUp() {
         } else {
             setPasswordState('');
         }
-
         // 비밀번호 같은지 체크
         if (password !== password2) {
             setPasswordError('패스워드가 일치하지 않습니다.');
         } else {
             setPasswordError('');
         }
-
         if (
             emailRegex.test(email) &&
             passwordRegex.test(password) &&
             password === password2
         ) {
             onhandlePost(joinData);
+            M.pop.alert('성공');
         }
     }
     return (<>
-        <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
+        <Container component="main" maxWidth="xs" style={{ marginTop: "4%" }}>
+            <Avatar>
+                <PersonIcon />
+            </Avatar>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -162,12 +166,12 @@ function SignUp() {
                             required
                             fullWidth
                             id="nickname"
-                            label="닉네임" autoFocus
+                            label="닉네임"
                         />
                     </Grid>
                     <Grid item xs={2}></Grid>
                     <Grid item xs={2}>
-                        <Typography sx={{marginTop:1}}>성별</Typography>
+                        <Typography sx={{ marginTop: 1 }}>성별</Typography>
                     </Grid>
                     <Grid item xs={8}>
                         <ToggleButtonGroup
@@ -184,12 +188,11 @@ function SignUp() {
                     </Grid>
                     <Grid item xs={2}></Grid>
                     <Grid item xs={2}>
-                    <Typography sx={{marginTop:1}}>나이</Typography>
+                        <Typography sx={{ marginTop: 1 }}>나이</Typography>
                     </Grid>
                     <Grid item xs={8}>
                         <SelectBox></SelectBox>
                     </Grid>
-
 
                     <Grid item xs={12}>
                         <FormHelperTexts>{emailError}</FormHelperTexts>
