@@ -1,8 +1,8 @@
-import firebase from 'firebase/compat/app';
+import firebase from 'firebase/app';
 // 개별 export 하려면 각각의 기능들을 import 해야 한다.
-import 'firebase/compat/auth';
-import 'firebase/compat/storage';
-import 'firebase/compat/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
+import 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBsviTaQ0e1fwqD4ulbFWPpUaffZ8xbf80",
