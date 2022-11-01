@@ -14,7 +14,7 @@ import Mypage from "./page/user/Mypage";
 import SignIn from "./page/user/SignIn";
 import SignUp from "./page/user/SignUp";
 import CourseList from "./page/showContents/CourseList";
-import AddCourse from "./page/Register/AddCourse";
+import AddPlace from "./page/Register/AddPlace";
 
 
 function AppRouter (props) {
@@ -22,7 +22,7 @@ function AppRouter (props) {
   
     return (<>
           <BrowserRouter>
-       {/* {!isAuthorized ? <Navigate to="/signin" /> : <Navigate to="/" />}
+      {/* {!isAuthorized ? <Navigate to="/signin" /> : <Navigate to="/" />}
       <Routes>
       <Route path="/signin" element={<SignIn />} />
       <Route path="/" element={<Main />} />
@@ -44,7 +44,7 @@ function AppRouter (props) {
             <Route path="/registerType" element={<RegisterType />} />
             <Route path="/registerCourse" element={<RegisterCourse />} />
             <Route path="/registerPlace" element={<RegisterPlace />} />
-            <Route path="/addcourse" element={<AddCourse />} />
+            <Route path="/addplace" element={<AddPlace />} />
 
             <Route path="/courselist" element={<CourseList />} />
           </Routes>
