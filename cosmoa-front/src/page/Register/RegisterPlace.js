@@ -40,6 +40,20 @@ function RegisterPlace() {
             ref={imgRef}
             onChange={onChangeImage}
             ></input>
+
+        <form>
+            <label>
+                장소 이름:
+                <input type="text" name="placeName" />
+
+                주소:
+                <input type="text" name="address" />
+
+                장소 설명:
+                <input type="text" name="placeDescription" />
+            </label>
+            <input type="submit" value="Submit" />
+        </form>
         
         <br />
         <br />
@@ -47,6 +61,12 @@ function RegisterPlace() {
         <Link href="/main">
             <Button variant="contained">메인으로</Button>
         </Link>
+        {/* <script>
+            {document.querySelector("#sendButton").addEventListener("click", ()=>{
+                let selectfile = document.querySelector("#inputImage").files[0];
+                console.log(selectfile);
+            })}
+        </script> */}
     </>)
 }
 
