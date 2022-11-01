@@ -4,10 +4,6 @@ import { Paper, Link } from "@material-ui/core";
 function RegisterType() {
     return(<>
 
-        <br />
-        <br />
-        <br />
-
         <h1>
             Select Register Course / Place
         </h1>
