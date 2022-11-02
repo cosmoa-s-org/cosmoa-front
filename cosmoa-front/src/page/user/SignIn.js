@@ -14,7 +14,7 @@ export default function SignIn() {
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
 
-    const testuser = [{email: 'user01@naver.com', password: 'asdf1234!'}];
+    var testuser = {email: 'user01@naver.com', password: 'asdf1234!'};
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -31,7 +31,7 @@ export default function SignIn() {
         }
         // signin(json);
         console.log(json.email);
-        console.log(testuser);
+        console.log(testuser.email);
     };
 
     const onSocialClick = async (event) => {

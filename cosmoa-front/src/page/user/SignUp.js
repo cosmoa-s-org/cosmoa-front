@@ -32,7 +32,6 @@ function SignUp() {
             }
             return array;
         }
-
         return (
             <Select required fullWidth value={age} onChange={ageChange}>
                 {menuitems()}
@@ -178,8 +177,8 @@ function SignUp() {
                             onChange={genderChange}
                             aria-label="Platform"
                         >
-                            <ToggleButton value="men">Men</ToggleButton>
-                            <ToggleButton value="women">Women</ToggleButton>
+                            <ToggleButton value="male">Male</ToggleButton>
+                            <ToggleButton value="female">Female</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                     <Grid item xs={2}></Grid>
