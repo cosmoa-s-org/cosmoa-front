@@ -44,6 +44,7 @@ function SignUp() {
         setGender(newgender);
         console.log(newgender);
     };
+
     const ageChange = (event) => {
         setAge(event.target.value);
     };
@@ -58,7 +59,7 @@ function SignUp() {
     }
 
     const handleSubmit = (event) => {
-
+        console.log("젠더 체인지", gender);
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const joinData = {
@@ -66,10 +67,10 @@ function SignUp() {
             password: data.get('password'),
             password2: data.get('password2'),
             nickname: data.get('nickname'),
-            gender: data.get('setGender'),
+            gender: data.get('newgender'),
             age: data.get('age')
         };
-        const { email, password, password2, nickname, gender } = joinData;
+        const { email, password, password2, nickname, gender, age } = joinData;
 
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -97,6 +98,7 @@ function SignUp() {
         ) {
             onhandlePost(joinData);
             M.pop.alert('성공');
+            console.log(joinData);
         }
     }
     return (<>
@@ -113,7 +115,7 @@ function SignUp() {
 
                     </Grid>
 
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                         <TextField
                             autoComplete="email"
                             name="email"
@@ -126,11 +128,8 @@ function SignUp() {
                             error={emailError !== '' || false}
                         />
                     </Grid>
-                    <Grid item xs={2}>
-                        <Button type="submit" variant="contained" style={{ marginTop: "2%" }}>인증</Button>
-                    </Grid>
 
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                         <TextField
                             autoComplete="current-password"
                             name="password"
@@ -142,8 +141,7 @@ function SignUp() {
                             error={passwordState !== '' || false}
                         />
                     </Grid>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                         <TextField
                             autoComplete="password2"
                             name="password2"
@@ -155,10 +153,8 @@ function SignUp() {
                             error={passwordError !== '' || false}
                         />
                     </Grid>
-                    <Grid item xs={2}>
-                        <Button type="submit" variant="contained">중복확인</Button>
-                    </Grid>
-                    <Grid item xs={10}>
+
+                    <Grid item xs={12}>
                         <TextField
                             autoComplete="nickname"
                             name="nickname"
@@ -169,7 +165,6 @@ function SignUp() {
                             label="닉네임"
                         />
                     </Grid>
-                    <Grid item xs={2}></Grid>
                     <Grid item xs={2}>
                         <Typography sx={{ marginTop: 1 }}>성별</Typography>
                     </Grid>
@@ -179,6 +174,7 @@ function SignUp() {
                             value={gender}
                             exclusive
                             fullWidth
+                            required
                             onChange={genderChange}
                             aria-label="Platform"
                         >

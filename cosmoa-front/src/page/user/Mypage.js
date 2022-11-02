@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Box, Avatar, Typography } from "@material-ui/core";
+import { Container, Box, Avatar, Typography, Paper, Grid } from "@material-ui/core";
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 
 function Mypage() {
@@ -14,10 +14,15 @@ function Mypage() {
                 <Typography component="h1" variant="h5">
                     마이 페이지
                 </Typography>
-                </Box>
-                </Container>
+                <br />
+                <Grid item xs={12}>
 
-            </>)
+
+                </Grid>
+            </Box>
+        </Container>
+
+    </>)
 }
 
-            export default Mypage;
+export default Mypage;
