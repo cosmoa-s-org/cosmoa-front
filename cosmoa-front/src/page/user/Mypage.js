@@ -21,7 +21,7 @@ function Mypage(updateUser) {
 
     const M = window.M
 
-    const user = {email: "user01@naver.com", nickname: "test", gender: "male", age: "25" };
+    let user = [{ email: "user01@naver.com" }, { nickname: "test" }, { gender: "male" }, { age: "25" }];
 
     // const onUpdateItem = (cmd)=>{
     //     setReadOnly(true);
@@ -30,7 +30,18 @@ function Mypage(updateUser) {
     //     if(cmd==='toggleChk') currUser.done = !currUser.done;
     //     updateUser(currUser);
     // }
-    console.log(user.email);
+
+    function infoList() {
+        user.map((value, idx) => {
+            console.log(value);
+        })
+    } 
+
+    const userUpdate = (event) => {
+        console.log("userUpdate 클릭");
+
+    }
+
     return (<>
         <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
             <Box sx={{ marginTop: 8, alignItems: 'center', display: 'flex' }} >
@@ -47,32 +58,31 @@ function Mypage(updateUser) {
                     <Item>Gender: Male</Item>
                     <Item>Age: 25</Item>
                     <ListItem>
-                    <Item>Email
-                    <ListItemText>
-                        <InputBase
-                            type="text"
-                            inputProps={{ "aria-label": "naked", readOnly: readOnly }}
-                            id={user.id}
-                            name={user.id}
-                            multiline={true}
-                            fullWidth={true}
-                            // onChange={(e) => { setTitleData(e.target.value) }}
-                            onClick={(e) => {
-                                setReadOnly(false);
-                            }}
-                            // onKeyPress={(e) => {
-                            //     if (e.key === 'Enter') {
-                            //         onUpdateItem();
-                            //     }
-                            // }
-                            // }
-                            value={user.email}></InputBase>
-                    </ListItemText>
-                    </Item>
+                        <Item>Email
+                            <ListItemText>
+                                <InputBase
+                                    type="text"
+                                    inputProps={{ "aria-label": "naked", readOnly: readOnly }}
+                                    id={user.id}
+                                    name={user.id}
+                                    fullWidth={true}
+                                    // onChange={(e) => { setTitleData(e.target.value) }}
+                                    onClick={(e) => {
+                                        setReadOnly(false);
+                                    }}
+                                    // onKeyPress={(e) => {
+                                    //     if (e.key === 'Enter') {
+                                    //         onUpdateItem();
+                                    //     }
+                                    // }
+                                    // }
+                                    value={user.email}></InputBase>
+                            </ListItemText>
+                        </Item>
                     </ListItem>
                 </Stack>
                 <br />
-                <Button>회원 정보 수정</Button>
+                <Button onClick={userUpdate}>회원 정보 수정</Button>
             </Box>
         </Container>
 
