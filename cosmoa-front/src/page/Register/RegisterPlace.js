@@ -4,6 +4,23 @@ import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
 
 function RegisterPlace() {
+    const M = window.M;
+
+    const SelectImgBtnClick = (event) => {
+        M.media.picker({
+            mode: "SINGLE",
+            media: "PHOTO",
+            path: "/media",
+            column: 3,
+            callback: function( status, result ) {
+                console.log( status + ", " + JSON.stringify(result) );
+            }
+        });
+        console.log("click");
+        M.pop.alert("click");
+    }
+
+    const [current, setCurrent] = useState([]);
 
     const [imageURL, setImageURL] = useState(null);
     const imgRef = useRef();
@@ -22,28 +39,26 @@ function RegisterPlace() {
 
 
     return(<>
-
         {/* <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}> */}
             <h1>Register Place Page</h1>
         {/* </Box> */}
 
-        <input type="file" id="inputImage" />
-        <button id="sendButton">보내기</button>
-        <img src="" class="uploadImage"></img>
-
-        <br />
+            <div style={{margin:"0 auto"}}>
+                <MapWrapper />
+            </div>
 
         <img src={imgName} />
 
         <br />
 
-        <input type="file"
-            ref={imgRef}
-            onChange={onChangeImage}
-            ></input>
+        <Button variant="contained" onClick={SelectImgBtnClick}>사진 선택</Button> 
+        {/* <input type="file" id="inputImage" />
+        <img src="" class="uploadImage"></img> */}
 
         <form>
             <label>
+            
+                <br />
                 장소 이름:
                 <input type="text" name="placeName" id="placeName" placeholder="장소 이름을 입력하세요"/>
 
@@ -65,13 +80,11 @@ function RegisterPlace() {
                 <br />
                 <br />
 
-                <Link href="/tourmap">
-                    <Button variant="contained">지도 보기</Button>
-                </Link>
+                <input type="hidden" name="lat" />
+                <input type="hidden" name="lng" />
+
                 <br />
-                <div style={{margin:"0 auto"}}>
-                    <MapWrapper />
-                </div>
+                
             </label>
             <input type="submit" value="제출하기" />
         </form>
@@ -79,9 +92,8 @@ function RegisterPlace() {
         <br />
         <br />
         
-        <Link href="/main">
-            <Button variant="contained">메인으로</Button>
-        </Link>
+        <Button variant="contained" href="/main">메인으로</Button>
+
         {/* <script>
             {document.querySelector("#sendButton").addEventListener("click", ()=>{
                 let selectfile = document.querySelector("#inputImage").files[0];

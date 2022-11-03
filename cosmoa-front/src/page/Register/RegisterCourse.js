@@ -1,53 +1,48 @@
 import React from "react";
 import { Box, Link, Button } from "@material-ui/core";
 
-function RegisterCourse() {
+function RegisterCourse(props) {
     return(<>
     <br />
     <br />
     <br />
         <h1>Register Course Page</h1>
 
-        <input type="file" id="inputImage" />
-        <button id="sendButton">보내기</button>
-        <img src="" class="uploadImage"></img>
-
-        <br />
-
-        <br />
-
         <form>
             <label>
-                장소 이름:
-                <input type="text" name="placeName" id="placeName" placeholder="장소 이름을 입력하세요"/>
+                코스 이름:
+                <input type="text" name="courseName" id="courseName" placeholder="코스 이름을 입력하세요"/>
 
                 <br />
                 <br />
 
-                주소:
-                <input type="text" name="address" id="address"/>
-
-                <br />
-                <br />
-
-                장소 설명:
+                코스 설명:
                 <input type="text" 
-                    id="placeDescription"
+                    id="courseDescription"
                     placeholder="설명을 입력하세요"
                 />
 
                 <br />
                 <br />
+
+                <Link href="/addplace">
+                    <Button variant="contained">코스에 장소 추가</Button>
+                </Link>
+
+                {/* <input type="text" >장소1</input>
+                <input type="text" >장소1 소요시간</input> */}
+                
             </label>
+
+            <br />
+            <br />
+
             <input type="submit" value="제출하기" />
         </form>
         
         <br />
-        <br />
         
-        <Link href="/main">
-            <Button variant="contained">메인으로</Button>
-        </Link>
+        <Button variant="contained" href="/main">메인으로</Button>
         
     </>)
 }

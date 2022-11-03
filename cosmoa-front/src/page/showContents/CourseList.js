@@ -5,6 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 function CourseList() {
     const [partner, setPartner] = useState('');
 
+<<<<<<< HEAD
     const testCourse = [
         { id: "1", cname: "testcourse", user: "user" },
         { id: "2", cname: "testcourse1", user: "user" },
@@ -58,6 +59,12 @@ function CourseList() {
 
 
         </Container>
+=======
+        <h1>Course List Page</h1>
+
+        코스 확인 - 지도에서 보기 기능 / 검색 기능
+        
+>>>>>>> 315eaee313fef0556b44f997356aad7dabbfe996
     </>)
 }
 

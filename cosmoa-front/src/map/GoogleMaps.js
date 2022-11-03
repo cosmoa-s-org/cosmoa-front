@@ -21,8 +21,8 @@ function GoogleMaps(props) {
     const heunghae = new window.google.maps.LatLng(36.1071, 129.3385);
     
     const mapStyle = {
-        width: "550px",
-        height: "300px",
+        width: "100%",
+        height: "250px",
     };
 
     const mapOptions = {
