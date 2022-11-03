@@ -4,7 +4,21 @@ import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
 
 function RegisterPlace() {
-    const M = Window.M;
+    const M = window.M;
+
+    const SelectImgBtnClick = (event) => {
+        M.media.picker({
+            mode: "SINGLE",
+            media: "PHOTO",
+            path: "/media",
+            column: 3,
+            callback: function( status, result ) {
+                console.log( status + ", " + JSON.stringify(result) );
+            }
+        });
+        console.log("click");
+        M.pop.alert("click");
+    }
 
     const [current, setCurrent] = useState([]);
 
@@ -25,7 +39,6 @@ function RegisterPlace() {
 
 
     return(<>
-
         {/* <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}> */}
             <h1>Register Place Page</h1>
         {/* </Box> */}
@@ -38,8 +51,9 @@ function RegisterPlace() {
 
         <br />
 
-        <input type="file" id="inputImage" />
-        <img src="" class="uploadImage"></img>
+        <Button variant="contained" onClick={SelectImgBtnClick}>사진 선택</Button> 
+        {/* <input type="file" id="inputImage" />
+        <img src="" class="uploadImage"></img> */}
 
         <form>
             <label>

@@ -22,8 +22,10 @@ function AddPlace(props) {
     
         <h1>Add Place Page</h1>
 
-        <Button onClick={this.onShowMapBtnClick}>show map</Button>
-
+        {/* 지도에서 선택 */}
+        <div style={{margin:"0 auto"}}>
+                <MapWrapper />
+            </div>
 
     </>)
 }
