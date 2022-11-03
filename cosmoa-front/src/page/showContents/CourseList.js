@@ -5,7 +5,6 @@ import { DataGrid } from '@mui/x-data-grid';
 function CourseList() {
     const [partner, setPartner] = useState('');
 
-<<<<<<< HEAD
     const testCourse = [
         { id: "1", cname: "testcourse", user: "user" },
         { id: "2", cname: "testcourse1", user: "user" },
@@ -18,13 +17,18 @@ function CourseList() {
     const handleChange = (event) => {
         setPartner(event.target.value);
     };
-
+    
     const columns = [
         { field: 'id', headerName: 'id', width: 70 },
         { field: 'cname', headerName: '코스 이름', width: 130 },
-        { field: 'user', headerName: '등록자', width: 130 }
+        { field: 'user', headerName: '등록자', width: 130 },
     ];
 
+    const goCourseDetail = (event) => {
+        const data = `${event.row.id || ''}`
+        console.log(data);
+    }
+    
     return (<>
         <Typography variant="h4" > 여행 코스</Typography>
         <Container maxWidth="xs" style={{ marginTop: "4%", textAlign: "left" }} t >
@@ -54,17 +58,12 @@ function CourseList() {
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
+                    onRowClick={goCourseDetail}
                 />
             </div>
 
 
         </Container>
-=======
-        <h1>Course List Page</h1>
-
-        코스 확인 - 지도에서 보기 기능 / 검색 기능
-        
->>>>>>> 315eaee313fef0556b44f997356aad7dabbfe996
     </>)
 }
 
