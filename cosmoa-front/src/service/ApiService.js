@@ -75,9 +75,9 @@ export function signout() {
 
 export function registerPlace(place) {
     const M = window.M;
-    return call("/", "POST", place)
+    return call("/", "POST", place)  // 주소 변경 필요
     .then((response) => {
-        if(response.id) {
+        if(response.ok) {
             window.location.href = "/main";
         }
     })
