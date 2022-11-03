@@ -10,8 +10,11 @@ import { useState } from 'react';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 export default function SignIn() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const M = window.M
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+
+    var testuser = {email: 'user01@naver.com', password: 'asdf1234!'};
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -20,9 +23,15 @@ export default function SignIn() {
             email: data.get('email'),
             password: data.get('password'),
         };
-
-        signin(json);
-        console.log(json);
+        if ( json.email === testuser.email && json.password === testuser.password) {
+            M.pop.alert('로그인 성공');
+            console.log("로그인 성공!!");
+        } else {
+            console.log("로그인 실패");
+        }
+        // signin(json);
+        console.log(json.email);
+        console.log(testuser.email);
     };
 
     const onSocialClick = async (event) => {
