@@ -39,13 +39,15 @@ function SignUp() {
         )
     }
 
-    const genderChange = (event, newgender) => {
-        setGender(newgender);
-        console.log(newgender);
+    const genderChange = (event, newGender) => {
+        console.log(gender)
+        setGender(newGender);
+        console.log("newGender", newGender);
     };
 
     const ageChange = (event) => {
         setAge(event.target.value);
+        console.log(age);
     };
 
     const onhandlePost = async (data) => {
@@ -58,7 +60,6 @@ function SignUp() {
     }
 
     const handleSubmit = (event) => {
-        console.log("젠더 체인지", gender);
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const joinData = {
@@ -66,11 +67,10 @@ function SignUp() {
             password: data.get('password'),
             password2: data.get('password2'),
             nickname: data.get('nickname'),
-            gender: data.get('newgender'),
-            age: data.get('age')
+            // gender: gender,
+            age: data.get('age'),
         };
         const { email, password, password2, nickname, gender, age } = joinData;
-
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!emailRegex.test(email)) {
@@ -186,7 +186,7 @@ function SignUp() {
                         <Typography sx={{ marginTop: 1 }}>나이</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <SelectBox></SelectBox>
+                        <SelectBox onChange={ageChange}></SelectBox>
                     </Grid>
 
                     <Grid item xs={12}>
