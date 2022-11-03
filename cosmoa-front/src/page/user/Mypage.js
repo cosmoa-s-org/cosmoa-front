@@ -22,6 +22,8 @@ function Mypage(updateUser) {
     const M = window.M
 
     let user = [{ email: "user01@naver.com" }, { nickname: "test" }, { gender: "male" }, { age: "25" }];
+    // let user = { email: "user01@naver.com" ,  nickname: "test" ,  gender: "male" ,  age: "25" };
+
 
     // const onUpdateItem = (cmd)=>{
     //     setReadOnly(true);
@@ -39,7 +41,6 @@ function Mypage(updateUser) {
 
     const userUpdate = (event) => {
         console.log("userUpdate 클릭");
-
     }
 
     return (<>
