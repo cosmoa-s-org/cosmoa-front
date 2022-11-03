@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Link, Button } from "@material-ui/core";
 
-function RegisterCourse() {
+function RegisterCourse(props) {
     return(<>
     <br />
     <br />
@@ -25,9 +25,13 @@ function RegisterCourse() {
                 <br />
                 <br />
 
-                <Link href="/addcourse">
-                    <Button variant="contained">코스 추가</Button>
+                <Link href="/addplace">
+                    <Button variant="contained">코스에 장소 추가</Button>
                 </Link>
+
+                {/* <input type="text" >장소1</input>
+                <input type="text" >장소1 소요시간</input> */}
+                
             </label>
 
             <br />
@@ -38,9 +42,7 @@ function RegisterCourse() {
         
         <br />
         
-        <Link href="/main">
-            <Button variant="contained">메인으로</Button>
-        </Link>
+        <Button variant="contained" href="/main">메인으로</Button>
         
     </>)
 }

@@ -78,9 +78,8 @@ function RegisterPlace() {
         <br />
         <br />
         
-        <Link href="/main">
-            <Button variant="contained">메인으로</Button>
-        </Link>
+        <Button variant="contained" href="/main">메인으로</Button>
+
         {/* <script>
             {document.querySelector("#sendButton").addEventListener("click", ()=>{
                 let selectfile = document.querySelector("#inputImage").files[0];
