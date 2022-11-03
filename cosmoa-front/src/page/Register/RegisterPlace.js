@@ -1,10 +1,14 @@
-import { React, useState, useRef } from "react";
-import { Button, Box, Link, TextField } from "@material-ui/core";
+import { React, useState } from "react";
+import { Button, Grid, Typography,Container, TextField } from "@material-ui/core";
 import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
 
 function RegisterPlace() {
     const M = window.M;
+
+    const [placeObject, setPlaceObject] = useState('');
+
+
 
     const SelectImgBtnClick = (event) => {
         M.media.picker({
@@ -18,24 +22,22 @@ function RegisterPlace() {
         });
         console.log("click");
         M.pop.alert("click");
+
+        // 미리보기 이미지 변경 필요
     }
 
-    const [current, setCurrent] = useState([]);
+    const onBackHandler = (event) => {
+        M.onBack( function(e) {
+            // TODO : back event handle code here (android only)
 
-    const [imageURL, setImageURL] = useState(null);
-    const imgRef = useRef();
-    const onChangeImage = () => {
-        const reader = new FileReader();
-        const file = imgRef.current.files[0];
-        console.log(file);
+        });
+    }
+    const handleSubmit = (event) => {
+        M.onBack( function(e) {
+            // TODO : back event handle code here (android only)
 
-        reader.readAsDataURL(file);
-        reader.onload = () =>{
-            setImageURL(reader.result);
-            console.log("이미지주소", reader.result);
-        };
-    };
-
+        });
+    }
 
 
     return(<>
@@ -52,54 +54,72 @@ function RegisterPlace() {
         <br />
 
         <Button variant="contained" onClick={SelectImgBtnClick}>사진 선택</Button> 
-        {/* <input type="file" id="inputImage" />
-        <img src="" class="uploadImage"></img> */}
 
-        <form>
-            <label>
-            
-                <br />
-                장소 이름:
-                <input type="text" name="placeName" id="placeName" placeholder="장소 이름을 입력하세요"/>
+        <br />
+        <br />
+        <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
+        <form onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
 
-                <br />
-                <br />
+                    <Grid item xs={12}>
+                        <TextField
+                            autoComplete="placename"
+                            name="placename"
+                            variant="outlined"
+                            required
+                            id="placename"
+                            label="장소 이름"
+                        />
+                    </Grid>
 
-                주소:
-                <input type="text" name="address" id="address"/>
+                    <Grid item xs={12}>
+                        <TextField
+                            disabled
+                            autoComplete="placeAddress"
+                            name="placeAddress"
+                            variant="outlined"
+                            id="placeAddress"
+                            label="주소"
+                        />
+                    </Grid>
 
-                <br />
-                <br />
+                    <Grid item xs={12}>
+                        <TextField
+                            autoComplete="placeDescription"
+                            name="placeDescription"
+                            variant="outlined"
+                            required
+                            id="placeDescription"
+                            label="장소 설명"
+                        />
+                    </Grid>
 
-                장소 설명:
-                <input type="text" 
-                    id="placeDescription"
-                    placeholder="설명을 입력하세요"
-                />
-
-                <br />
-                <br />
-
-                <input type="hidden" name="lat" />
-                <input type="hidden" name="lng" />
-
-                <br />
-                
-            </label>
-            <input type="submit" value="제출하기" />
-        </form>
-        
+                    
+                    <Grid item xs={12}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            sx={{ mt: 4, mb: 2 }}
+                            size="large"
+                            color="primary"
+                            // onClick={submitHandler(event)}
+                        >
+                            제출하기
+                        </Button>
+                    </Grid>
+                </Grid>
+            </form>
+        </Container>
         <br />
         <br />
         
         <Button variant="contained" href="/main">메인으로</Button>
 
-        {/* <script>
-            {document.querySelector("#sendButton").addEventListener("click", ()=>{
-                let selectfile = document.querySelector("#inputImage").files[0];
-                console.log(selectfile);
-            })}
-        </script> */}
+        <script>
+            M.onBack( function(e) {
+                // TODO : back event handle code here (android only)
+            });
+        </script>
     </>)
 }
 
