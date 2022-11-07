@@ -40,7 +40,6 @@ function SignUp() {
     }
 
     const genderChange = (event, newGender) => {
-        console.log(gender)
         setGender(newGender);
         console.log("newGender", newGender);
     };
@@ -67,10 +66,11 @@ function SignUp() {
             password: data.get('password'),
             password2: data.get('password2'),
             nickname: data.get('nickname'),
-            // gender: gender,
-            age: data.get('age'),
+            gender: gender,
+            age: age,
         };
-        const { email, password, password2, nickname, gender, age } = joinData;
+        console.log(joinData);
+        const { email, password, password2, nickname} = joinData;
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!emailRegex.test(email)) {

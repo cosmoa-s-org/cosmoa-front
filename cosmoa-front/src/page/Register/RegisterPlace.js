@@ -1,9 +1,52 @@
 import { React, useState } from "react";
-import { Button, Grid, Typography,Container, TextField } from "@material-ui/core";
+import { Button, Grid, Typography,Container, TextField, Box, Tab, Tabs} from "@material-ui/core";
 import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
+import PropTypes from 'prop-types';
+
+    // 탭 추가
+    function TabPanel(props) {
+        const { children, value, index, ...other } = props;
+      
+        return (
+          <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+          >
+            {value === index && (
+              <Box sx={{ p: 3 }} >
+                <Typography>{children}</Typography>
+              </Box>
+            )}
+          </div>
+        );
+      }
+      
+      TabPanel.propTypes = {
+        children: PropTypes.node,
+        index: PropTypes.number.isRequired,
+        value: PropTypes.number.isRequired,
+      };
+      
+      function a11yProps(index) {
+        return {
+          id: `simple-tab-${index}`,
+          'aria-controls': `simple-tabpanel-${index}`,
+        };
+      }
+
 
 function RegisterPlace() {
+    const [value, setValue] = useState('');
+
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+
+
     const M = window.M;
 
     const [placeObject, setPlaceObject] = useState('');
@@ -33,6 +76,14 @@ function RegisterPlace() {
 
 
     return(<>
+     <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="지도로 장소 추가" {...a11yProps(0)} />
+          <Tab label="주소로 장소 추가" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
         <h1>Register Place Page</h1>
 
         <div style={{margin:"0 auto"}}>
@@ -105,6 +156,13 @@ function RegisterPlace() {
         <br />
         
         <Button variant="contained" href="/main">메인으로</Button>
+
+        </TabPanel>
+      <TabPanel value={value} index={1}>
+        Item Two
+      </TabPanel>
+
+    </Box>
 
         <script>
             M.onBack( function(e) {
