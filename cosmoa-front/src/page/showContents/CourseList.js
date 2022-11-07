@@ -1,9 +1,12 @@
-import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider } from "@material-ui/core";
+import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Link } from "@material-ui/core";
 import React, { useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
+import { useNavigate } from "react-router-dom";
 
 function CourseList() {
     const [partner, setPartner] = useState('');
+
+    let navigate = useNavigate();
 
     const testCourse = [
         { id: "1", cname: "testcourse", user: "user" },
@@ -25,8 +28,9 @@ function CourseList() {
     ];
 
     const goCourseDetail = (event) => {
-        const data = `${event.row.id || ''}`
+        const data = `${event.row.id}`
         console.log(data);
+        navigate(`/coursedetail/${event.row.id}`);
     }
     
     return (<>
@@ -59,7 +63,10 @@ function CourseList() {
                     pageSize={5}
                     rowsPerPageOptions={[5]}
                     onRowClick={goCourseDetail}
-                />
+                >
+                <Link to={`/coursedetail/${testCourse.id}`} ></Link>
+
+                </DataGrid>
             </div>
 
 

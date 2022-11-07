@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useParams } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 
 import Header from "./components/head/Header";
@@ -15,7 +15,13 @@ import SignIn from "./page/user/SignIn";
 import SignUp from "./page/user/SignUp";
 import CourseList from "./page/showContents/CourseList";
 import AddPlace from "./page/Register/AddPlace";
+import CourseDetail from "./page/showContents/CourseDetail";
 
+
+function CourseDetail() {
+  const params = useParams();
+  const courseId = params.id;
+}
 
 function AppRouter (props) {
   let isAuthorized = sessionStorage.getItem("isAuthorized");
@@ -47,6 +53,7 @@ function AppRouter (props) {
             <Route path="/addplace" element={<AddPlace />} />
 
             <Route path="/courselist" element={<CourseList />} />
+            <Route path="/coursedetail/:id" element={<CourseDetail />} />
           </Routes>
         </div>
         <div>
