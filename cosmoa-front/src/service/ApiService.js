@@ -72,3 +72,23 @@ export function signout() {
     localStorage.setItem("ACCESS_TOKEN", "");
     window.location.href = "/";
 }
+
+export function registerPlace(place) {
+    const M = window.M;
+    return call("/", "POST", place)  // 주소 변경 필요
+    .then((response) => {
+        if(response.ok) {
+            window.location.href = "/main";
+        }
+    })
+    .catch((error)=>{
+        console.log("Oops!"); 
+        console.log(error.status); 
+        console.log("Ooops!")
+        M.pop.alert("등록이 이루어지지 않았습니다.");
+        if(error.status === 403) { 
+            window.location.href = "/registerplace"; 
+        } 
+        return Promise.reject(error);
+    })
+}
