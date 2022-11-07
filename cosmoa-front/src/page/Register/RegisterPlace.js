@@ -7,6 +7,7 @@ import DaumPostcode from 'react-daum-postcode';
 
 // 탭 추가
 function TabPanel(props) {
+    const imgPath = "";
     const { children, value, index, ...other } = props;
 
     return (
@@ -39,6 +40,12 @@ function a11yProps(index) {
     };
 }
 
+function setImage(path) {
+  var img = document.getElementById('placeImg');
+  img.src = "/" + path;
+  img.style.visibility = 'visible';
+  console.log(img.src);
+}
 
 function RegisterPlace() {
     const [value, setValue] = useState('');
@@ -70,22 +77,41 @@ function RegisterPlace() {
     const M = window.M;
 
     const [placeObject, setPlaceObject] = useState('');
-
+    const [path, setPath] = useState('');
 
     const SelectImgBtnClick = (event) => {
+      // const path = "";
         M.media.picker({
             mode: "SINGLE",
             media: "PHOTO",
-            // path: "/media",
             column: 3,
             callback: function (status, result) {
+                setPath(result.path);
                 console.log(status + ", " + JSON.stringify(result));
+                console.log(path);
+                if ( status === "SUCCESS" ) {
+                  M.file.read({
+                    path: result.path,
+                    encoding: 'BASE64',
+                    indicator: true,
+                    callback: function(status,result){
+                        console.log(status + JSON.stringify(result));
+                
+                        var img = document.getElementById('placeImg');
+                
+                        //mime-type은 별도로 스크립트에서 지정 필요
+                        img.src = "data:image/png;base64,"+result.data;
+                    }
+                  });
+
+              }
             }
+            
         });
         console.log("click");
-        M.pop.alert("click");
 
         // 미리보기 이미지 변경 필요
+        setImage(path);
     }
 
     // 제출 버튼 눌렀을때 이벤트 작성 필요
@@ -111,7 +137,7 @@ function RegisterPlace() {
                 </div>
 
                 {/* 사진 선택시 변경되는 기능 작성 필요 */}
-                <img src={imgName} />
+                <img id="placeImg" style={{visibility:"hidden", width:"250px", height:"250px"}} src="" />
 
                 <br />
 
