@@ -9,7 +9,6 @@ function RegisterPlace() {
     const [placeObject, setPlaceObject] = useState('');
 
 
-
     const SelectImgBtnClick = (event) => {
         M.media.picker({
             mode: "SINGLE",
@@ -25,30 +24,22 @@ function RegisterPlace() {
 
         // 미리보기 이미지 변경 필요
     }
-
-    const onBackHandler = (event) => {
-        M.onBack( function(e) {
-            // TODO : back event handle code here (android only)
-
-        });
-    }
+    
+    // 제출 버튼 눌렀을때 이벤트 작성 필요
     const handleSubmit = (event) => {
-        M.onBack( function(e) {
-            // TODO : back event handle code here (android only)
+        event.preventDefault();
 
-        });
     }
 
 
     return(<>
-        {/* <Box sx={{ backgroundcolor: '#cfe8fc', height: '100vh' }}> */}
-            <h1>Register Place Page</h1>
-        {/* </Box> */}
+        <h1>Register Place Page</h1>
 
-            <div style={{margin:"0 auto"}}>
+        <div style={{margin:"0 auto"}}>
                 <MapWrapper />
-            </div>
+        </div>
 
+        {/* 사진 선택시 변경되는 기능 작성 필요 */}
         <img src={imgName} />
 
         <br />
@@ -102,7 +93,7 @@ function RegisterPlace() {
                             sx={{ mt: 4, mb: 2 }}
                             size="large"
                             color="primary"
-                            // onClick={submitHandler(event)}
+                            onClick={handleSubmit}
                         >
                             제출하기
                         </Button>
