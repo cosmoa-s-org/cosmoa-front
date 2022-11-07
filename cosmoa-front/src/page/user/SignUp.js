@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormHelperText, ToggleButton, ToggleButtonGroup, Avatar } from "@mui/material";
-import signup from '../../service/ApiService';
+import signup, { call } from '../../service/ApiService';
 import styled from "@emotion/styled";
 import PersonIcon from '@mui/icons-material/Person';
 
@@ -52,7 +52,11 @@ function SignUp() {
     const onhandlePost = async (data) => {
         //const { email, password } = data;
         //const postData = { email, password };
-
+        console.log(data);
+        call("/user", "POST", data)
+        .then((response) => {
+            console.log(response);
+        })
         console.log('성공');
         console.log(data);
         //history.push('/login');
@@ -64,13 +68,13 @@ function SignUp() {
         const joinData = {
             email: data.get('email'),
             password: data.get('password'),
-            password2: data.get('password2'),
             nickname: data.get('nickname'),
             gender: gender,
             age: age,
         };
+        const password2 = data.get('password2')
         console.log(joinData);
-        const { email, password, password2, nickname} = joinData;
+        const { email, password, nickname} = joinData;
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!emailRegex.test(email)) {
@@ -177,8 +181,8 @@ function SignUp() {
                             onChange={genderChange}
                             aria-label="Platform"
                         >
-                            <ToggleButton value="male">Male</ToggleButton>
-                            <ToggleButton value="female">Female</ToggleButton>
+                            <ToggleButton value={0}>Male</ToggleButton>
+                            <ToggleButton value={1}>Female</ToggleButton>
                         </ToggleButtonGroup>
                     </Grid>
                     <Grid item xs={2}></Grid>
