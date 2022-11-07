@@ -208,8 +208,8 @@ function RegisterPlace() {
                 {/* 주소로 장소 등록 */}
                 <Table>
                     <input type="text" id="address_kakao" name="address" value={address} readonly />
+                    <button onClick={handle.clickButton}>주소 검색</button>
                 </Table>
-                <button onClick={handle.clickButton}>주소 검색</button>
                 {openPostcode && 
                 <DaumPostcode 
                     onComplete={handle.selectAddress}  // 값을 선택할 경우 실행되는 이벤트
