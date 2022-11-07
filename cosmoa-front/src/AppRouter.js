@@ -18,11 +18,6 @@ import AddPlace from "./page/Register/AddPlace";
 import CourseDetail from "./page/showContents/CourseDetail";
 
 
-function CourseDetail() {
-  const params = useParams();
-  const courseId = params.id;
-}
-
 function AppRouter (props) {
   let isAuthorized = sessionStorage.getItem("isAuthorized");
   
