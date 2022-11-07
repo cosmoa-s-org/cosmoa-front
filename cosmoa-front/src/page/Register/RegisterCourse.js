@@ -1,14 +1,18 @@
 import React from "react";
-import { Box, Link, Button } from "@material-ui/core";
+import { Box, Link, Button, Container, Grid } from "@material-ui/core";
+import MapWrapper from "../../map/MapWrapper";
 
 function RegisterCourse(props) {
     return(<>
-    <br />
-    <br />
-    <br />
         <h1>Register Course Page</h1>
 
+        {/* 나중에 CourseMaps.js로 변경 */}
+        <MapWrapper /> 
+
+        <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
+
         <form>
+            <Grid container spacing={2}></Grid>
             <label>
                 코스 이름:
                 <input type="text" name="courseName" id="courseName" placeholder="코스 이름을 입력하세요"/>
@@ -39,6 +43,8 @@ function RegisterCourse(props) {
 
             <input type="submit" value="제출하기" />
         </form>
+        
+        </Container>
         
         <br />
         
