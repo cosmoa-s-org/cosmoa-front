@@ -4,6 +4,12 @@ import {
   InputBase,
   Link,
   Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
 } from "@material-ui/core";
 import { IconButton } from "@mui/material";
@@ -27,6 +33,17 @@ function AddPlace(props) {
     this.add(this.state.item);
     this.setState({ item: "test" });
   };
+
+  function createData(placeName, placeAddress) {
+    return { placeName, placeAddress };
+  }
+  
+  const rows = [
+    createData('구미AA', '구미시 ㅁㅁ동 159'),
+    createData('대구BB', '대구시 ㄴㄴ동 237'),
+    createData('서울CC', '서울시 ㅇㅇ동 262'),
+    createData('부산DD', '부산시 ㄹㄹ동 305'),
+  ];
 
   return (
     <>
@@ -69,13 +86,45 @@ function AddPlace(props) {
       <br />
       <br />
 
-      <div style={{ clear: "both" }}>
+      {/* <div style={{ clear: "both" }}>
         <Link href="/registercourse">
           <Button variant="contained">장소 선택</Button>
         </Link>
-      </div>
+      </div> */}
 
-      <section class="place_search_result">
+
+<TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">장소명</TableCell>
+            <TableCell align="center">주소</TableCell>
+            <TableCell align="center">선택</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow
+              key={row.placeName}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row" align="center">
+                {row.placeName}
+              </TableCell>
+              <TableCell align="center">{row.placeAddress}</TableCell>
+              <TableCell align="center">
+                <Link href="/registercourse">
+                  <Button variant="outlined">장소 선택</Button>
+                </Link>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
+
+      {/* <section class="place_search_result">
         <div class="table-wrapper">
           <table class="place_table">
             <tbody>
@@ -148,7 +197,7 @@ function AddPlace(props) {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
