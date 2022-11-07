@@ -15,6 +15,7 @@ import MapWrapper from "../../map/MapWrapper";
 import PropTypes from "prop-types";
 import DaumPostcode from "react-daum-postcode";
 import { call } from "../../service/ApiService";
+import { display, style } from "@mui/system";
 
 // 탭 추가
 function TabPanel(props) {
@@ -158,14 +159,16 @@ function RegisterPlace() {
   return (
     <>
       <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider"}}>
           <Tabs
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
-          >
-            <Tab label="지도로 장소 추가" {...a11yProps(0)} />
-            <Tab label="주소로 장소 추가" {...a11yProps(1)} />
+            // style={{ backgroundColor:"red" }}
+            style={{display:"flex", justifyContent:"center", flexDirection:"row"}}
+>
+            <Tab label="지도로 장소 추가" {...a11yProps(0)} style={{"flex-grow": 1, width:"50%"}}/>
+            <Tab label="주소로 장소 추가" {...a11yProps(1)} style={{"flex-grow": 1, width:"50%"}}/>
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>

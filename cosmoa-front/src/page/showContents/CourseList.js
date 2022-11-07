@@ -79,9 +79,9 @@ function CourseList() {
         <Typography variant="h4" > 여행 코스</Typography>
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleTab} aria-label="basic tabs example">
-                    <Tab label="리스트" {...a11yProps(0)} /> 
-                    <Tab label="지도" {...a11yProps(1)} />
+                <Tabs value={value} onChange={handleTab} aria-label="basic tabs example" style={{display:"flex", justifyContent:"center", flexDirection:"row"}}>
+                    <Tab label="리스트" {...a11yProps(0)} style={{"flex-grow": 1, width:"50%"}} /> 
+                    <Tab label="지도" {...a11yProps(1)} style={{"flex-grow": 1, width:"50%"}} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
