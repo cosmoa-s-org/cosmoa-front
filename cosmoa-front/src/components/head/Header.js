@@ -3,9 +3,15 @@ import { Link, styled, useTheme } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import PortraitIcon from '@mui/icons-material/Portrait';
+import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
+import BookmarkAddedTwoToneIcon from '@mui/icons-material/BookmarkAddedTwoTone';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import HomeIcon from '@mui/icons-material/Home';
 // import ListItemButton from '@material-ui/core';
 import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
 
 
 const drawerWidth = 240;
@@ -111,7 +117,7 @@ function Header() {
         <Link href="/signin">
           <ListItem disablePadding>
             <Button>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon><PortraitIcon /></ListItemIcon>
               <ListItemText>내 정보</ListItemText>
             </Button>
           </ListItem>
@@ -119,7 +125,7 @@ function Header() {
           <Link href="/Mypage">
           <ListItem disablePadding>
             <Button>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon><CreateTwoToneIcon /></ListItemIcon>
               <ListItemText>내가 쓴 글</ListItemText>
             </Button>
           </ListItem>
@@ -127,7 +133,7 @@ function Header() {
           <Link href="/Mypage">
           <ListItem disablePadding>
             <Button>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon><BookmarkAddedTwoToneIcon /></ListItemIcon>
               <ListItemText>스크랩</ListItemText>
             </Button>
           </ListItem>
@@ -138,7 +144,7 @@ function Header() {
         <Link href="/RegisterType">
           <ListItem disablePadding>
             <Button>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon><PostAddIcon /></ListItemIcon>
               <ListItemText>코스 및 장소 등록</ListItemText>
             </Button>
           </ListItem>
@@ -146,7 +152,7 @@ function Header() {
           <Link href="/SelectTheme">
           <ListItem disablePadding>
             <Button>
-              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemIcon><DynamicFeedIcon /></ListItemIcon>
               <ListItemText>코스 및 장소 조회</ListItemText>
             </Button>
           </ListItem>

@@ -1,16 +1,18 @@
 import * as React from 'react';
 
 // import { useNavigate } from 'react-router-dom';
-import { signin } from '../../service/ApiService';
+import { call, signin } from '../../service/ApiService';
 import { Button, TextField, Link, Grid, Box, Typography, Container, Avatar } from '@material-ui/core';
 // import { authService } from '../../fbase';
 // import { onSocialClick } from '../../service/Auth';
 import { authService, firebaseInstance } from '../../fbase';
 import { useState } from 'react';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
     const M = window.M
+    let navigate = useNavigate();
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
 
@@ -26,8 +28,10 @@ export default function SignIn() {
         if ( json.email === testuser.email && json.password === testuser.password) {
             M.pop.alert('로그인 성공');
             console.log("로그인 성공!!");
+            navigate("/");
         } else {
             console.log("로그인 실패");
+            M.pop.alert('로그인 실패');
         }
         // signin(json);
         console.log(json.email);

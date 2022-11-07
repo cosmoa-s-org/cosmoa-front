@@ -4,6 +4,7 @@ import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormH
 import signup, { call } from '../../service/ApiService';
 import styled from "@emotion/styled";
 import PersonIcon from '@mui/icons-material/Person';
+import { useNavigate } from "react-router-dom";
 
 
 const FormHelperTexts = styled(FormHelperText)
@@ -17,6 +18,7 @@ const FormHelperTexts = styled(FormHelperText)
 
 function SignUp() {
     const M = window.M
+    const navigate = useNavigate();
 
     const [emailError, setEmailError] = useState('');
     const [passwordState, setPasswordState] = useState('');
@@ -59,7 +61,7 @@ function SignUp() {
         })
         console.log('성공');
         console.log(data);
-        //history.push('/login');
+        navigate("/signin");
     }
 
     const handleSubmit = (event) => {

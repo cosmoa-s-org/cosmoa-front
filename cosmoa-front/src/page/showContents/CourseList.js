@@ -1,12 +1,54 @@
-import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Link } from "@material-ui/core";
+import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Link, Tab, Tabs, Grid } from "@material-ui/core";
 import React, { useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
+import PropTypes from 'prop-types';
+import MapWrapper from "../../map/MapWrapper";
+
+
+// 탭
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ p: 3 }}>
+                    <Typography>{children}</Typography>
+                </Box>
+            )}
+        </div>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 
 function CourseList() {
-    const [partner, setPartner] = useState('');
-
     let navigate = useNavigate();
+
+    const [partner, setPartner] = useState('');
+    const [value, setValue] = React.useState(0);
+
+    const handleTab = (event, newValue) => {
+        setValue(newValue);
+    };
 
     const testCourse = [
         { id: "1", cname: "testcourse", user: "user" },
@@ -20,11 +62,11 @@ function CourseList() {
     const handleChange = (event) => {
         setPartner(event.target.value);
     };
-    
+
     const columns = [
-        { field: 'id', headerName: 'id', width: 70 },
-        { field: 'cname', headerName: '코스 이름', width: 130 },
-        { field: 'user', headerName: '등록자', width: 130 },
+        { field: 'id', headerName: 'no', width: 70 },
+        { field: 'cname', headerName: '코스 이름', width: 220 },
+        { field: 'user', headerName: '등록자', width: 100 },
     ];
 
     const goCourseDetail = (event) => {
@@ -32,45 +74,60 @@ function CourseList() {
         console.log(data);
         navigate(`/coursedetail/${event.row.id}`);
     }
-    
+
     return (<>
         <Typography variant="h4" > 여행 코스</Typography>
-        <Container maxWidth="xs" style={{ marginTop: "4%", textAlign: "left" }} t >
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">구성인원</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={partner}
-                        label="구성인원"
-                        onChange={handleChange}
-                    >
-                        <MenuItem value={1}>전체</MenuItem>
-                        <MenuItem value={2}>혼자</MenuItem>
-                        <MenuItem value={3}>가족</MenuItem>
-                        <MenuItem value={4}>연인</MenuItem>
-                        <MenuItem value={5}>친구</MenuItem>
-                    </Select>
-                </FormControl>
+        <Box sx={{ width: '100%' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+                <Tabs value={value} onChange={handleTab} aria-label="basic tabs example">
+                    <Tab label="리스트" {...a11yProps(0)} /> 
+                    <Tab label="지도" {...a11yProps(1)} />
+                </Tabs>
             </Box>
-            <Divider />
-            {/* 코스 리스트 */}
-            <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={testCourse}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    onRowClick={goCourseDetail}
-                >
-                <Link to={`/coursedetail/${testCourse.id}`} ></Link>
+            <TabPanel value={value} index={0}>
+                <Container maxWidth="xs" style={{ marginTop: "4%", textAlign: "left" }} t >
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">구성인원</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={partner}
+                                label="구성인원"
+                                onChange={handleChange}
+                            >
+                                <MenuItem value={1}>전체</MenuItem>
+                                <MenuItem value={2}>혼자</MenuItem>
+                                <MenuItem value={3}>가족</MenuItem>
+                                <MenuItem value={4}>연인</MenuItem>
+                                <MenuItem value={5}>친구</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Divider />
+                    {/* 코스 리스트 */}
+                    <div style={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={testCourse}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            onRowClick={goCourseDetail}
+                        >
+                            <Link to={`/coursedetail/${testCourse.id}`} ></Link>
 
-                </DataGrid>
-            </div>
+                        </DataGrid>
+                    </div>
 
 
-        </Container>
+                </Container>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <div style={{ margin: "0 auto" }}>
+                    <MapWrapper />
+                </div>
+            </TabPanel>
+        </Box>
     </>)
 }
 
