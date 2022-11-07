@@ -54,11 +54,11 @@ function RegisterPlace() {
 
                     <Grid item xs={12}>
                         <TextField
-                            autoComplete="placename"
-                            name="placename"
+                            autoComplete="placeName"
+                            name="placeName"
                             variant="outlined"
                             required
-                            id="placename"
+                            id="placeName"
                             label="장소 이름"
                         />
                     </Grid>
