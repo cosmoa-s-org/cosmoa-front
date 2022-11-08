@@ -113,6 +113,8 @@ function RegisterPlace() {
 
               //mime-type은 별도로 스크립트에서 지정 필요
               img.src = "data:image/png;base64," + result.data;
+              img.style.width = "250px";
+              img.style.height = "250px";
             },
           });
         }
@@ -182,7 +184,7 @@ function RegisterPlace() {
 
           <img
             id="placeImg"
-            style={{ visibility: "hidden", width: "250px", height: "250px" }}
+            style={{ visibility: "hidden" }}
             src=""
           />
 
