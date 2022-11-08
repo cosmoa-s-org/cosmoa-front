@@ -21,11 +21,15 @@ export default function SignIn() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const json = {
+        const joinData = {
             email: data.get('email'),
             password: data.get('password'),
         };
-        if ( json.email === testuser.email && json.password === testuser.password) {
+        // call("/user", "POST", joinData)
+        // .then((response) => {
+        //     console.log(response);
+        // })
+        if ( joinData.email === testuser.email && joinData.password === testuser.password) {
             M.pop.alert('로그인 성공');
             console.log("로그인 성공!!");
             navigate("/");
@@ -33,8 +37,8 @@ export default function SignIn() {
             console.log("로그인 실패");
             M.pop.alert('로그인 실패');
         }
-        // signin(json);
-        console.log(json.email);
+        // signin(joinData);
+        console.log(joinData.email);
         console.log(testuser.email);
     };
 

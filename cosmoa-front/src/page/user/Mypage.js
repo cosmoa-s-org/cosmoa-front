@@ -16,7 +16,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 
-function Mypage(updateUser) {
+function Mypage() {
     const [readOnly, setReadOnly] = useState(true);
     // const [titleData, setTitleData] = useState(user.title);
 
@@ -32,8 +32,19 @@ function Mypage(updateUser) {
     //     updateUser(currUser);
     // }
 
+    // function btnClicked() {
+    //     const btnElement = document.getElementById('btn');
+    //     btnElement.innerText = '수정 완료!';
+    // }
+
+    const updateClicked = (event) => {
+        console.log("updateClicked 클릭");
+        setReadOnly(false);
+    }
+
     const userUpdate = (event) => {
         console.log("userUpdate 클릭");
+        setReadOnly(true);
     }
 
     return (<>
@@ -66,9 +77,6 @@ function Mypage(updateUser) {
                                     id={user.id}
                                     name={user.id}
                                     fullWidth={true}
-                                    onClick={(e) => {
-                                        setReadOnly(false);
-                                    }}
                                     value={user.nickname}
                                     onChange={(e) => { setUser({ nickname: e.currentTarget.value }) }}
                                 ></InputBase>
@@ -81,9 +89,6 @@ function Mypage(updateUser) {
                                     id={user.id}
                                     name={user.id}
                                     fullWidth={true}
-                                    onClick={(e) => {
-                                        setReadOnly(false);
-                                    }}
                                     value={user.gender}
                                     onChange={(e) => { setUser({ gender: e.currentTarget.value }) }}
                                 ></InputBase>
@@ -96,9 +101,6 @@ function Mypage(updateUser) {
                                     id={user.id}
                                     name={user.id}
                                     fullWidth={true}
-                                    onClick={(e) => {
-                                        setReadOnly(false);
-                                    }}
                                     value={user.age}
                                     onChange={(e) => { setUser({ age: e.currentTarget.value }) }}
                                 ></InputBase>
@@ -106,10 +108,10 @@ function Mypage(updateUser) {
                         </Item>
                 </Stack>
                 <br />
-                <Button onClick={userUpdate}>회원 정보 수정</Button>
+                <Button onClick={updateClicked}>회원 정보 수정</Button>
+                <Button onClick={userUpdate}>수정 완료</Button>
             </Box>
         </Container>
-
     </>)
 }
 

@@ -16,6 +16,8 @@ import SignUp from "./page/user/SignUp";
 import CourseList from "./page/showContents/CourseList";
 import AddPlace from "./page/Register/AddPlace";
 import CourseDetail from "./page/showContents/CourseDetail";
+import Splash from "./components/Splash";
+
 
 
 function AppRouter (props) {
@@ -39,6 +41,8 @@ function AppRouter (props) {
             <Route path="/main" element={<Main />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+
+            <Route path="/splash" element={<Splash />} />
 
             <Route path="/Mypage" element={<Mypage />} />
             <Route path="/SelectTheme" element={<SelectTheme />} />
