@@ -14,7 +14,7 @@ import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
 import PropTypes from "prop-types";
 import DaumPostcode from "react-daum-postcode";
-import { call } from "../../service/ApiService";
+import { call, registerPlace } from "../../service/ApiService";
 import { display, style } from "@mui/system";
 
 // 탭 추가
@@ -90,6 +90,12 @@ function RegisterPlace() {
 
   const [placeObject, setPlaceObject] = useState("");
   const [path, setPath] = useState("");
+  const [pinPlace, setPinPlace] = useState({});
+
+  const onPlacePined = (lat, lng, addr) => {
+    setPinPlace({lat:lat, lng:lng, addr:addr});
+    // document.getElementById("placeAddress").value = pinPlace.addr;
+  }
 
   const SelectImgBtnClick = (event) => {
     // const path = "";
@@ -113,6 +119,8 @@ function RegisterPlace() {
 
               //mime-type은 별도로 스크립트에서 지정 필요
               img.src = "data:image/png;base64," + result.data;
+              img.style.width = "250px";
+              img.style.height = "250px";
             },
           });
         }
@@ -126,12 +134,13 @@ function RegisterPlace() {
 
   const onhandlePost = async (data) => {
     console.log(data);
-    call("/registerPlace", "POST", data)
+    registerPlace(data)
     .then((response) => {
         console.log(response);
+        console.log('성공');
+      console.log(data);
     })
-    console.log('성공');
-    console.log(data);
+    
 }
 
   // 제출 버튼 눌렀을때 이벤트
@@ -144,10 +153,10 @@ function RegisterPlace() {
     const data = new FormData(event.currentTarget);
     const placeData = {
       name: data.get('placeName'),
-      // address: data.get('address'),
+      address: pinPlace.addr,
       placeImg: img.src,
-      // lat: data.get('lat'),
-      // lng: data.get('lng'),
+      lat: pinPlace.lat,
+      lng: pinPlace.lng,
       description: data.get('placeDescription'),
     }
     console.log(placeData);
@@ -176,12 +185,12 @@ function RegisterPlace() {
           <h1>Register Place Page</h1>
 
           <div style={{ margin: "0 auto" }}>
-            <MapWrapper />
+            <MapWrapper onMarked={onPlacePined}/>
           </div>
 
           <img
             id="placeImg"
-            style={{ visibility: "hidden", width: "250px", height: "250px" }}
+            style={{ visibility: "hidden" }}
             src=""
           />
 
@@ -214,7 +223,9 @@ function RegisterPlace() {
                     name="placeAddress"
                     variant="outlined"
                     id="placeAddress"
-                    label="주소"
+                    placeholder="주소"
+                    defaultValue=""
+                    value={pinPlace.addr}
                   />
                 </Grid>
 
@@ -226,6 +237,8 @@ function RegisterPlace() {
                     required
                     id="placeDescription"
                     label="장소 설명"
+                    multiline
+                    rows={4}
                   />
                 </Grid>
 
