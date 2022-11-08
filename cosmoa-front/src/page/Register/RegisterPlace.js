@@ -14,7 +14,7 @@ import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
 import PropTypes from "prop-types";
 import DaumPostcode from "react-daum-postcode";
-import { call } from "../../service/ApiService";
+import { call, registerPlace } from "../../service/ApiService";
 import { display, style } from "@mui/system";
 
 // 탭 추가
@@ -126,12 +126,13 @@ function RegisterPlace() {
 
   const onhandlePost = async (data) => {
     console.log(data);
-    call("/registerPlace", "POST", data)
+    registerPlace(data)
     .then((response) => {
         console.log(response);
+        console.log('성공');
+      console.log(data);
     })
-    console.log('성공');
-    console.log(data);
+    
 }
 
   // 제출 버튼 눌렀을때 이벤트

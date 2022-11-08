@@ -15,6 +15,7 @@ export function call(api, method, request) {
         method : method,
         headers : headers,
     };
+    console.log(API_BASE_URL);
 
     if (request) {
         options.body = JSON.stringify(request);
