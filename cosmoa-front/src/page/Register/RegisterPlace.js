@@ -90,6 +90,12 @@ function RegisterPlace() {
 
   const [placeObject, setPlaceObject] = useState("");
   const [path, setPath] = useState("");
+  const [pinPlace, setPinPlace] = useState({});
+
+  const onPlacePined = (lat, lng, addr) => {
+    setPinPlace({lat:lat, lng:lng, addr:addr});
+    // document.getElementById("placeAddress").value = pinPlace.addr;
+  }
 
   const SelectImgBtnClick = (event) => {
     // const path = "";
@@ -147,10 +153,10 @@ function RegisterPlace() {
     const data = new FormData(event.currentTarget);
     const placeData = {
       name: data.get('placeName'),
-      // address: data.get('address'),
+      address: pinPlace.addr,
       placeImg: img.src,
-      // lat: data.get('lat'),
-      // lng: data.get('lng'),
+      lat: pinPlace.lat,
+      lng: pinPlace.lng,
       description: data.get('placeDescription'),
     }
     console.log(placeData);
@@ -179,7 +185,7 @@ function RegisterPlace() {
           <h1>Register Place Page</h1>
 
           <div style={{ margin: "0 auto" }}>
-            <MapWrapper />
+            <MapWrapper onMarked={onPlacePined}/>
           </div>
 
           <img
@@ -217,7 +223,9 @@ function RegisterPlace() {
                     name="placeAddress"
                     variant="outlined"
                     id="placeAddress"
-                    label="주소"
+                    placeholder="주소"
+                    defaultValue=""
+                    value={pinPlace.addr}
                   />
                 </Grid>
 
@@ -229,6 +237,8 @@ function RegisterPlace() {
                     required
                     id="placeDescription"
                     label="장소 설명"
+                    multiline
+                    rows={4}
                   />
                 </Grid>
 
