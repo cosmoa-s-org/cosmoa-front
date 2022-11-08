@@ -63,6 +63,8 @@ function RegisterPlace() {
   const [value, setValue] = useState("");
   const [openPostcode, setOpenPostcode] = useState(false);
   const [address, setAddress] = useState("");
+  const [file, setFile] = useState('');
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -119,6 +121,7 @@ function RegisterPlace() {
 
               //mime-type은 별도로 스크립트에서 지정 필요
               img.src = "data:image/png;base64," + result.data;
+              
               img.style.width = "250px";
               img.style.height = "250px";
             },
@@ -148,20 +151,38 @@ function RegisterPlace() {
     var img = document.getElementById("placeImg");
 
     // console.log(event.currentTarget);
-
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const placeData = {
-      name: data.get('placeName'),
-      address: pinPlace.addr,
-      placeImg: img.src,
-      lat: pinPlace.lat,
-      lng: pinPlace.lng,
-      description: data.get('placeDescription'),
-    }
-    console.log(placeData);
+    const imgFile = new File([img.src], "img", {type:"image/png"})
 
-    onhandlePost(placeData);
+    const data = new FormData(event.currentTarget);
+    data.append('userId', 1)
+    data.append('name', data.get('placeName'))
+    data.append('address', pinPlace.addr)
+    data.append('lat', pinPlace.lat)
+    data.append('lng', pinPlace.lng)
+    data.append('description', data.get('placeDescription'))
+    //data.append('img', img.src)
+    data.append('img', imgFile);
+    console.log(imgFile);
+
+    // const placeData = {
+    //   userId: 1,    // 수정!!!!!!!!
+    //   name: data.get('placeName'),
+    //   address: pinPlace.addr,
+    //   lat: pinPlace.lat,
+    //   lng: pinPlace.lng,
+    //   description: data.get('placeDescription'),
+    // }
+    // const placeImg = img.src;
+    // const placedto = {
+    //     placeData : placeData,
+    //     img : placeImg
+    // };
+
+    // console.log(placeData);
+    // console.log(placeData.img);
+
+    onhandlePost(data);
 
   };
 
@@ -249,7 +270,6 @@ function RegisterPlace() {
                     sx={{ mt: 4, mb: 2 }}
                     size="large"
                     color="primary"
-                    
                   >
                     제출하기
                   </Button>

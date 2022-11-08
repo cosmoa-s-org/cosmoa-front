@@ -25,7 +25,7 @@ export default function SignIn() {
             email: data.get('email'),
             password: data.get('password'),
         };
-        // call("/user", "POST", joinData)
+        // signin("/user", "POST", joinData)
         // .then((response) => {
         //     console.log(response);
         // })

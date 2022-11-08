@@ -2,7 +2,6 @@ import { API_BASE_URL } from "./app-config";
 
 export function call(api, method, request) {
     let headers = new Headers({
-        "Content-Type" : "application/json",
     });
 
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -18,7 +17,7 @@ export function call(api, method, request) {
     console.log(API_BASE_URL);
 
     if (request) {
-        options.body = JSON.stringify(request);
+        options.body = request;
     }
 
     return fetch(options.url, options).then((response) => 
@@ -76,7 +75,7 @@ export function signout() {
 
 export function registerPlace(place) {
     const M = window.M;
-    return call("/registerPlace", "POST", place)  // 주소 변경 필요
+    return call("/place", "POST", place)  // 주소 변경 필요
     .then((response) => {
         if(response.ok) {
             window.location.href = "/main";
