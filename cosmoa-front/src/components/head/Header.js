@@ -13,7 +13,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
 
-
+// 사이드 Nav바
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -65,6 +65,14 @@ function Header() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  let nickname = JSON.parse(localStorage.getItem("USER")).nickname
+
+  // React.useEffect(() => {
+  //   nickname = JSON.parse(localStorage.getItem("USER")).nickname;
+  //   console.log(JSON.parse(localStorage.getItem("USER")));
+  // }, [])
+
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -92,6 +100,7 @@ function Header() {
             CosMoa
             </a>
           </Typography>
+          <Typography style={{marginLeft: "auto"}}>{nickname}님 안녕하세요!</Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -114,7 +123,7 @@ function Header() {
         </DrawerHeader>
         <Divider />
         <List>
-        <Link href="/signin">
+        <Link href="/Mypage">
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><PortraitIcon /></ListItemIcon>
@@ -158,6 +167,10 @@ function Header() {
           </ListItem>
           </Link>
         </List>
+        <Divider />
+        <Link href="/signin">
+        <Button>로그아웃</Button>
+        </Link>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

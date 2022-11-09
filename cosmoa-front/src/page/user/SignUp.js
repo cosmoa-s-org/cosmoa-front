@@ -55,10 +55,10 @@ function SignUp() {
         //const { email, password } = data;
         //const postData = { email, password };
         console.log(data);
-        call("/user", "POST", data)
-        .then((response) => {
-            console.log(response);
-        })
+        call("/user", "POST", JSON.stringify(data))
+            .then((response) => {
+                console.log(response);
+            })
         console.log('성공');
         console.log(data);
         navigate("/signin");
@@ -76,7 +76,7 @@ function SignUp() {
         };
         const password2 = data.get('password2')
         console.log(joinData);
-        const { email, password, nickname} = joinData;
+        const { email, password, nickname } = joinData;
         //유효성 검사
         const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (!emailRegex.test(email)) {
@@ -107,6 +107,7 @@ function SignUp() {
         }
     }
     return (<>
+        <h1>Cosmoa</h1>
         <Container component="main" maxWidth="xs" style={{ marginTop: "4%" }}>
             <Avatar>
                 <PersonIcon />

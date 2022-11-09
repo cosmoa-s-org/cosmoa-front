@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Route, Routes, Navigate, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useParams, Outlet } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 
 import Header from "./components/head/Header";
@@ -18,50 +18,62 @@ import AddPlace from "./page/Register/AddPlace";
 import CourseDetail from "./page/showContents/CourseDetail";
 import Splash from "./components/Splash";
 
+function BasicLayout() {
+  return (<>
+    <Header />
+    <Outlet />
+    <Footer />
+  </>)
+}
+
+function UserLayout() {
+  return <Outlet />
+}
 
 
-function AppRouter (props) {
+function AppRouter(props) {
   let isAuthorized = sessionStorage.getItem("isAuthorized");
-  
-    return (<>
-          <BrowserRouter>
+
+  return (<>
+    <BrowserRouter>
       {/* {!isAuthorized ? <Navigate to="/signin" /> : <Navigate to="/" />}
       <Routes>
       <Route path="/signin" element={<SignIn />} />
       <Route path="/" element={<Main />} />
       </Routes> */}
 
-        {/* <Box mt={5}> */}
-          <Header />
-        {/* </Box> */}
-        <div>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            
-            <Route path="/main" element={<Main />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+      <div>
+        <Routes>
+          <Route path="/" element={<BasicLayout />}>
+            <Route index element={<Main />} />
+
+            <Route path="main" element={<Main />} />
 
             <Route path="/splash" element={<Splash />} />
 
-            <Route path="/Mypage" element={<Mypage />} />
-            <Route path="/SelectTheme" element={<SelectTheme />} />
-            <Route path="/registerType" element={<RegisterType />} />
-            <Route path="/registerCourse" element={<RegisterCourse />} />
-            <Route path="/registerPlace" element={<RegisterPlace />} />
-            <Route path="/addplace" element={<AddPlace />} />
+            <Route path="Mypage" element={<Mypage />} />
+            <Route path="SelectTheme" element={<SelectTheme />} />
+            <Route path="registerType" element={<RegisterType />} />
+            <Route path="registerCourse" element={<RegisterCourse />} />
+            <Route path="registerPlace" element={<RegisterPlace />} />
+            <Route path="addplace" element={<AddPlace />} />
 
-            <Route path="/courselist" element={<CourseList />} />
-            <Route path="/coursedetail/:id" element={<CourseDetail />} />
-          </Routes>
-        </div>
-        <div>
-          {/* <Box mt={5}> */}
-            <Footer />
-          {/* </Box> */}
-        </div>
-      </BrowserRouter>
-      </>);
-  }
+            <Route path="courselist" element={<CourseList />} />
+            <Route path="coursedetail/:id" element={<CourseDetail />} />
+
+          </Route>
+          <Route path="/signin" element={<UserLayout />}>
+            <Route index element={<SignIn />} />
+          </Route>
+          <Route path="/signup" element={<UserLayout />}>
+            <Route index element={<SignUp />} />
+          </Route>
+
+        </Routes>
+      </div>
+
+    </BrowserRouter>
+  </>);
+}
 
 export default AppRouter;

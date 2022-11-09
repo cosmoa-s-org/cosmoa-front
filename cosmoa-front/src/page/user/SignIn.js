@@ -6,7 +6,6 @@ import { Button, TextField, Link, Grid, Box, Typography, Container, Avatar } fro
 // import { authService } from '../../fbase';
 // import { onSocialClick } from '../../service/Auth';
 import { authService, firebaseInstance } from '../../fbase';
-import { useState } from 'react';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +15,7 @@ export default function SignIn() {
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
 
-    var testuser = {email: 'user01@naver.com', password: 'asdf1234!'};
+    // var testuser = { email: 'user01@naver.com', password: 'asdf1234!' };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -25,22 +24,33 @@ export default function SignIn() {
             email: data.get('email'),
             password: data.get('password'),
         };
-        // signin("/user", "POST", joinData)
-        // .then((response) => {
-        //     console.log(response);
-        // })
-        if ( joinData.email === testuser.email && joinData.password === testuser.password) {
-            M.pop.alert('로그인 성공');
-            console.log("로그인 성공!!");
-            navigate("/");
-        } else {
-            console.log("로그인 실패");
-            M.pop.alert('로그인 실패');
-        }
-        // signin(joinData);
-        console.log(joinData.email);
-        console.log(testuser.email);
+
+
+        // if ( joinData.email === testuser.email && joinData.password === testuser.password) {
+        //     M.pop.alert('로그인 성공');
+        //     console.log("로그인 성공!!");
+        //     navigate("/");
+        // } else {
+        //     console.log("로그인 실패");
+        //     M.pop.alert('로그인 실패');
+        // }
+
+        signin(JSON.stringify(joinData));
+        console.log("전송 성공");
+        // navigate("/");
+
     };
+
+
+
+    // const signin = async (data) => {
+    //     signin("", "", JSON.stringify(data))
+    //         .then((response) => {
+    //             console.log(response);
+    //         })
+    //         navigate("/");
+    //         console.log("전송 성공");
+    // }
 
     const onSocialClick = async (event) => {
         // console.log(event.target.name);
@@ -65,6 +75,7 @@ export default function SignIn() {
 
 
     return (<>
+        <h1>Cosmoa</h1>
         {/* <button onClick={onLogOutClick}>Log out</button> */}
         <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
             <Box sx={{ marginTop: 8, alignItems: 'center', display: 'flex' }} >

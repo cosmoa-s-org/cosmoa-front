@@ -51,12 +51,12 @@ function CourseList() {
     };
 
     const testCourse = [
-        { id: "1", cname: "testcourse", user: "user" },
-        { id: "2", cname: "testcourse1", user: "user" },
-        { id: "3", cname: "testcourse2", user: "user" },
-        { id: "4", cname: "testcourse3", user: "user" },
-        { id: "5", cname: "testcourse4", user: "user" },
-        { id: "6", cname: "testcourse5", user: "user" }
+        { id: "1", cname: "testcourse", like: 3, user: "user" },
+        { id: "2", cname: "testcourse1", like: 0, user: "user" },
+        { id: "3", cname: "testcourse2", like: 0, user: "user" },
+        { id: "4", cname: "testcourse3", like: 0, user: "user" },
+        { id: "5", cname: "testcourse4", like: 0, user: "user" },
+        { id: "6", cname: "testcourse5", like: 0, user: "user" }
     ]
 
     const handleChange = (event) => {
@@ -65,8 +65,9 @@ function CourseList() {
 
     const columns = [
         { field: 'id', headerName: 'no', width: 70 },
-        { field: 'cname', headerName: '코스 이름', width: 220 },
-        { field: 'user', headerName: '등록자', width: 100 },
+        { field: 'cname', headerName: '코스 이름', width: 190 },
+        { field: 'like', headerName: '추천 수', width: 70 },
+        { field: 'user', headerName: '등록자', width: 80 },
     ];
 
     const goCourseDetail = (event) => {
