@@ -21,7 +21,15 @@ function Mypage() {
     // const [titleData, setTitleData] = useState(user.title);
 
     const M = window.M
-    const [user, setUser] = useState({ email: "user01@naver.com", nickname: "test", gender: "male", age: "25" });
+    // const [user, setUser] = useState({ email: "user01@naver.com", nickname: "test", gender: "male", age: "25" });
+
+    let email = JSON.parse(localStorage.getItem("USER")).email
+    let nickname = JSON.parse(localStorage.getItem("USER")).nickname
+    let gender = JSON.parse(localStorage.getItem("USER")).gender
+    let age = JSON.parse(localStorage.getItem("USER")).age
+
+    const [user, setUser] = useState({ email: email, nickname: nickname, gender: gender, age: age});
+
 
 
     // const onUpdateItem = (cmd)=>{
@@ -37,15 +45,16 @@ function Mypage() {
     //     btnElement.innerText = '수정 완료!';
     // }
 
-    const updateClicked = (event) => {
+    const updateStart = (event) => {
         console.log("updateClicked 클릭");
         setReadOnly(false);
     }
 
-    const userUpdate = (event) => {
-        console.log("userUpdate 클릭");
+    const updateEnd = (event) => {
+        console.log("updateClicked 클릭");
         setReadOnly(true);
-        
+        localStorage.setItem("USER", JSON.stringify(response.data));
+
     }
 
     return (<>
@@ -109,9 +118,9 @@ function Mypage() {
                         </Item>
                 </Stack>
                 <br />
-                <Button onClick={updateClicked}>회원 정보 수정</Button>
+                <Button onClick={updateStart}>회원 정보 수정</Button>
                 <br />
-                <Button onClick={userUpdate}>저장</Button>
+                <Button onClick={updateEnd}>저장</Button>
             </Box>
         </Container>
     </>)
