@@ -2,6 +2,8 @@ import { API_BASE_URL } from "./app-config";
 
 export function call(api, method, request) {
     let headers = new Headers({
+        //"Content-Type" : "multipart/form-data"
+        "Content-Type" : "application/json"
     });
 
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -36,14 +38,15 @@ export function call(api, method, request) {
 }
 
 export function signin(member) {
-    return call("/auth/signin", "POST", member)
+    return call("/user/login", "POST", member)
     .then((response) => {
-        console.log(response);
-        if (response.data.token) {
-            localStorage.setItem("USER_KEY", response.data.id);
-            localStorage.setItem("ACCESS_TOKEN", response.data.token);
-            window.location.href = "/";
-        }
+        console.log(response.data);
+        localStorage.setItem("USER", JSON.stringify(response.data));
+        // window.location.href = "/";
+        // if (response.data.token) {
+        //     localStorage.setItem("USER_KEY", response.data.id);
+        //     // localStorage.setItem("ACCESS_TOKEN", response.data.token);
+        // }
     })
     .catch((error) => {
         window.alert(error.error);

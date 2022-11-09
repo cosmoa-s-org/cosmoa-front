@@ -45,6 +45,7 @@ function Mypage() {
     const userUpdate = (event) => {
         console.log("userUpdate 클릭");
         setReadOnly(true);
+        
     }
 
     return (<>
@@ -109,7 +110,8 @@ function Mypage() {
                 </Stack>
                 <br />
                 <Button onClick={updateClicked}>회원 정보 수정</Button>
-                <Button onClick={userUpdate}>수정 완료</Button>
+                <br />
+                <Button onClick={userUpdate}>저장</Button>
             </Box>
         </Container>
     </>)
