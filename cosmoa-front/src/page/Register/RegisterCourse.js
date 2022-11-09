@@ -81,10 +81,10 @@ function RegisterCourse(props) {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center">코스 순서</TableCell>
+                    <TableCell align="center" width={"15%"}>코스 순서</TableCell>
                     <TableCell align="center">장소명</TableCell>
                     <TableCell align="center">주소</TableCell>
-                    <TableCell align="center">소요시간</TableCell>
+                    <TableCell align="center" width={"22%"}>소요시간</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -93,12 +93,14 @@ function RegisterCourse(props) {
                       key={row.placeName}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell align="center">{row.num}</TableCell>
                       <TableCell component="th" scope="row" align="center">
-                        {row.placeName}
+                        {row.num}
                       </TableCell>
+                      <TableCell align="center">{row.placeName}</TableCell>
                       <TableCell align="center">{row.placeAddress}</TableCell>
-                      <TableCell align="center">{row.costTime}</TableCell>
+                      <TableCell align="center">
+                        <TextField value={row.costTime}></TextField>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
