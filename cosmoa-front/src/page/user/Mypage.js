@@ -5,6 +5,7 @@ import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { styled } from '@mui/material/styles';
 import { Stack } from "@mui/material";
 import { gridSelectionStateSelector } from "@mui/x-data-grid";
+import { userUpdate } from "../../service/ApiService";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -52,8 +53,13 @@ function Mypage() {
 
     const updateEnd = (event) => {
         console.log("updateClicked 클릭");
+        event.preventDefault();
+
         setReadOnly(true);
-        localStorage.setItem("USER", JSON.stringify(response.data));
+        userUpdate(user)
+        console.log(user.email);
+        console.log(user.nickname);
+
 
     }
 
@@ -67,16 +73,20 @@ function Mypage() {
                     마이 페이지
                 </Typography>
                 <br />
+                <form onSubmit={updateEnd}>
                 <Stack spacing={2} maxWidth>
                         <Item>
                             <ListItemText>Email
                                 <InputBase
                                     type="text"
-                                    inputProps={{ "aria-label": "naked", readOnly: readOnly }}
-                                    id={user.id}
-                                    name={user.id}
+                                    inputProps={{ "aria-label": "naked"}}
+                                    id="email"
+                                    name="email"
                                     fullWidth={true}
                                     value={user.email}
+                                    readOnly
+                                    onChange={(e) => { 
+                                        setUser({...user, email: e.currentTarget.value}) }}
                                 ></InputBase>
                             </ListItemText>
                             <Divider />
@@ -84,11 +94,12 @@ function Mypage() {
                                 <InputBase
                                     type="text"
                                     inputProps={{ "aria-label": "naked", readOnly: readOnly }}
-                                    id={user.id}
-                                    name={user.id}
+                                    id="nickname"
+                                    name="nickname"
                                     fullWidth={true}
                                     value={user.nickname}
-                                    onChange={(e) => { setUser({ nickname: e.currentTarget.value }) }}
+                                    onChange={(e) => { 
+                                        setUser({...user, nickname: e.currentTarget.value}) }}
                                 ></InputBase>
                             </ListItemText>
                             <Divider />
@@ -96,11 +107,12 @@ function Mypage() {
                                 <InputBase
                                     type="text"
                                     inputProps={{ "aria-label": "naked", readOnly: readOnly }}
-                                    id={user.id}
-                                    name={user.id}
+                                    id="gender"
+                                    name="gender"
                                     fullWidth={true}
                                     value={user.gender}
-                                    onChange={(e) => { setUser({ gender: e.currentTarget.value }) }}
+                                    onChange={(e) => { 
+                                        setUser({...user, gender: e.currentTarget.value}) }}
                                 ></InputBase>
                             </ListItemText>
                             <Divider />
@@ -108,19 +120,22 @@ function Mypage() {
                                 <InputBase
                                     type="text"
                                     inputProps={{ "aria-label": "naked", readOnly: readOnly }}
-                                    id={user.id}
-                                    name={user.id}
+                                    id="age"
+                                    name="age"
                                     fullWidth={true}
                                     value={user.age}
-                                    onChange={(e) => { setUser({ age: e.currentTarget.value }) }}
+                                    onChange={(e) => { 
+                                        setUser({...user, age: e.currentTarget.value}) }}
                                 ></InputBase>
                             </ListItemText>
                         </Item>
                 </Stack>
+
                 <br />
                 <Button onClick={updateStart}>회원 정보 수정</Button>
                 <br />
                 <Button onClick={updateEnd}>저장</Button>
+                </form>
             </Box>
         </Container>
     </>)
