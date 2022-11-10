@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Link,
@@ -17,10 +17,25 @@ import {
 import MapWrapper from "../../map/MapWrapper";
 
 function RegisterCourse(props) {
+  const [pinPlace, setPinPlace] = useState({});
+
+
   // 제출 버튼 눌렀을때 이벤트 작성 필요
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  // 작성 필요
+  const onAddPlaceBtnClick = (event) =>{
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    data.append('name', data.get('placeName'))
+    data.append('address', pinPlace.addr)
+    data.append('description', data.get('placeDescription'))
+
+    localStorage.setItem("COURSE", JSON.stringify(data));
+  }
 
   function createData(num, placeName, placeAddress, costTime) {
     return { num, placeName, placeAddress, costTime };
@@ -69,7 +84,7 @@ function RegisterCourse(props) {
 
             <Grid item xs={12}>
               <Link href="/addplace">
-                <Button variant="contained">장소 추가</Button>
+                <Button variant="contained" onClick={onAddPlaceBtnClick}>장소 추가</Button>
               </Link>
             </Grid>
             {/* <input type="text" >장소1</input>
