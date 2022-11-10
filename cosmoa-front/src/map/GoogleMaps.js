@@ -70,6 +70,17 @@ function GoogleMaps(props) {
         });
     }
 
+    function geocodeAddr(address, geocoder)  {
+        geocoder.geocode({address: address})
+        .then((response) => {
+                console.log(response);
+                
+        })
+        .catch((e) => {
+            console.log("Geocoder failed : " + e);
+        });
+    }
+
     function placeMarkerAndPanTo(latLng, map) {   
         marker.setPosition(latLng);
         map.panTo(latLng);
