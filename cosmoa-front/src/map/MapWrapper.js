@@ -2,7 +2,7 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import GoogleMaps from "./GoogleMaps";
 
 function MapWrapper(props) {
-    const GOOGLE_KEY = "AIzaSyC9l8pRX-EkDP6cjHZCDXbUj6LTb2FTBAI"; // AIzaSyCF2fSRjBD8-27-6vd4ZuuSszDZS1oou4w
+    const GOOGLE_KEY = "12345678";
     const render = (status) => {
         return <h1>{status}</h1>;
     };
