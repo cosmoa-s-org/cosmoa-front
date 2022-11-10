@@ -100,3 +100,15 @@ export function registerPlace(place) {
         return Promise.reject(error);
     })
 }
+
+// 작성중
+export function searchPlace(searchWord) {
+    return call("/search", "POST", searchWord)
+    .then((response) => {
+        console.log(response.data);
+
+    })
+    .catch((error) => {
+        
+    })
+}
