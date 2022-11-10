@@ -12,6 +12,7 @@ import HomeIcon from '@mui/icons-material/Home';
 // import ListItemButton from '@material-ui/core';
 import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 // 사이드 Nav바
 const drawerWidth = 240;
@@ -62,11 +63,18 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Header() {
+  
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [nickname, setNickname] = React.useState("");
+  const navigate = useNavigate();
 
-  let nickname = JSON.parse(localStorage.getItem("USER")).nickname
-
+  React.useEffect(() => {
+    if (!localStorage.getItem("USER")) {
+      window.location.href = "/signin";
+    }
+    setNickname(JSON.parse(localStorage.getItem("USER")).nickname);
+  }, []);
   // React.useEffect(() => {
   //   nickname = JSON.parse(localStorage.getItem("USER")).nickname;
   //   console.log(JSON.parse(localStorage.getItem("USER")));
@@ -80,6 +88,11 @@ function Header() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const logoutClicked = (event) => {
+    localStorage.setItem("USER", "");
+    navigate("/signin");
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -168,9 +181,7 @@ function Header() {
           </Link>
         </List>
         <Divider />
-        <Link href="/signin">
-        <Button>로그아웃</Button>
-        </Link>
+        <Button onClick={logoutClicked}>로그아웃</Button>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

@@ -42,7 +42,7 @@ export function signin(member) {
     .then((response) => {
         console.log(response.data);
         localStorage.setItem("USER", JSON.stringify(response.data));
-        // window.location.href = "/";
+        window.location.href = "/";
         // if (response.data.token) {
         //     localStorage.setItem("USER_KEY", response.data.id);
         //     // localStorage.setItem("ACCESS_TOKEN", response.data.token);
