@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link,
   Button,
@@ -17,23 +17,47 @@ import MapWrapper from "../../map/MapWrapper";
 
 function RegisterCourse(props) {
   const [pinPlace, setPinPlace] = useState({});
-
+  const [courseName, setCourseName] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
 
   // 제출 버튼 눌렀을때 이벤트 작성 필요
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    localStorage.setItem("courseName","")
+    localStorage.setItem("courseDescription","")
   };
 
-  // 작성 필요
+  // 장소추가 버튼 - 작성 필요
   const onAddPlaceBtnClick = (event) =>{
     event.preventDefault();
 
-    // const data = new FormData(event.currentTarget);
-    // data.append('name', data.get('placeName'))
-    // data.append('address', pinPlace.addr)
-    // data.append('description', data.get('placeDescription'))
+    localStorage.setItem("courseName", courseName);
+    console.log(localStorage.getItem("courseName"));
 
-    // localStorage.setItem("COURSE", JSON.stringify(data));
+    localStorage.setItem("courseDescription", courseDescription);
+
+
+    // 현재까지 추가된 장소 저장 필요
+
+
+
+
+    showAddPlace();
+  }
+
+  const showAddPlace= () => {
+    window.location.href = "/addplace";
+  }
+
+  const onChangeName = (event) =>{
+    setCourseName(document.getElementById("courseName").value);
+
+  }
+
+  const onChangeDescription = (event) =>{
+    setCourseDescription(document.getElementById("courseDescription").value);
+
   }
 
   function createData(num, placeName, placeAddress, costTime) {
@@ -46,6 +70,11 @@ function RegisterCourse(props) {
     createData(3, "구미CC", "구미시 ㅇㅇ동 262", "45분"),
     createData(4, "구미DD", "구미시 ㄹㄹ동 305", "1시간"),
   ];
+
+  useEffect(() => {
+    setCourseName(localStorage.getItem("courseName"));
+    setCourseDescription(localStorage.getItem("courseDescription"));
+  }, []);
 
   return (
     <>
@@ -65,6 +94,8 @@ function RegisterCourse(props) {
                 required
                 id="courseName"
                 label="코스 이름"
+                onChange={onChangeName}
+                value={courseName}
               />
             </Grid>
 
@@ -76,17 +107,19 @@ function RegisterCourse(props) {
                 required
                 id="courseDescription"
                 label="코스 설명"
+                onChange={onChangeDescription}
+                value={courseDescription}
               />
             </Grid>
 
             <br />
 
             <Grid item xs={12}>
-              <Link href="/addplace">
+              {/* <Link href="/addplace"> */}
                 <Button variant="contained"
-                //  onClick={onAddPlaceBtnClick}
+                  onClick={onAddPlaceBtnClick}
                 >장소 추가</Button>
-              </Link>
+              {/* </Link> */}
             </Grid>
             {/* <input type="text" >장소1</input>
                 <input type="text" >장소1 소요시간</input> */}
@@ -115,7 +148,7 @@ function RegisterCourse(props) {
                       <TableCell align="center">{row.placeName}</TableCell>
                       <TableCell align="center">{row.placeAddress}</TableCell>
                       <TableCell align="center">
-                        <TextField value={row.costTime}></TextField>
+                        <TextField defaultValue={row.costTime}></TextField>
                       </TableCell>
                     </TableRow>
                   ))}
