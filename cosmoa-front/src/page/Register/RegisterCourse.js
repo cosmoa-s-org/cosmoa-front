@@ -29,12 +29,12 @@ function RegisterCourse(props) {
   const onAddPlaceBtnClick = (event) =>{
     event.preventDefault();
 
-    const data = new FormData(event.currentTarget);
-    data.append('name', data.get('placeName'))
-    data.append('address', pinPlace.addr)
-    data.append('description', data.get('placeDescription'))
+    // const data = new FormData(event.currentTarget);
+    // data.append('name', data.get('placeName'))
+    // data.append('address', pinPlace.addr)
+    // data.append('description', data.get('placeDescription'))
 
-    localStorage.setItem("COURSE", JSON.stringify(data));
+    // localStorage.setItem("COURSE", JSON.stringify(data));
   }
 
   function createData(num, placeName, placeAddress, costTime) {
@@ -42,7 +42,7 @@ function RegisterCourse(props) {
   }
 
   const rows = [
-    createData(1, "구미AA", "구미시 ㅁㅁ동 159", "30분"),
+    createData(1, localStorage.getItem("AddPlaceName"), localStorage.getItem("AddPlaceAddress"), ""),
     createData(2, "구미BB", "구미시 ㄴㄴ동 237", "15분"),
     createData(3, "구미CC", "구미시 ㅇㅇ동 262", "45분"),
     createData(4, "구미DD", "구미시 ㄹㄹ동 305", "1시간"),
@@ -84,7 +84,9 @@ function RegisterCourse(props) {
 
             <Grid item xs={12}>
               <Link href="/addplace">
-                <Button variant="contained" onClick={onAddPlaceBtnClick}>장소 추가</Button>
+                <Button variant="contained"
+                //  onClick={onAddPlaceBtnClick}
+                >장소 추가</Button>
               </Link>
             </Grid>
             {/* <input type="text" >장소1</input>
