@@ -1,9 +1,10 @@
-import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Link, Tab, Tabs, Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Link, Tab, Tabs } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import MapWrapper from "../../map/MapWrapper";
+import { call } from "../../service/ApiService";
 
 
 // 탭
@@ -43,6 +44,16 @@ function a11yProps(index) {
 function CourseList() {
     let navigate = useNavigate();
 
+    const [courseList, setCourseList] = useState([]);
+
+    useEffect(() => {
+        call("/course", "GET", null)
+        .then((response) => {
+            console.log(response);
+            setCourseList(response.data);
+        })
+    }, []);
+
     const [partner, setPartner] = useState('');
     const [value, setValue] = React.useState(0);
 
@@ -50,24 +61,15 @@ function CourseList() {
         setValue(newValue);
     };
 
-    const testCourse = [
-        { id: "1", cname: "testcourse", like: 3, user: "user" },
-        { id: "2", cname: "testcourse1", like: 0, user: "user" },
-        { id: "3", cname: "testcourse2", like: 0, user: "user" },
-        { id: "4", cname: "testcourse3", like: 0, user: "user" },
-        { id: "5", cname: "testcourse4", like: 0, user: "user" },
-        { id: "6", cname: "testcourse5", like: 0, user: "user" }
-    ]
-
     const handleChange = (event) => {
         setPartner(event.target.value);
     };
 
     const columns = [
         { field: 'id', headerName: 'no', width: 70 },
-        { field: 'cname', headerName: '코스 이름', width: 190 },
+        { field: 'name', headerName: '코스 이름', width: 190 },
         { field: 'like', headerName: '추천 수', width: 70 },
-        { field: 'user', headerName: '등록자', width: 80 },
+        { field: 'nickname', headerName: '등록자', width: 80 },
     ];
 
     const goCourseDetail = (event) => {
@@ -109,13 +111,13 @@ function CourseList() {
                     {/* 코스 리스트 */}
                     <div style={{ height: 400, width: '100%' }}>
                         <DataGrid
-                            rows={testCourse}
+                            rows={courseList}
                             columns={columns}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
                             onRowClick={goCourseDetail}
                         >
-                            <Link to={`/coursedetail/${testCourse.id}`} ></Link>
+                            {/* <Link to={`/coursedetail/${courseList.id}`} ></Link> */}
 
                         </DataGrid>
                     </div>

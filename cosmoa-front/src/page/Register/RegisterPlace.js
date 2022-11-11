@@ -15,7 +15,6 @@ import MapWrapper from "../../map/MapWrapper";
 import PropTypes from "prop-types";
 import DaumPostcode from "react-daum-postcode";
 import { call, registerPlace } from "../../service/ApiService";
-import { display, style } from "@mui/system";
 
 // 탭 추가
 function TabPanel(props) {
@@ -63,7 +62,6 @@ function RegisterPlace() {
     const [value, setValue] = useState("");
     const [openPostcode, setOpenPostcode] = useState(false);
     const [address, setAddress] = useState("");
-    const [file, setFile] = useState('');
 
 
     const handleChange = (event, newValue) => {
@@ -90,7 +88,6 @@ function RegisterPlace() {
 
     const M = window.M;
 
-    const [placeObject, setPlaceObject] = useState("");
     const [path, setPath] = useState("");
     const [pinPlace, setPinPlace] = useState({});
 

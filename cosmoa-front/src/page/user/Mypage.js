@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Container, Box, Avatar, Typography, Paper, Grid, Button, ListItem, ListItemText, InputBase, Divider } from "@material-ui/core";
+import { Container, Box, Avatar, Typography, Paper, Button, ListItemText, InputBase, Divider } from "@material-ui/core";
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { styled } from '@mui/material/styles';
 import { Stack } from "@mui/material";
-import { gridSelectionStateSelector } from "@mui/x-data-grid";
 import { userUpdate } from "../../service/ApiService";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -14,7 +13,6 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'left',
     color: theme.palette.text.secondary,
 }));
-
 
 
 function Mypage() {
@@ -31,21 +29,6 @@ function Mypage() {
 
     const [user, setUser] = useState({ email: email, nickname: nickname, gender: gender, age: age});
 
-
-
-    // const onUpdateItem = (cmd)=>{
-    //     setReadOnly(true);
-    //     const currUser = {...user};
-    //     currUser.title = titleData;
-    //     if(cmd==='toggleChk') currUser.done = !currUser.done;
-    //     updateUser(currUser);
-    // }
-
-    // function btnClicked() {
-    //     const btnElement = document.getElementById('btn');
-    //     btnElement.innerText = '수정 완료!';
-    // }
-
     const updateStart = (event) => {
         console.log("updateClicked 클릭");
         setReadOnly(false);
@@ -59,8 +42,7 @@ function Mypage() {
         userUpdate(user)
         console.log(user.email);
         console.log(user.nickname);
-
-
+        M.pop.alert("수정완료!");
     }
 
     return (<>
