@@ -76,6 +76,11 @@ export function signout() {
     window.location.href = "/";
 }
 
+export function userUpdate(user) {
+    return call(`/user/${user.email}`, "PUT", JSON.stringify(user))
+
+}
+
 export function registerPlace(place) {
     const M = window.M;
     return call("/place", "POST", place)
