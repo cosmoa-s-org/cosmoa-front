@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Paper, Typography } from "@material-ui/core";
+import { Box, Button, Card, Container, Divider, Grid, Paper, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
 import MapWrapper from "../../map/MapWrapper";
@@ -7,16 +7,8 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { positions } from "@mui/system";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
-import { Avatar } from "@mui/material";
-import { styled } from '@mui/material/styles';
 
-const Root = styled('div')(({ theme }) => ({
-    width: '100%',
-    ...theme.typography.body2,
-    '& > :not(style) + :not(style)': {
-      marginTop: theme.spacing(2),
-    },
-  }));
+
 
 function CourseDetail() {
     const [placeList, setplaceList] = useState([]);
@@ -24,8 +16,9 @@ function CourseDetail() {
         course: { id: 0, name: "", description: "", createdDate: "", modifiedDate: "" },
         nickname: "", isLike: 0, like: 0
     });
-    const [liked, setLiked] = useState('');
-    // const likeBtn = liked ? '<ThumbUpAltIcon />' : '<ThumbUpOffAltIcon />';
+    const [like, setLike] = useState(false);
+
+
     let userId = JSON.parse(localStorage.getItem("USER")).id
 
     const params = useParams();
@@ -55,24 +48,35 @@ function CourseDetail() {
     //     {tmp}   
     //     </>);
     // }, [placeList])
+    var totalCostTime = 0;
 
-    useEffect( () => {
-        setPlaceListTable(<> 출발
-        {placeList.map((item, i) => {
-            return(<>
-            {'->  '} {item.place.name} 
-            </>)
-        })}
+    useEffect(() => {
+        setPlaceListTable(<>
+            {placeList.map((item, i) => {
+                totalCostTime += Number(item.costTime);
+                console.log(totalCostTime);
+
+                return (<>
+                    {item.place.name} {item.costTime}{' => '}
+                </>)
+            })}{totalCostTime}
         </>);
     }, [placeList])
 
-    const likeBtnClicked = (event) => {
 
+    const likeBtnClicked = (event) => {
+        // likeBtn = like ? '<ThumbUpAltIcon />' : '<ThumbUpOffAltIcon />';
+        return (<>
+        </>)
     }
-    
+
+
 
     return (<>
-        <Typography variant="h4" style={{ marginTop: "15%" }}>{course.course.name}</Typography>
+        <Box>
+            <Typography variant="h4" style={{ marginTop: "15%" }}>{course.course.name}</Typography>
+            <Typography variant="h6" style={{ textAlign: "right" }}>by {course.nickname}</Typography>
+        </Box>
         <Box
             sx={{
                 display: 'flex',
@@ -87,17 +91,26 @@ function CourseDetail() {
                 <MapWrapper />
             </div>
             <Container style={{ textAlign: "initial" }}>
-                    추천수 : {course.like}
-                    <Button
-                        style={{ backgroundColor: "floralwhite", flex: 1, alignItems: "center", flexDirection: "row" }}
-                        onClick={likeBtnClicked}
-                    ><ThumbUpOffAltIcon /></Button>
-                    
-                <Paper>{cid} <br/>
-                코스 순서 <br/>
-                 {placeListTable} <br/>
-                {course.course.description} </Paper>
-                </Container>
+                추천수 : {course.like}
+                <Button
+                    value="likeBtn"
+                    style={{ backgroundColor: "floralwhite", flex: 1, alignItems: "center", flexDirection: "row" }}
+                    onClick={likeBtnClicked}
+                ><ThumbUpOffAltIcon /></Button>
+
+                <Paper>{course.course.name}<br /></Paper>
+                코스 순서 <br />
+                {placeListTable} <br />
+                <Paper>{course.course.description}</Paper>
+                <br />
+            </Container>
+            <hr />
+            {/* Reply */}
+            <Container spacing={2}>
+                <Grid item xs={12}>
+                    <Card>댓글</Card>
+                </Grid>
+            </Container>
 
         </Box>
     </>)

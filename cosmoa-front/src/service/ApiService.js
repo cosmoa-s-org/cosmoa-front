@@ -78,7 +78,6 @@ export function signout() {
 
 export function userUpdate(user) {
     return call(`/user/${user.email}`, "PUT", JSON.stringify(user))
-
 }
 
 export function registerPlace(place) {
