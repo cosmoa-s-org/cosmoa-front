@@ -103,7 +103,7 @@ export function registerPlace(place) {
 
 export function registerCourse(place) {
     const M = window.M;
-    return call("/place", "POST", place)
+    return call("/course", "POST", place)
     .then((response) => {
         if(response.ok) {
             window.location.href = "/main";
