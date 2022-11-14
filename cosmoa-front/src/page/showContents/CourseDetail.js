@@ -7,8 +7,16 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { positions } from "@mui/system";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import styled from "@emotion/styled";
 
-
+const Like = styled.button`
+  font-size : 30px;
+  width : 30px;
+  height : 30px;
+  margin-left : 3%;
+  border : 0;
+  background-color : floralwhite;
+`
 
 function CourseDetail() {
     const [placeList, setplaceList] = useState([]);
@@ -17,6 +25,18 @@ function CourseDetail() {
         nickname: "", isLike: 0, like: 0
     });
     const [like, setLike] = useState(false);
+
+    const likeClick = () => {
+        if (like) {
+            setLike(false)
+            course.like -= 1;
+            call(`/course-like`, "DELETE", JSON.stringify({userId: userId, courseId: cid}))
+        } else {
+            setLike(true)
+            course.like += 1;
+            call(`/course-like`, "POST", JSON.stringify({userId: userId, courseId: cid}))
+        }
+    }
 
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
@@ -31,6 +51,12 @@ function CourseDetail() {
             .then((response) => {
                 console.log(response);
                 setCourse(response.data);
+                if (Number(response.data.isLike) === 1) {
+                    setLike(true);
+                } else {
+                    setLike(false);
+                }
+                console.log(course.isLike);
             })
         call(`/course-compose/${cid}`, "GET", null) // 코스에 포함된 장소 정보 받아오기
             .then((response) => {
@@ -63,19 +89,11 @@ function CourseDetail() {
         </>);
     }, [placeList])
 
-
-    const likeBtnClicked = (event) => {
-        // likeBtn = like ? '<ThumbUpAltIcon />' : '<ThumbUpOffAltIcon />';
-        return (<>
-        </>)
-    }
-
-
-
     return (<>
         <Box>
             <Typography variant="h4" style={{ marginTop: "15%" }}>{course.course.name}</Typography>
-            <Typography variant="h6" style={{ textAlign: "right" }}>by {course.nickname}</Typography>
+            <Typography style={{ textAlign: "right" }}>by {course.nickname}</Typography>
+            <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography>
         </Box>
         <Box
             sx={{
@@ -92,16 +110,20 @@ function CourseDetail() {
             </div>
             <Container style={{ textAlign: "initial" }}>
                 추천수 : {course.like}
-                <Button
-                    value="likeBtn"
-                    style={{ backgroundColor: "floralwhite", flex: 1, alignItems: "center", flexDirection: "row" }}
-                    onClick={likeBtnClicked}
-                ><ThumbUpOffAltIcon /></Button>
+                {like ? (
+                    <Like size="20px"  onClick={likeClick}>
+                        <ThumbUpAltIcon />
+                    </Like>
+                ) : (
+                    <Like size="20px"  onClick={likeClick}>
+                        <ThumbUpOffAltIcon />
+                    </Like>
+                )}
 
-                <Paper>{course.course.name}<br /></Paper>
-                코스 순서 <br />
-                {placeListTable} <br />
-                <Paper>{course.course.description}</Paper>
+                <Card>{course.course.name}<br />
+                    코스 순서 <br />
+                    {placeListTable} <br />
+                    {course.course.description}</Card>
                 <br />
             </Container>
             <hr />
@@ -111,7 +133,6 @@ function CourseDetail() {
                     <Card>댓글</Card>
                 </Grid>
             </Container>
-
         </Box>
     </>)
 }
