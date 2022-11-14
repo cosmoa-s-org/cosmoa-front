@@ -13,9 +13,10 @@ import {
   TextField,
 } from "@material-ui/core";
 import { IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MapWrapper from "../../map/MapWrapper";
 import SearchIcon from "@mui/icons-material/Search";
+import { call } from "../../service/ApiService";
 
 function AddPlace(props) {
   // constructor(props) {
@@ -24,14 +25,42 @@ function AddPlace(props) {
   //     this.add = props.add;
   // }
 
-  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const placeListRef = useRef(null);
 
-  const onSearchBtnClick = function () {};
+  useEffect(() => {
+    let placeList = placeListRef.current;
 
-  const onSelcBtnClick = function () {
-    this.add(this.state.item);
-    this.setState({ item: "test" });
-  };
+    const onSelcBtnClick = function (i) {
+      let placeList = placeListRef.current;
+
+      let placeName = placeList.rows[i].cells[0].innerText;
+      let placeAddress = placeList.rows[i].cells[1].innerText;
+      
+      // console.log(placeName, placeAddress);
+
+      localStorage.setItem("AddPlaceName", placeName);
+      localStorage.setItem("AddPlaceAddress", placeAddress);
+
+      console.log(localStorage.getItem("AddPlaceName"));
+
+      window.location.href = "/RegisterCourse";
+      // this.add(this.state.item);
+      // this.setState({ item: "test" });
+    };
+
+    for (let i = 1; i < placeList.rows.length; i++) {
+      placeList.rows[i].addEventListener("click", (e) => {
+        // console.log(placeList.rows[i].cells[0].innerText);
+        onSelcBtnClick(i);
+        
+      });
+
+    }
+  }, []);
+
+
+  
 
   function createData(placeName, placeAddress) {
     return { placeName, placeAddress };
@@ -43,6 +72,22 @@ function AddPlace(props) {
     createData("서울CC", "서울시 ㅇㅇ동 262"),
     createData("부산DD", "부산시 ㄹㄹ동 305"),
   ];
+
+  // 작성중
+  const onSearchBtnClick = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+
+    let url = "/place?search=";
+
+    if (data.get('searchWord') !="")
+
+    return call(url, "GET", null)
+    .then((response) => {
+      console.log(response.data);
+      setSearchResult(response.data);
+    });
+  }
 
   return (
     <>
@@ -57,6 +102,7 @@ function AddPlace(props) {
       >
         <InputBase
           sx={{ ml: 1, flex: 1 }}
+          id="searchWord"
           placeholder="검색어 입력"
           inputProps={{ "aria-label": "search google maps" }}
         />
@@ -75,14 +121,8 @@ function AddPlace(props) {
       <br />
       <br />
 
-      {/* <div style={{ clear: "both" }}>
-        <Link href="/registercourse">
-          <Button variant="contained">장소 선택</Button>
-        </Link>
-      </div> */}
-
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table" ref={placeListRef}>
           <TableHead>
             <TableRow>
               <TableCell align="center">장소명</TableCell>
@@ -101,11 +141,11 @@ function AddPlace(props) {
                 </TableCell>
                 <TableCell align="center">{row.placeAddress}</TableCell>
                 <TableCell align="center">
-                  <Link href="/registercourse">
-                    <Button variant="outlined" onClick={onSelcBtnClick}>
+                  {/* <Link href="/registercourse"> */}
+                    <Button variant="outlined" type="button">
                       장소 선택
                     </Button>
-                  </Link>
+                  {/* </Link> */}
                 </TableCell>
               </TableRow>
             ))}

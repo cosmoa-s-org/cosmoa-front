@@ -83,7 +83,7 @@ export function userUpdate(user) {
 
 export function registerPlace(place) {
     const M = window.M;
-    return call("/place", "POST", place)  // 주소 변경 필요
+    return call("/place", "POST", place)
     .then((response) => {
         if(response.ok) {
             window.location.href = "/main";
@@ -98,17 +98,5 @@ export function registerPlace(place) {
             window.location.href = "/registerplace"; 
         } 
         return Promise.reject(error);
-    })
-}
-
-// 작성중
-export function searchPlace(searchWord) {
-    return call("/search", "POST", searchWord)
-    .then((response) => {
-        console.log(response.data);
-
-    })
-    .catch((error) => {
-        
     })
 }
