@@ -25,9 +25,10 @@ function AddPlace(props) {
   //     this.add = props.add;
   // }
 
-  const [searchResult, setSearchResult] = useState([]);
+  const [rows, setRows] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState([]);
   const placeListRef = useRef(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     let placeList = placeListRef.current;
@@ -55,35 +56,22 @@ function AddPlace(props) {
         onSelcBtnClick(i);
       });
     }
-  }, []);
+  }, [rows]);
 
-  function createData(placeName, placeAddress) {
-    return { placeName, placeAddress };
-  }
-
-  const rows = [
-    createData("구미AA", "구미시 ㅁㅁ동 159"),
-    createData("대구BB", "대구시 ㄴㄴ동 237"),
-    createData("서울CC", "서울시 ㅇㅇ동 262"),
-    createData("부산DD", "부산시 ㄹㄹ동 305"),
-  ];
 
   // 작성중
   const onSearchBtnClick = (e) => {
     e.preventDefault();
 
-    
-
     let url = "/place?search=";
 
-    if (searchKeyword != "")
-      url += searchKeyword;
+    if (searchKeyword != "") url += searchKeyword;
 
     console.log(url);
 
     return call(url, "GET", null).then((response) => {
       console.log(response.data);
-      setSearchResult(response.data);
+      setRows(response.data);
     });
   };
 
@@ -98,22 +86,24 @@ function AddPlace(props) {
       <Paper
         sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
       >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            id="searchWord"
-            placeholder="검색어 입력"
-            inputProps={{ "aria-label": "search google maps" }}
-            onChange={(e)=>{setSearchKeyword(e.currentTarget.value)}}
-            value={searchKeyword}
-          />
-          <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="search"
-            onClick={onSearchBtnClick}
-          >
-            <SearchIcon />
-          </IconButton>
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          id="searchWord"
+          placeholder="검색어 입력"
+          inputProps={{ "aria-label": "search google maps" }}
+          onChange={(e) => {
+            setSearchKeyword(e.currentTarget.value);
+          }}
+          value={searchKeyword}
+        />
+        <IconButton
+          type="button"
+          sx={{ p: "10px" }}
+          aria-label="search"
+          onClick={onSearchBtnClick}
+        >
+          <SearchIcon />
+        </IconButton>
       </Paper>
 
       {/* </Grid> */}
@@ -137,13 +127,14 @@ function AddPlace(props) {
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.placeName}
+                key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" align="center">
-                  {row.placeName}
+                  <TextField style={{ display: "none" }}>{row.id}</TextField>
+                  {row.name}
                 </TableCell>
-                <TableCell align="center">{row.placeAddress}</TableCell>
+                <TableCell align="center">{row.address}</TableCell>
                 <TableCell align="center">
                   {/* <Link href="/registercourse"> */}
                   <Button variant="outlined" type="button">
