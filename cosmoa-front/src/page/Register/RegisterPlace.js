@@ -229,12 +229,6 @@ function RegisterPlace() {
                             />
                         )}
                     </div>
-
-                    <img
-                        id="placeImg"
-                        style={{ visibility: "hidden" }}
-                        src=""
-                    />
                 </TabPanel>
 
                 <img
