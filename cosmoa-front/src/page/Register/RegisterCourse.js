@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Link,
   Button,
@@ -14,38 +14,90 @@ import {
   Paper,
 } from "@material-ui/core";
 import MapWrapper from "../../map/MapWrapper";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { registerCourse } from "../../service/ApiService";
 
 function RegisterCourse(props) {
   const [pinPlace, setPinPlace] = useState({});
-
+  const [courseName, setCourseName] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [rows, setRows] = useState([]);
+  const [costTime, setCostTime] = useState("");
 
   // 제출 버튼 눌렀을때 이벤트 작성 필요
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    localStorage.setItem("courseName", "");
+    localStorage.setItem("courseDescription", "");
+    localStorage.setItem("placeItems", "");
   };
 
-  // 작성 필요
-  const onAddPlaceBtnClick = (event) =>{
+  const onhandlePost = async (data) => {
+    console.log(data);
+    registerCourse(data).then((response) => {
+      console.log(response);
+      console.log("성공");
+      console.log(data);
+    });
+  };
+
+  // 장소추가 버튼 - 작성 필요
+  const onAddPlaceBtnClick = (event) => {
     event.preventDefault();
 
-    // const data = new FormData(event.currentTarget);
-    // data.append('name', data.get('placeName'))
-    // data.append('address', pinPlace.addr)
-    // data.append('description', data.get('placeDescription'))
+    localStorage.setItem("courseName", courseName);
+    console.log(localStorage.getItem("courseName"));
 
-    // localStorage.setItem("COURSE", JSON.stringify(data));
-  }
+    localStorage.setItem("courseDescription", courseDescription);
+
+    // 현재까지 추가된 장소 저장 필요
+    localStorage.setItem("placeItems", JSON.stringify(rows));
+
+    showAddPlace();
+  };
+
+  const onDelBtnClick = (event) => {
+    event.preventDefault();
+  };
+
+  const showAddPlace = () => {
+    window.location.href = "/addplace";
+  };
+
+  const onChangeName = (event) => {
+    setCourseName(document.getElementById("courseName").value);
+  };
+
+  const onChangeDescription = (event) => {
+    setCourseDescription(document.getElementById("courseDescription").value);
+  };
 
   function createData(num, placeName, placeAddress, costTime) {
     return { num, placeName, placeAddress, costTime };
   }
 
-  const rows = [
-    createData(1, localStorage.getItem("AddPlaceName"), localStorage.getItem("AddPlaceAddress"), ""),
-    createData(2, "구미BB", "구미시 ㄴㄴ동 237", "15분"),
-    createData(3, "구미CC", "구미시 ㅇㅇ동 262", "45분"),
-    createData(4, "구미DD", "구미시 ㄹㄹ동 305", "1시간"),
-  ];
+  // const rows = [
+  //   createData(1, localStorage.getItem("AddPlaceName"), localStorage.getItem("AddPlaceAddress"), ""),
+  //   createData(2, "구미BB", "구미시 ㄴㄴ동 237", "15분"),
+  //   createData(3, "구미CC", "구미시 ㅇㅇ동 262", "45분"),
+  //   createData(4, "구미DD", "구미시 ㄹㄹ동 305", "1시간"),
+  // ];
+
+  useEffect(() => {
+    setCourseName(localStorage.getItem("courseName"));
+    setCourseDescription(localStorage.getItem("courseDescription"));
+    let place = {
+      placeName: localStorage.getItem("AddPlaceName"),
+      placeAddress: localStorage.getItem("AddPlaceAddress"),
+    };
+
+    if (localStorage.getItem("placeItems") !== "") {
+      setRows([...JSON.parse(localStorage.getItem("placeItems")), place]);
+      console.log("setRows");
+    }
+  }, []);
 
   return (
     <>
@@ -65,6 +117,8 @@ function RegisterCourse(props) {
                 required
                 id="courseName"
                 label="코스 이름"
+                onChange={onChangeName}
+                value={courseName}
               />
             </Grid>
 
@@ -76,17 +130,19 @@ function RegisterCourse(props) {
                 required
                 id="courseDescription"
                 label="코스 설명"
+                onChange={onChangeDescription}
+                value={courseDescription}
               />
             </Grid>
 
             <br />
 
             <Grid item xs={12}>
-              <Link href="/addplace">
-                <Button variant="contained"
-                //  onClick={onAddPlaceBtnClick}
-                >장소 추가</Button>
-              </Link>
+              {/* <Link href="/addplace"> */}
+              <Button variant="contained" onClick={onAddPlaceBtnClick}>
+                장소 추가
+              </Button>
+              {/* </Link> */}
             </Grid>
             {/* <input type="text" >장소1</input>
                 <input type="text" >장소1 소요시간</input> */}
@@ -97,16 +153,21 @@ function RegisterCourse(props) {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="center" width={"15%"}>코스 순서</TableCell>
+                    <TableCell align="center" width={"15%"}>
+                      코스 순서
+                    </TableCell>
                     <TableCell align="center">장소명</TableCell>
                     <TableCell align="center">주소</TableCell>
-                    <TableCell align="center" width={"22%"}>소요시간</TableCell>
+                    <TableCell align="center" width={"22%"}>
+                      소요시간
+                    </TableCell>
+                    <TableCell align="center">삭제</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {rows.map((row, i) => (
                     <TableRow
-                      key={row.placeName}
+                      key={i}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row" align="center">
@@ -115,7 +176,25 @@ function RegisterCourse(props) {
                       <TableCell align="center">{row.placeName}</TableCell>
                       <TableCell align="center">{row.placeAddress}</TableCell>
                       <TableCell align="center">
-                        <TextField value={row.costTime}></TextField>
+                        <TextField
+                          onChange={(e) => {
+                            let tmp = [...rows];
+                            tmp[i].costTime = e.currentTarget.value;
+                            console.log(tmp);
+                            setRows(tmp);
+                          }}
+                          value={row.costTime}
+                        ></TextField>
+                      </TableCell>
+                      <TableCell align="center">
+                        <IconButton
+                          type="button"
+                          sx={{ p: "10px" }}
+                          aria-label="search"
+                          onClick={onDelBtnClick}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   ))}
