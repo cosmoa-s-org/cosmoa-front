@@ -205,11 +205,7 @@ function RegisterPlace() {
                         <MapWrapper onMarked={onPlacePined} />
                     </div>
 
-                    <img
-                        id="placeImg"
-                        style={{ visibility: "hidden" }}
-                        src=""
-                    />
+
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     {/* 주소로 장소 등록 */}
@@ -241,6 +237,11 @@ function RegisterPlace() {
                     />
                 </TabPanel>
 
+                <img
+                    id="placeImg"
+                    style={{ visibility: "hidden" }}
+                    src=""
+                />
                 <br />
 
                 <Button variant="contained" onClick={SelectImgBtnClick}>

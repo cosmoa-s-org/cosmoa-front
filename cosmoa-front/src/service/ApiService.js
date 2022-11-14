@@ -78,7 +78,6 @@ export function signout() {
 
 export function userUpdate(user) {
     return call(`/user/${user.email}`, "PUT", JSON.stringify(user))
-
 }
 
 export function registerPlace(place) {
@@ -96,6 +95,26 @@ export function registerPlace(place) {
         M.pop.alert("등록이 이루어지지 않았습니다.");
         if(error.status === 403) { 
             window.location.href = "/registerplace"; 
+        } 
+        return Promise.reject(error);
+    })
+}
+
+export function registerCourse(place) {
+    const M = window.M;
+    return call("/course", "POST", place)
+    .then((response) => {
+        if(response.ok) {
+            window.location.href = "/main";
+        }
+    })
+    .catch((error)=>{
+        console.log("Oops!"); 
+        console.log(error.status); 
+        console.log("Ooops!")
+        M.pop.alert("등록이 이루어지지 않았습니다.");
+        if(error.status === 403) { 
+            window.location.href = "/registercourse"; 
         } 
         return Promise.reject(error);
     })

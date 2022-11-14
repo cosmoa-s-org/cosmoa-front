@@ -25,8 +25,10 @@ function AddPlace(props) {
   //     this.add = props.add;
   // }
 
-  const [searchResult, setSearchResult] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState([]);
   const placeListRef = useRef(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     let placeList = placeListRef.current;
@@ -36,7 +38,7 @@ function AddPlace(props) {
 
       let placeName = placeList.rows[i].cells[0].innerText;
       let placeAddress = placeList.rows[i].cells[1].innerText;
-      
+
       // console.log(placeName, placeAddress);
 
       localStorage.setItem("AddPlaceName", placeName);
@@ -44,50 +46,34 @@ function AddPlace(props) {
 
       console.log(localStorage.getItem("AddPlaceName"));
 
+      // console.log(localStorage.getItem("CourseName"));
       window.location.href = "/RegisterCourse";
-      // this.add(this.state.item);
-      // this.setState({ item: "test" });
     };
 
     for (let i = 1; i < placeList.rows.length; i++) {
       placeList.rows[i].addEventListener("click", (e) => {
         // console.log(placeList.rows[i].cells[0].innerText);
         onSelcBtnClick(i);
-        
       });
-
     }
-  }, []);
+  }, [rows]);
 
-
-  
-
-  function createData(placeName, placeAddress) {
-    return { placeName, placeAddress };
-  }
-
-  const rows = [
-    createData("구미AA", "구미시 ㅁㅁ동 159"),
-    createData("대구BB", "대구시 ㄴㄴ동 237"),
-    createData("서울CC", "서울시 ㅇㅇ동 262"),
-    createData("부산DD", "부산시 ㄹㄹ동 305"),
-  ];
 
   // 작성중
   const onSearchBtnClick = (e) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
 
     let url = "/place?search=";
 
-    if (data.get('searchWord') !="")
+    if (searchKeyword != "") url += searchKeyword;
 
-    return call(url, "GET", null)
-    .then((response) => {
+    console.log(url);
+
+    return call(url, "GET", null).then((response) => {
       console.log(response.data);
-      setSearchResult(response.data);
+      setRows(response.data);
     });
-  }
+  };
 
   return (
     <>
@@ -105,6 +91,10 @@ function AddPlace(props) {
           id="searchWord"
           placeholder="검색어 입력"
           inputProps={{ "aria-label": "search google maps" }}
+          onChange={(e) => {
+            setSearchKeyword(e.currentTarget.value);
+          }}
+          value={searchKeyword}
         />
         <IconButton
           type="button"
@@ -122,7 +112,11 @@ function AddPlace(props) {
       <br />
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table" ref={placeListRef}>
+        <Table
+          sx={{ minWidth: 650 }}
+          aria-label="simple table"
+          ref={placeListRef}
+        >
           <TableHead>
             <TableRow>
               <TableCell align="center">장소명</TableCell>
@@ -133,18 +127,19 @@ function AddPlace(props) {
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.placeName}
+                key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" align="center">
-                  {row.placeName}
+                  <TextField style={{ display: "none" }}>{row.id}</TextField>
+                  {row.name}
                 </TableCell>
-                <TableCell align="center">{row.placeAddress}</TableCell>
+                <TableCell align="center">{row.address}</TableCell>
                 <TableCell align="center">
                   {/* <Link href="/registercourse"> */}
-                    <Button variant="outlined" type="button">
-                      장소 선택
-                    </Button>
+                  <Button variant="outlined" type="button">
+                    장소 선택
+                  </Button>
                   {/* </Link> */}
                 </TableCell>
               </TableRow>
