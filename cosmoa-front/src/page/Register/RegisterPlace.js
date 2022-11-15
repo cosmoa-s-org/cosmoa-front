@@ -9,6 +9,7 @@ import {
     Tab,
     Tabs,
     Table,
+    Input,
 } from "@material-ui/core";
 import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";
@@ -59,7 +60,7 @@ function setImage(path) {
 }
 
 function RegisterPlace() {
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(0);
     const [openPostcode, setOpenPostcode] = useState(false);
     const [address, setAddress] = useState("");
 
@@ -80,9 +81,25 @@ function RegisterPlace() {
                 주소: ${data.address},
                 우편번호: ${data.zonecode}
             `);
-            setAddress(data.address);
+            
+            let addr = "";
+            if (data.address.indexOf('(') !== -1) {
+                addr = data.address.slice(0, data.address.indexOf('('));
+            } else {
+                addr = data.address;
+            }
+            setAddress(addr);
+            // 위,경도 호출
+            const geocoder = new window.google.maps.Geocoder();
+
+            geocoder.geocode({address: addr})
+            .then((response) => {
+                onPlacePined(
+                    response.results[0].geometry.location.lat(),
+                    response.results[0].geometry.location.lng(),
+                    addr)
+            })
             setOpenPostcode(false);
-            console.log(address);
         },
     };
 
@@ -140,17 +157,14 @@ function RegisterPlace() {
                 console.log('성공');
                 console.log(data);
             })
-
     }
 
     // 제출 버튼 눌렀을때 이벤트
     const handleSubmit = (event) => {
         var img = document.getElementById("placeImg");
 
-        // console.log(event.currentTarget);
         event.preventDefault();
-        const imgFile = new File([img.src], "img", { type: "image/png" })
-
+        
         const data = new FormData(event.currentTarget);
         data.append('userId', 1)
         data.append('name', data.get('placeName'))
@@ -158,29 +172,14 @@ function RegisterPlace() {
         data.append('lat', pinPlace.lat)
         data.append('lng', pinPlace.lng)
         data.append('description', data.get('placeDescription'))
-        //data.append('img', img.src)
-        data.append('img', imgFile);
-        console.log(imgFile);
+        if (img.width !== 0) {
+            let imgFile = new File([img.src], "img", { type: "image/png" });
+            data.append('img', imgFile);
+            console.log(imgFile);
+        }
 
-        // const placeData = {
-        //   userId: 1,    // 수정!!!!!!!!
-        //   name: data.get('placeName'),
-        //   address: pinPlace.addr,
-        //   lat: pinPlace.lat,
-        //   lng: pinPlace.lng,
-        //   description: data.get('placeDescription'),
-        // }
-        // const placeImg = img.src;
-        // const placedto = {
-        //     placeData : placeData,
-        //     img : placeImg
-        // };
-
-        // console.log(placeData);
-        // console.log(placeData.img);
-
+        console.log(data);
         onhandlePost(data);
-
     };
 
     return (
@@ -206,11 +205,7 @@ function RegisterPlace() {
                         <MapWrapper onMarked={onPlacePined} />
                     </div>
 
-                    <img
-                        id="placeImg"
-                        style={{ visibility: "hidden" }}
-                        src=""
-                    />
+
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     {/* 주소로 장소 등록 */}
@@ -236,6 +231,11 @@ function RegisterPlace() {
                     </div>
                 </TabPanel>
 
+                <img
+                    id="placeImg"
+                    style={{ visibility: "hidden" }}
+                    src=""
+                />
                 <br />
 
                 <Button variant="contained" onClick={SelectImgBtnClick}>
@@ -285,6 +285,14 @@ function RegisterPlace() {
                             </Grid>
 
                             <Grid item xs={12}>
+                                {/* <Input
+                                    type="submit"
+                                    
+                                    sx={{ mt: 4, mb: 2 }}
+                                    size="large"
+                                    color="primary"
+                                    value="제출하기"
+                                /> */}
                                 <Button
                                     type="submit"
                                     fullWidth
