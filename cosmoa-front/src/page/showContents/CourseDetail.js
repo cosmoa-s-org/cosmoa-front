@@ -24,19 +24,9 @@ function CourseDetail() {
         course: { id: 0, name: "", description: "", createdDate: "", modifiedDate: "" },
         nickname: "", isLike: 0, like: 0
     });
+    const [placeListTable, setPlaceListTable] = useState(<>Loading...</>);
     const [like, setLike] = useState(false);
-
-    const likeClick = () => {
-        if (like) {
-            setLike(false)
-            course.like -= 1;
-            call(`/course-like`, "DELETE", JSON.stringify({userId: userId, courseId: cid}))
-        } else {
-            setLike(true)
-            course.like += 1;
-            call(`/course-like`, "POST", JSON.stringify({userId: userId, courseId: cid}))
-        }
-    }
+    const [reply, setReply] = useState('');
 
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
@@ -44,7 +34,18 @@ function CourseDetail() {
     const params = useParams();
     const cid = params.id
 
-    const [placeListTable, setPlaceListTable] = useState(<>Loading...</>);
+
+    const likeClick = () => {
+        if (like) {
+            setLike(false)
+            course.like -= 1;
+            call(`/course-like`, "DELETE", JSON.stringify({ userId: userId, courseId: cid }))
+        } else {
+            setLike(true)
+            course.like += 1;
+            call(`/course-like`, "POST", JSON.stringify({ userId: userId, courseId: cid }))
+        }
+    }
 
     useEffect(() => {
         call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", null) // 코스 정보 받아오기
@@ -56,7 +57,6 @@ function CourseDetail() {
                 } else {
                     setLike(false);
                 }
-                console.log(course.isLike);
             })
         call(`/course-compose/${cid}`, "GET", null) // 코스에 포함된 장소 정보 받아오기
             .then((response) => {
@@ -74,20 +74,37 @@ function CourseDetail() {
     //     {tmp}   
     //     </>);
     // }, [placeList])
-    var totalCostTime = 0;
 
+    var totalCostTime = 0;
+    // 소요시간
     useEffect(() => {
         setPlaceListTable(<>
             {placeList.map((item, i) => {
                 totalCostTime += Number(item.costTime);
-                console.log(totalCostTime);
-
                 return (<>
                     {item.place.name} {item.costTime}{' => '}
                 </>)
             })}{totalCostTime}
         </>);
     }, [placeList])
+
+    // 댓글
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const content = data.get('content');
+        
+        setReply(JSON.stringify(content));
+        console.log(reply);
+        addReply();
+    }
+
+    function addReply() {
+        console.log(reply);
+        return(<>
+        <div>내용 : {reply}</div>
+        </>)
+    }
 
     return (<>
         <Box>
@@ -111,11 +128,11 @@ function CourseDetail() {
             <Container style={{ textAlign: "initial" }}>
                 추천수 : {course.like}
                 {like ? (
-                    <Like size="20px"  onClick={likeClick}>
+                    <Like size="20px" onClick={likeClick}>
                         <ThumbUpAltIcon />
                     </Like>
                 ) : (
-                    <Like size="20px"  onClick={likeClick}>
+                    <Like size="20px" onClick={likeClick}>
                         <ThumbUpOffAltIcon />
                     </Like>
                 )}
@@ -129,9 +146,23 @@ function CourseDetail() {
             <hr />
             {/* Reply */}
             <Container spacing={2}>
-                <Grid item xs={12}>
-                    <Card>댓글</Card>
-                </Grid>
+                <form onSubmit={onSubmit}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
+                        <Grid item xs={10}>
+                            <input
+                                type="text"
+                                className="inputComment"
+                                placeholder="댓글 적기"
+                                style={{ width: "100%", height: "40px" }}
+                                name="content"
+                            >
+                            </input>
+                        </Grid>
+                        <Grid item xs={2}><Button type="submit">등록</Button></Grid>
+                        <addReply />
+                    </Grid>
+                </form>
+
             </Container>
         </Box>
     </>)
