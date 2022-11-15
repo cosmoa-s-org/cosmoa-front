@@ -36,34 +36,41 @@ function RegisterCourse(props) {
 
     let submitTmp = [...rows];
     let composeList = [];
+    let checkCostTime = false;
 
     if(courseName === ""){
       M.pop.alert("코스 이름을 입력하세요!");
-
       return ;
     }
 
     if(courseDescription === ""){
       M.pop.alert("코스 설명을 입력하세요!");
-
       return ;
     }
 
     if(submitTmp.length == 0){
       M.pop.alert("장소를 추가하세요!");
-
       return ;
     }
 
     submitTmp.forEach((row, i) => {
       // 예외처리 - costTime 비어있을 때
-      if (1) {
-        
+      if (row.costTime == null || row.costTime == "") {
+        M.pop.alert("소요시간을 입력하세요!");
+        checkCostTime = true;
+        return ;
       }
-
+      if (row.costTime == "0") {
+        M.pop.alert("소요시간에 0이 아닌 수를 입력해주세요!");
+        checkCostTime = true;
+        return ;
+      }
+      
       row.sequence = i + 1;
       composeList.push(row);
     })
+
+    if(checkCostTime == true){ return ; }
 
     let courseData = {
       course : {
@@ -80,6 +87,9 @@ function RegisterCourse(props) {
     localStorage.setItem("courseName", "");
     localStorage.setItem("courseDescription", "");
     localStorage.setItem("placeItems", "");
+
+    window.location.href = "/main";
+
   };
 
   const onhandlePost = async (data) => {
@@ -109,7 +119,7 @@ function RegisterCourse(props) {
   const onDelBtnClick = (event, idx) => {
     event.preventDefault();
 
-    setRows(rows.filter((row, i) => { return i != idx }))
+    setRows(rows.filter((row, i) => { return i != idx })) // 배열 재구축 후 다시 세팅
   };
 
   const showAddPlace = () => {
@@ -136,7 +146,7 @@ function RegisterCourse(props) {
       placeName: localStorage.getItem("AddPlaceName"),
       placeAddress: localStorage.getItem("AddPlaceAddress"),
       placeId: localStorage.getItem("AddPlaceId"),
-      costTime: 0,
+      costTime: "",
     };
 
     if (localStorage.getItem("placeItems") !== "" && localStorage.getItem("placeItems") !== null) {
