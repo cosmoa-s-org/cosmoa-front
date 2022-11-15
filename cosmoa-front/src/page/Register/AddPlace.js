@@ -19,11 +19,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import { call } from "../../service/ApiService";
 
 function AddPlace(props) {
-  // constructor(props) {
-  //     super(props);
-  //     this.state = {item : null};
-  //     this.add = props.add;
-  // }
 
   const [rows, setRows] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState([]);
@@ -33,31 +28,51 @@ function AddPlace(props) {
   useEffect(() => {
     let placeList = placeListRef.current;
 
-    const onSelcBtnClick = function (i) {
-      let placeList = placeListRef.current;
-
-      let placeName = placeList.rows[i].cells[0].innerText;
-      let placeAddress = placeList.rows[i].cells[1].innerText;
-
-      // console.log(placeName, placeAddress);
-
-      localStorage.setItem("AddPlaceName", placeName);
-      localStorage.setItem("AddPlaceAddress", placeAddress);
-
-      console.log(localStorage.getItem("AddPlaceName"));
-
-      // console.log(localStorage.getItem("CourseName"));
-      window.location.href = "/RegisterCourse";
-    };
+    for (let i = 1; i < placeList.rows.length; i++) {
+      placeList.rows[i].cells[0].addEventListener("click", (e) => {
+        // console.log(placeList.rows[i].cells[0].innerText);
+        onPlaceClick(i);
+      });
+    }
 
     for (let i = 1; i < placeList.rows.length; i++) {
-      placeList.rows[i].addEventListener("click", (e) => {
+      placeList.rows[i].cells[2].addEventListener("click", (e) => {
         // console.log(placeList.rows[i].cells[0].innerText);
         onSelcBtnClick(i);
       });
     }
   }, [rows]);
 
+  const onSelcBtnClick = function (i) {
+    let placeList = placeListRef.current;
+
+    let placeName = placeList.rows[i].cells[0].innerText;
+    let placeAddress = placeList.rows[i].cells[1].innerText;
+    let placeId = placeList.rows[i].cells[3].innerText;
+
+    // console.log(placeName, placeAddress);
+
+    localStorage.setItem("AddPlaceName", placeName);
+    localStorage.setItem("AddPlaceAddress", placeAddress);
+    localStorage.setItem("AddPlaceId", placeId);
+
+    // console.log(localStorage.getItem("AddPlaceId"));
+
+    // console.log(localStorage.getItem("CourseName"));
+    window.location.href = "/RegisterCourse";
+  };
+
+  const onPlaceClick = function (i) {
+    let lat = placeListRef.current.rows[i].cells[4].innerText;
+    let lng = placeListRef.current.rows[i].cells[5].innerText;
+    let placeId = placeListRef.current.rows[i].cells[3].innerText;
+
+    console.log(lat, lng);
+    console.log(placeId);
+    // rows.map((row) =>{
+    //   console.log(row.lat)
+    // })
+  };
 
   // 작성중
   const onSearchBtnClick = (e) => {
@@ -72,6 +87,9 @@ function AddPlace(props) {
     return call(url, "GET", null).then((response) => {
       console.log(response.data);
       setRows(response.data);
+
+      //지도에 마커 생성
+      // set
     });
   };
 
@@ -119,9 +137,13 @@ function AddPlace(props) {
         >
           <TableHead>
             <TableRow>
-              <TableCell align="center">장소명</TableCell>
+              <TableCell align="center" width={"25%"}>장소명</TableCell>
               <TableCell align="center">주소</TableCell>
               <TableCell align="center">선택</TableCell>
+              <TableCell style={{display:"none"}}>id</TableCell>
+              <TableCell style={{display:"none"}}>lat</TableCell>
+              <TableCell style={{display:"none"}}>lng</TableCell>
+
             </TableRow>
           </TableHead>
           <TableBody>
@@ -130,18 +152,19 @@ function AddPlace(props) {
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row" align="center">
-                  <TextField style={{ display: "none" }}>{row.id}</TextField>
+                <TableCell component="th" scope="row" align="center"
+                onClick={onPlaceClick}>
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.address}</TableCell>
                 <TableCell align="center">
-                  {/* <Link href="/registercourse"> */}
-                  <Button variant="outlined" type="button">
+                  <Button variant="outlined" type="button" onClick={onSelcBtnClick}>
                     장소 선택
                   </Button>
-                  {/* </Link> */}
                 </TableCell>
+                <TableCell style={{ display: "none" }}>{row.id}</TableCell>
+                <TableCell style={{ display: "none" }}>{row.lat}</TableCell>
+                <TableCell style={{ display: "none" }}>{row.lng}</TableCell>
               </TableRow>
             ))}
           </TableBody>

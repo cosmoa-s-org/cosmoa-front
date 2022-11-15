@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Link,
   Button,
@@ -24,11 +24,59 @@ function RegisterCourse(props) {
   const [courseDescription, setCourseDescription] = useState("");
   const [rows, setRows] = useState([]);
   const [costTime, setCostTime] = useState("");
+  //const [composeList, setComposeList] = useState([]);
+  const [sequence, setSequence] = useState("");
+  const courseListRef = useRef(null);
 
   // 제출 버튼 눌렀을때 이벤트 작성 필요
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    const M = window.M;
+
+    let submitTmp = [...rows];
+    let composeList = [];
+
+    if(courseName === ""){
+      M.pop.alert("코스 이름을 입력하세요!");
+
+      return ;
+    }
+
+    if(courseDescription === ""){
+      M.pop.alert("코스 설명을 입력하세요!");
+
+      return ;
+    }
+
+    if(submitTmp.length == 0){
+      M.pop.alert("장소를 추가하세요!");
+
+      return ;
+    }
+
+    submitTmp.forEach((row, i) => {
+      // 예외처리 - costTime 비어있을 때
+      if (1) {
+        
+      }
+
+      row.sequence = i + 1;
+      composeList.push(row);
+    })
+
+    let courseData = {
+      course : {
+        userId : JSON.parse(localStorage.getItem("USER")).id,
+        name : courseName,
+        description: courseDescription
+      },
+      compose : composeList
+    }
+
+    onhandlePost(JSON.stringify(courseData));
+
+    // 제출시 로컬 스토리지 초기화
     localStorage.setItem("courseName", "");
     localStorage.setItem("courseDescription", "");
     localStorage.setItem("placeItems", "");
@@ -52,14 +100,16 @@ function RegisterCourse(props) {
 
     localStorage.setItem("courseDescription", courseDescription);
 
-    // 현재까지 추가된 장소 저장 필요
+    // 현재까지 추가된 장소 저장
     localStorage.setItem("placeItems", JSON.stringify(rows));
 
     showAddPlace();
   };
 
-  const onDelBtnClick = (event) => {
+  const onDelBtnClick = (event, idx) => {
     event.preventDefault();
+
+    setRows(rows.filter((row, i) => { return i != idx }))
   };
 
   const showAddPlace = () => {
@@ -78,12 +128,6 @@ function RegisterCourse(props) {
     return { num, placeName, placeAddress, costTime };
   }
 
-  // const rows = [
-  //   createData(1, localStorage.getItem("AddPlaceName"), localStorage.getItem("AddPlaceAddress"), ""),
-  //   createData(2, "구미BB", "구미시 ㄴㄴ동 237", "15분"),
-  //   createData(3, "구미CC", "구미시 ㅇㅇ동 262", "45분"),
-  //   createData(4, "구미DD", "구미시 ㄹㄹ동 305", "1시간"),
-  // ];
 
   useEffect(() => {
     setCourseName(localStorage.getItem("courseName"));
@@ -91,9 +135,11 @@ function RegisterCourse(props) {
     let place = {
       placeName: localStorage.getItem("AddPlaceName"),
       placeAddress: localStorage.getItem("AddPlaceAddress"),
+      placeId: localStorage.getItem("AddPlaceId"),
+      costTime: 0,
     };
 
-    if (localStorage.getItem("placeItems") !== "") {
+    if (localStorage.getItem("placeItems") !== "" && localStorage.getItem("placeItems") !== null) {
       setRows([...JSON.parse(localStorage.getItem("placeItems")), place]);
       console.log("setRows");
     }
@@ -138,11 +184,9 @@ function RegisterCourse(props) {
             <br />
 
             <Grid item xs={12}>
-              {/* <Link href="/addplace"> */}
               <Button variant="contained" onClick={onAddPlaceBtnClick}>
                 장소 추가
               </Button>
-              {/* </Link> */}
             </Grid>
             {/* <input type="text" >장소1</input>
                 <input type="text" >장소1 소요시간</input> */}
@@ -150,16 +194,20 @@ function RegisterCourse(props) {
             <br />
 
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <Table 
+                sx={{ minWidth: 650 }} 
+                aria-label="simple table"
+                ref={courseListRef}
+              >
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" width={"15%"}>
                       코스 순서
                     </TableCell>
-                    <TableCell align="center">장소명</TableCell>
+                    <TableCell align="center" width={"18%"}>장소명</TableCell>
                     <TableCell align="center">주소</TableCell>
-                    <TableCell align="center" width={"22%"}>
-                      소요시간
+                    <TableCell align="center" width={"18%"}>
+                      소요 시간(분)
                     </TableCell>
                     <TableCell align="center">삭제</TableCell>
                   </TableRow>
@@ -171,7 +219,7 @@ function RegisterCourse(props) {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row" align="center">
-                        {row.num}
+                        {i + 1}
                       </TableCell>
                       <TableCell align="center">{row.placeName}</TableCell>
                       <TableCell align="center">{row.placeAddress}</TableCell>
@@ -179,10 +227,17 @@ function RegisterCourse(props) {
                         <TextField
                           onChange={(e) => {
                             let tmp = [...rows];
-                            tmp[i].costTime = e.currentTarget.value;
+                            let num = e.currentTarget.value;
+                            console.log(num);
+                            if(num.indexOf("-")!==-1) {num = num.slice(0,num.indexOf("-"))}
+                            if(num.indexOf(".")!==-1) {num = num.slice(0,num.indexOf("."))}
+                            tmp[i].costTime = num;
+                            
                             console.log(tmp);
                             setRows(tmp);
                           }}
+                          type="number"
+                          align="center"
                           value={row.costTime}
                         ></TextField>
                       </TableCell>
@@ -191,11 +246,12 @@ function RegisterCourse(props) {
                           type="button"
                           sx={{ p: "10px" }}
                           aria-label="search"
-                          onClick={onDelBtnClick}
+                          onClick={(e) => {onDelBtnClick(e, i)}}
                         >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
+                      <TableCell style={{display:"none"}}>{row.id}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
