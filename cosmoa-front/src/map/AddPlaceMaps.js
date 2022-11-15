@@ -11,6 +11,9 @@ function AddPlaceMaps(props) {
     let center = null;
     const onMarked = props.onMarked;
 
+    const geocoder = new window.google.maps.Geocoder();
+    const infowindow = new window.google.maps.InfoWindow();
+
     const gumi = new window.google.maps.LatLng(36.1461, 128.3936);
     if (defaultLatLng) {
         center = new window.google.maps.LatLng(defaultLatLng.lat, defaultLatLng.lng);
@@ -46,6 +49,31 @@ function AddPlaceMaps(props) {
             });
         }
     }, [mapRef, map]);
+
+    function geocodeLatLng(latLng, geocoder, map, marker, infowindow)  {
+        geocoder.geocode({location: latLng})
+        .then((response) => {
+            if (response.results[0]) {
+                infowindow.setContent(response.results[0].formatted_address);
+                infowindow.open(map, marker);
+                onMarked(latLng.lat(), latLng.lng(), response.results[0].formatted_address);
+            } else {
+                window.alert("No results found");
+                onMarked(latLng.lat(), latLng.lng(), "알 수 없는 주소");
+            }
+        })
+        .catch((e) => {
+            console.log("Geocoder failed : " + e);
+        });
+    }
+
+    function placeMarkerAndPanTo(latLng, map) {   
+        marker.setPosition(latLng);
+        map.panTo(latLng);
+        if (onMarked) {
+            geocodeLatLng(latLng, geocoder, map, marker, infowindow);
+        }
+    }
 
     return (<>
         <div ref={mapRef} style={mapStyle}>
