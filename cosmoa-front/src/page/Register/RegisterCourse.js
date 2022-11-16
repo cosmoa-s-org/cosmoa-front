@@ -142,15 +142,31 @@ function RegisterCourse(props) {
   useEffect(() => {
     setCourseName(localStorage.getItem("courseName"));
     setCourseDescription(localStorage.getItem("courseDescription"));
-    let place = {
-      placeName: localStorage.getItem("AddPlaceName"),
-      placeAddress: localStorage.getItem("AddPlaceAddress"),
-      placeId: localStorage.getItem("AddPlaceId"),
-      costTime: "",
-    };
-
+    
     if (localStorage.getItem("placeItems") !== "" && localStorage.getItem("placeItems") !== null) {
-      setRows([...JSON.parse(localStorage.getItem("placeItems")), place]);
+      let place = {
+        placeName: localStorage.getItem("AddPlaceName"),
+        placeAddress: localStorage.getItem("AddPlaceAddress"),
+        placeId: localStorage.getItem("AddPlaceId"),
+        costTime: "",
+      };
+
+      const placeItems = [...JSON.parse(localStorage.getItem("placeItems"))];
+      let isExists = false;
+      placeItems.forEach(placeItem => {
+        if(placeItem.placeId === place.placeId){
+          
+          isExists = true;
+          return;
+        }
+      });
+
+      if (isExists) {
+        setRows(placeItems);
+      } else {
+        setRows([...placeItems, place]);
+      }
+      localStorage.setItem("placeItems", "");
       console.log("setRows");
     }
   }, []);
