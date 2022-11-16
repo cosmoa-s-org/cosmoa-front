@@ -1,4 +1,4 @@
-import { Box, Button, Card, Container, Divider, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Button, Card, Container, Divider, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
 import MapWrapper from "../../map/MapWrapper";
@@ -17,6 +17,23 @@ const Like = styled.button`
   border : 0;
   background-color : floralwhite;
 `
+const CommentWrapper = styled.div`
+  border: 1px solid black;
+  p{
+    margin: 0;
+  }
+  width : 100%;
+  height : auto;
+  text-align : left;
+  margin-top : 5px;
+`;
+
+const UserInfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eeeeee;
+  height : 30px;
+`;
 
 function CourseDetail() {
     const [placeList, setplaceList] = useState([]);
@@ -24,27 +41,29 @@ function CourseDetail() {
         course: { id: 0, name: "", description: "", createdDate: "", modifiedDate: "" },
         nickname: "", isLike: 0, like: 0
     });
+    const [placeListTable, setPlaceListTable] = useState(<>Loading...</>);
     const [like, setLike] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [input, setInput] = useState();
+
+    let userId = JSON.parse(localStorage.getItem("USER")).id
+    let nickname = JSON.parse(localStorage.getItem("USER")).nickname
+
+    const params = useParams();
+    const cid = params.id
+
 
     const likeClick = () => {
         if (like) {
             setLike(false)
             course.like -= 1;
-            call(`/course-like`, "DELETE", JSON.stringify({userId: userId, courseId: cid}))
+            call(`/course-like`, "DELETE", JSON.stringify({ userId: userId, courseId: cid }))
         } else {
             setLike(true)
             course.like += 1;
-            call(`/course-like`, "POST", JSON.stringify({userId: userId, courseId: cid}))
+            call(`/course-like`, "POST", JSON.stringify({ userId: userId, courseId: cid }))
         }
     }
-
-
-    let userId = JSON.parse(localStorage.getItem("USER")).id
-
-    const params = useParams();
-    const cid = params.id
-
-    const [placeListTable, setPlaceListTable] = useState(<>Loading...</>);
 
     useEffect(() => {
         call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", null) // 코스 정보 받아오기
@@ -56,7 +75,6 @@ function CourseDetail() {
                 } else {
                     setLike(false);
                 }
-                console.log(course.isLike);
             })
         call(`/course-compose/${cid}`, "GET", null) // 코스에 포함된 장소 정보 받아오기
             .then((response) => {
@@ -65,29 +83,79 @@ function CourseDetail() {
             })
     }, []);
 
-    // useEffect( () => {
-    //     let tmp = "";
-    //     placeList.forEach((item, i) => {
-    //         tmp += item.place.name
-    //     })
-    //     setPlaceListTable(<>
-    //     {tmp}   
-    //     </>);
-    // }, [placeList])
+    // 소요시간
     var totalCostTime = 0;
-
     useEffect(() => {
         setPlaceListTable(<>
             {placeList.map((item, i) => {
                 totalCostTime += Number(item.costTime);
-                console.log(totalCostTime);
-
                 return (<>
                     {item.place.name} {item.costTime}{' => '}
                 </>)
             })}{totalCostTime}
         </>);
     }, [placeList])
+
+    // 댓글
+
+    useEffect(() => {
+        call(`/course-reply/${cid}`, "GET", null)
+            .then((response) => {
+                console.log(response);
+                setComments(response.data);
+                console.log(comments);
+            })
+    }, []);
+
+    const onSubmit = (e) => {
+        setInput(e.target.value);
+        e.preventDefault();
+        // const data = new FormData(e.currentTarget);
+        // const content = {
+        //     content: data.get('content')
+        // }
+
+        // setReply(JSON.stringify(content));
+        // console.log(reply);
+    }
+
+    const addComment = () => { // 댓글 추가
+        // setComments(
+        //     comments.concat({
+        //         id: comments.length + 1,
+        //         comment: input,
+        //         nickname: nickname,
+        //     })
+        // );
+        const joinData = {
+            userId: userId,
+            courseId: cid,
+            comment: input,
+        }
+        console.log(JSON.stringify(joinData));
+        call(`/course-reply`, "POST", JSON.stringify(joinData))
+        setInput("");
+        // console.log(comments);
+    };
+
+    const removeComment = (id) => { // 댓글 삭제
+        console.log(id);
+        call(`/course-reply/${id}`, "DELETE", null)
+        // return setComments(comments.filter((comment) => comment.id !== id));
+    };
+
+    const changeComment = (id, inputWord) => { // 댓글 수정
+        setComments(comments.map((comment) => {
+          if (comment.id === id) {
+            return {
+              ...comment,
+              content: inputWord,
+            };
+          }
+          return comment;
+        }));
+        setInput("");
+      };
 
     return (<>
         <Box>
@@ -111,11 +179,11 @@ function CourseDetail() {
             <Container style={{ textAlign: "initial" }}>
                 추천수 : {course.like}
                 {like ? (
-                    <Like size="20px"  onClick={likeClick}>
+                    <Like size="20px" onClick={likeClick}>
                         <ThumbUpAltIcon />
                     </Like>
                 ) : (
-                    <Like size="20px"  onClick={likeClick}>
+                    <Like size="20px" onClick={likeClick}>
                         <ThumbUpOffAltIcon />
                     </Like>
                 )}
@@ -129,9 +197,49 @@ function CourseDetail() {
             <hr />
             {/* Reply */}
             <Container spacing={2}>
-                <Grid item xs={12}>
-                    <Card>댓글</Card>
-                </Grid>
+                <form onSubmit={onSubmit}>
+                    <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
+                        <Grid item xs={10}>
+                            <input
+                                type="text"
+                                className="inputComment"
+                                placeholder="댓글 적기"
+                                style={{ width: "100%", height: "40px" }}
+                                name="content"
+                                value={input}
+                                onChange={onSubmit}
+                            ></input>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button
+                                style={{ backgroundColor: "lightgray" }}
+                                onClick={() => {
+                                    addComment(input);
+                                    setInput("");
+                                }}
+                            >
+                                등록
+                            </Button>
+                        </Grid>
+                        {comments.map((comment, index) => (
+                            <CommentWrapper key={`${comment.nickname}_${index}`}>
+                                <UserInfoWrapper>
+                                    <Typography>{comment.nickname}</Typography>
+                                    <div>
+                                    {comment.createdDate}
+                                        {
+                                            userId === comment.userId
+                                                ? <><Button onClick={() => removeComment(comment.courseReplyId)}>삭제</Button>
+                                                <Button onClick={() => changeComment(comment.courseReplyId)}>수정</Button></>
+                                                : null
+                                        }
+                                    </div>
+                                </UserInfoWrapper>
+                                {comment.comment}
+                            </CommentWrapper>
+                        ))}
+                    </Grid>
+                </form>
             </Container>
         </Box>
     </>)
