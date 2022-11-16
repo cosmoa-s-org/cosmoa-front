@@ -23,7 +23,7 @@ const CommentWrapper = styled.div`
     margin: 0;
   }
   width : 100%;
-  height : 60px;
+  height : auto;
   text-align : left;
   margin-top : 5px;
 `;
@@ -43,18 +43,15 @@ function CourseDetail() {
     });
     const [placeListTable, setPlaceListTable] = useState(<>Loading...</>);
     const [like, setLike] = useState(false);
-    const [reply, setReply] = useState('');
     const [comments, setComments] = useState([]);
     const [input, setInput] = useState();
-
-
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
     let nickname = JSON.parse(localStorage.getItem("USER")).nickname
 
     const params = useParams();
     const cid = params.id
-    
+
 
     const likeClick = () => {
         if (like) {
@@ -86,18 +83,8 @@ function CourseDetail() {
             })
     }, []);
 
-    // useEffect( () => {
-    //     let tmp = "";
-    //     placeList.forEach((item, i) => {
-    //         tmp += item.place.name
-    //     })
-    //     setPlaceListTable(<>
-    //     {tmp}   
-    //     </>);
-    // }, [placeList])
-
-    var totalCostTime = 0;
     // 소요시간
+    var totalCostTime = 0;
     useEffect(() => {
         setPlaceListTable(<>
             {placeList.map((item, i) => {
@@ -110,6 +97,16 @@ function CourseDetail() {
     }, [placeList])
 
     // 댓글
+
+    useEffect(() => {
+        call(`/course-reply/${cid}`, "GET", null)
+            .then((response) => {
+                console.log(response);
+                setComments(response.data);
+                console.log(comments);
+            })
+    }, []);
+
     const onSubmit = (e) => {
         setInput(e.target.value);
         e.preventDefault();
@@ -123,19 +120,41 @@ function CourseDetail() {
     }
 
     const addComment = () => { // 댓글 추가
-        console.log(input);
-        setComments(
-            comments.concat({
-                id: comments.length + 1,
-                content: input,
-                userName: nickname,
-            })
-        );
+        // setComments(
+        //     comments.concat({
+        //         id: comments.length + 1,
+        //         comment: input,
+        //         nickname: nickname,
+        //     })
+        // );
+        const joinData = {
+            userId: userId,
+            courseId: cid,
+            comment: input,
+        }
+        console.log(JSON.stringify(joinData));
+        call(`/course-reply`, "POST", JSON.stringify(joinData))
         setInput("");
+        // console.log(comments);
     };
 
     const removeComment = (id) => { // 댓글 삭제
-        return setComments(comments.filter((comment) => comment.id !== id));
+        console.log(id);
+        call(`/course-reply/${id}`, "DELETE", null)
+        // return setComments(comments.filter((comment) => comment.id !== id));
+    };
+
+    const changeComment = (id, inputWord) => { // 댓글 수정
+        setComments(comments.map((comment) => {
+          if (comment.id === id) {
+            return {
+              ...comment,
+              content: inputWord,
+            };
+          }
+          return comment;
+        }));
+        setInput("");
       };
 
     return (<>
@@ -168,7 +187,7 @@ function CourseDetail() {
                         <ThumbUpOffAltIcon />
                     </Like>
                 )}
-                
+
                 <Card>{course.course.name}<br />
                     코스 순서 <br />
                     {placeListTable} <br />
@@ -180,41 +199,47 @@ function CourseDetail() {
             <Container spacing={2}>
                 <form onSubmit={onSubmit}>
                     <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
-                            <Grid item xs={10}>
-                                <input
-                                    type="text"
-                                    className="inputComment"
-                                    placeholder="댓글 적기"
-                                    style={{ width: "100%", height: "40px" }}
-                                    name="content"
-                                    value={input}
-                                    onChange={onSubmit}
-                                ></input>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Button
-                                    style={{backgroundColor : "lightgray"}}
-                                    onClick={() => {
-                                        addComment(input);
-                                        setInput("");
-                                    }}
-                                >
-                                    등록
-                                </Button>
-                            </Grid>
-                            {comments.map((comment, index) => (
-                                <CommentWrapper key={`${comment.userName}_${index}`}>
-                                    <UserInfoWrapper>
-                                        <p>{comment.userName}</p>
-                                        
-                                        <Button onClick={() => removeComment(comment.id)}>삭제</Button>
-                                    </UserInfoWrapper>
-                                    {comment.content}
-                                </CommentWrapper>
-                            ))}
+                        <Grid item xs={10}>
+                            <input
+                                type="text"
+                                className="inputComment"
+                                placeholder="댓글 적기"
+                                style={{ width: "100%", height: "40px" }}
+                                name="content"
+                                value={input}
+                                onChange={onSubmit}
+                            ></input>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Button
+                                style={{ backgroundColor: "lightgray" }}
+                                onClick={() => {
+                                    addComment(input);
+                                    setInput("");
+                                }}
+                            >
+                                등록
+                            </Button>
+                        </Grid>
+                        {comments.map((comment, index) => (
+                            <CommentWrapper key={`${comment.nickname}_${index}`}>
+                                <UserInfoWrapper>
+                                    <Typography>{comment.nickname}</Typography>
+                                    <div>
+                                    {comment.createdDate}
+                                        {
+                                            userId === comment.userId
+                                                ? <><Button onClick={() => removeComment(comment.courseReplyId)}>삭제</Button>
+                                                <Button onClick={() => changeComment(comment.courseReplyId)}>수정</Button></>
+                                                : null
+                                        }
+                                    </div>
+                                </UserInfoWrapper>
+                                {comment.comment}
+                            </CommentWrapper>
+                        ))}
                     </Grid>
                 </form>
-
             </Container>
         </Box>
     </>)
