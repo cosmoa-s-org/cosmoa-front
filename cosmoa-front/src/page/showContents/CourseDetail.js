@@ -1,4 +1,4 @@
-import { Box, Button, Card, Container, Divider, Grid, Paper, Typography } from "@material-ui/core";
+import { Box, Button, Card, Container, Divider, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
 import MapWrapper from "../../map/MapWrapper";
@@ -17,6 +17,23 @@ const Like = styled.button`
   border : 0;
   background-color : floralwhite;
 `
+const CommentWrapper = styled.div`
+  border: 1px solid black;
+  p{
+    margin: 0;
+  }
+  width : 100%;
+  height : 60px;
+  text-align : left;
+  margin-top : 5px;
+`;
+
+const UserInfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eeeeee;
+  height : 30px;
+`;
 
 function CourseDetail() {
     const [placeList, setplaceList] = useState([]);
@@ -27,13 +44,17 @@ function CourseDetail() {
     const [placeListTable, setPlaceListTable] = useState(<>Loading...</>);
     const [like, setLike] = useState(false);
     const [reply, setReply] = useState('');
+    const [comments, setComments] = useState([]);
+    const [input, setInput] = useState();
+
 
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
+    let nickname = JSON.parse(localStorage.getItem("USER")).nickname
 
     const params = useParams();
     const cid = params.id
-
+    
 
     const likeClick = () => {
         if (like) {
@@ -90,21 +111,32 @@ function CourseDetail() {
 
     // 댓글
     const onSubmit = (e) => {
+        setInput(e.target.value);
         e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const content = data.get('content');
-        
-        setReply(JSON.stringify(content));
-        console.log(reply);
-        addReply();
+        // const data = new FormData(e.currentTarget);
+        // const content = {
+        //     content: data.get('content')
+        // }
+
+        // setReply(JSON.stringify(content));
+        // console.log(reply);
     }
 
-    function addReply() {
-        console.log(reply);
-        return(<>
-        <div>내용 : {reply}</div>
-        </>)
-    }
+    const addComment = () => { // 댓글 추가
+        console.log(input);
+        setComments(
+            comments.concat({
+                id: comments.length + 1,
+                content: input,
+                userName: nickname,
+            })
+        );
+        setInput("");
+    };
+
+    const removeComment = (id) => { // 댓글 삭제
+        return setComments(comments.filter((comment) => comment.id !== id));
+      };
 
     return (<>
         <Box>
@@ -136,7 +168,7 @@ function CourseDetail() {
                         <ThumbUpOffAltIcon />
                     </Like>
                 )}
-
+                
                 <Card>{course.course.name}<br />
                     코스 순서 <br />
                     {placeListTable} <br />
@@ -148,18 +180,38 @@ function CourseDetail() {
             <Container spacing={2}>
                 <form onSubmit={onSubmit}>
                     <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
-                        <Grid item xs={10}>
-                            <input
-                                type="text"
-                                className="inputComment"
-                                placeholder="댓글 적기"
-                                style={{ width: "100%", height: "40px" }}
-                                name="content"
-                            >
-                            </input>
-                        </Grid>
-                        <Grid item xs={2}><Button type="submit">등록</Button></Grid>
-                        <addReply />
+                            <Grid item xs={10}>
+                                <input
+                                    type="text"
+                                    className="inputComment"
+                                    placeholder="댓글 적기"
+                                    style={{ width: "100%", height: "40px" }}
+                                    name="content"
+                                    value={input}
+                                    onChange={onSubmit}
+                                ></input>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Button
+                                    style={{backgroundColor : "lightgray"}}
+                                    onClick={() => {
+                                        addComment(input);
+                                        setInput("");
+                                    }}
+                                >
+                                    등록
+                                </Button>
+                            </Grid>
+                            {comments.map((comment, index) => (
+                                <CommentWrapper key={`${comment.userName}_${index}`}>
+                                    <UserInfoWrapper>
+                                        <p>{comment.userName}</p>
+                                        
+                                        <Button onClick={() => removeComment(comment.id)}>삭제</Button>
+                                    </UserInfoWrapper>
+                                    {comment.content}
+                                </CommentWrapper>
+                            ))}
                     </Grid>
                 </form>
 
