@@ -18,13 +18,27 @@ export function MapWrapper(props) {
 export default MapWrapper;
 
 export function AddPlaceMapWrapper(props) {
+
     const render = (status) => {
         return <h1>{status}</h1>;
     }
 
     return (
         <Wrapper apiKey={GOOGLE_KEY} render={render}>
-            <AddPlaceMaps onMarked={props.onMarked} lat={props.lat} lng={props.lng}/>
+            <AddPlaceMaps rows={props.rows} markers={props.markers} setMarkers={props.setMarkers}/>
+        </Wrapper>
+    )
+}
+
+export function CourseMapWrapper(props) {
+
+    const render = (status) => {
+        return <h1>{status}</h1>;
+    }
+
+    return (
+        <Wrapper apiKey={GOOGLE_KEY} render={render}>
+            <AddPlaceMaps rows={props.rows} markers={props.markers} setMarkers={props.setMarkers}/>
         </Wrapper>
     )
 }

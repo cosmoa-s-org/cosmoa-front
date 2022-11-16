@@ -3,7 +3,7 @@ import { API_BASE_URL } from "./app-config";
 export function call(api, method, request) {
     let headers = new Headers({
         //"Content-Type" : "multipart/form-data"
-        "Content-Type" : "application/json"
+        //"Content-Type" : "application/json"
     });
 
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
