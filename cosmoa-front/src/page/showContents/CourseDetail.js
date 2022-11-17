@@ -9,7 +9,6 @@ import { positions } from "@mui/system";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styled from "@emotion/styled";
-import PlaceCard from "./PlaceCard";
 
 const Like = styled.button`
   font-size : 30px;
@@ -134,8 +133,6 @@ function CourseDetail() {
         </>);
     }, [placeList])
 
-
-
     // 댓글
 
     useEffect(() => {
@@ -154,13 +151,6 @@ function CourseDetail() {
     }
 
     const addComment = () => { // 댓글 추가
-        // setComments(
-        //     comments.concat({
-        //         id: comments.length + 1,
-        //         comment: input,
-        //         nickname: nickname,
-        //     })
-        // );
         const joinData = {
             userId: userId,
             courseId: cid,
@@ -169,7 +159,6 @@ function CourseDetail() {
         console.log(JSON.stringify(joinData));
         call(`/course-reply`, "POST", header, JSON.stringify(joinData))
         setInput("");
-        // console.log(comments);
         window.location.reload();
     };
 
