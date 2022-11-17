@@ -2,30 +2,46 @@ import React from "react";
 import { Paper, Link } from "@material-ui/core";
 
 function RegisterType() {
-    return(<>
 
-        <h1>
-            Select Register Course / Place
-        </h1>
+  return (
+    <>
+      <h1>Select Register Course / Place</h1>
 
-        <Link href="/registercourse">
-            <Paper elevation={4}
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto"}}>
-                코스 등록
-            </Paper>
-        </Link>
+      <Link href="/registercourse">
+        <Paper
+          elevation={4}
+          style={{
+            height: 150,
+            lineHeight: "150px",
+            fontSize: 24,
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
+          코스 등록
+        </Paper>
+      </Link>
 
-        <br />
+      <br />
 
-        <Link href="/registerplace">
-            <Paper elevation={4}
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto"}}>
-                장소 등록
-            </Paper>
-        </Link>
+      <Link href="/registerplace">
+        <Paper
+          elevation={4}
+          style={{
+            height: 150,
+            lineHeight: "150px",
+            fontSize: 24,
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
+          장소 등록
+        </Paper>
+      </Link>
 
-        <br />
-    </>)
+      <br />
+    </>
+  );
 }
 
 export default RegisterType;

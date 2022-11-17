@@ -1,9 +1,14 @@
 import { Box, Container, Link, Paper } from "@material-ui/core";
 //import { MenuIcon } from "@material-ui/icons";
 import * as React from 'react';
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate();
 
+  const onRegisterTypeClick = ()=>{
+    navigate('/registertype');
+  }
 
   return (<>
     
@@ -13,7 +18,9 @@ function Main() {
 
     <Link href="/registertype">
       <Paper variant="contained"
-            style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto", backgroundColor:"#B1DCF8"}}>
+            style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto", backgroundColor:"#B1DCF8"}}
+            // onClick={ onRegisterTypeClick }
+            >
             코스 및 장소 등록
       </Paper>
     </Link>
