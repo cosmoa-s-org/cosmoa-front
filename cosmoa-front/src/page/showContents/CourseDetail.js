@@ -7,7 +7,9 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { positions } from "@mui/system";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styled from "@emotion/styled";
+import PlaceCard from "./PlaceCard";
 
 const Like = styled.button`
   font-size : 30px;
@@ -51,6 +53,8 @@ function CourseDetail() {
 
     const params = useParams();
     const cid = params.id
+    const M = window.M;
+    const placeCard = PlaceCard;
 
 
     const likeClick = () => {
@@ -90,9 +94,22 @@ function CourseDetail() {
             {placeList.map((item, i) => {
                 totalCostTime += Number(item.costTime);
                 return (<>
-                    {item.place.name} {item.costTime}{' => '}
+                <Card>
+                    {item.place.name} 
+                    <img
+                    id="placeImg"
+                    src={"data:image/png;base64," + item.place.image}
+                    width="100px"
+                    height="100px"
+                    />
+                    {item.costTime} 
+                    <placeCard />
+                    <br />
+                    <ArrowDownwardIcon />
+                    </Card>
                 </>)
             })}{totalCostTime}
+            
         </>);
     }, [placeList])
 
@@ -110,13 +127,7 @@ function CourseDetail() {
     const onSubmit = (e) => {
         setInput(e.target.value);
         e.preventDefault();
-        // const data = new FormData(e.currentTarget);
-        // const content = {
-        //     content: data.get('content')
-        // }
 
-        // setReply(JSON.stringify(content));
-        // console.log(reply);
     }
 
     const addComment = () => { // 댓글 추가
@@ -136,26 +147,33 @@ function CourseDetail() {
         call(`/course-reply`, "POST", JSON.stringify(joinData))
         setInput("");
         // console.log(comments);
+        window.location.reload();
     };
 
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
         call(`/course-reply/${id}`, "DELETE", null)
         // return setComments(comments.filter((comment) => comment.id !== id));
+        window.location.reload();
     };
 
     const changeComment = (id, inputWord) => { // 댓글 수정
         setComments(comments.map((comment) => {
-          if (comment.id === id) {
-            return {
-              ...comment,
-              content: inputWord,
-            };
-          }
-          return comment;
+            if (comment.id === id) {
+                return {
+                    ...comment,
+                    content: inputWord,
+                };
+            }
+            return comment;
         }));
         setInput("");
-      };
+    };
+
+    const imageloader = () => {
+
+    }
+
 
     return (<>
         <Box>
@@ -193,6 +211,7 @@ function CourseDetail() {
                     {placeListTable} <br />
                     {course.course.description}</Card>
                 <br />
+
             </Container>
             <hr />
             {/* Reply */}
@@ -226,11 +245,11 @@ function CourseDetail() {
                                 <UserInfoWrapper>
                                     <Typography>{comment.nickname}</Typography>
                                     <div>
-                                    {comment.createdDate}
+                                        {comment.createdDate}
                                         {
                                             userId === comment.userId
                                                 ? <><Button onClick={() => removeComment(comment.courseReplyId)}>삭제</Button>
-                                                <Button onClick={() => changeComment(comment.courseReplyId)}>수정</Button></>
+                                                    <Button onClick={() => changeComment(comment.courseReplyId)}>수정</Button></>
                                                 : null
                                         }
                                     </div>
