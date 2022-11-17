@@ -1,23 +1,15 @@
-import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function AddPlaceMaps(props) {
     const mapRef = React.useRef(null);
     const [map, setMap] = React.useState();
-    const defaultLatLng = props.latLng;
-    let center = null;
+    const latlng = props.latlng;
+    let center = new window.google.maps.LatLng(36.1461, 128.3936);
     const rows = [...props.rows];
     const markers = props.markers;
     const setMarkers = props.setMarkers;
 
     const infowindow = new window.google.maps.InfoWindow();
-
-    const gumi = new window.google.maps.LatLng(36.1461, 128.3936);
-    if (defaultLatLng) {
-        center = new window.google.maps.LatLng(defaultLatLng.lat, defaultLatLng.lng);
-    } else {
-        center = gumi;
-    }
 
     const mapStyle = {
         width: "100%",
@@ -30,6 +22,8 @@ function AddPlaceMaps(props) {
         mapTypeId: 'roadmap'
     };
 
+    
+
     React.useEffect(() => {
         if (mapRef.current && !map) {
             setMap(new window.google.maps.Map(mapRef.current, mapOptions));
@@ -38,10 +32,10 @@ function AddPlaceMaps(props) {
 
     useEffect(()=>{
         if (map) {
-            console.log(markers.length)
+            // console.log(markers.length)
             markers.forEach((marker, i)=>{
                 marker.setMap(null);
-                console.log(i);
+                // console.log(i);
             })
             let tmp = [];
             rows.forEach((row, i) => {
@@ -49,12 +43,30 @@ function AddPlaceMaps(props) {
                     position: new window.google.maps.LatLng(row.lat, row.lng),
                     map: map,
                 });
-                console.log(marker);
+                // console.log(marker);
                 tmp.push(marker);
             })
             setMarkers(tmp);
         }
     },[rows])
+
+    useEffect(() => {
+        if (map) {
+            console.log(props.latlng);
+            console.log(latlng)
+            const ll = new window.google.maps.LatLng(latlng.lat, latlng.lng);
+            map.panTo(ll);
+        }
+    }, [latlng])
+
+    // useEffect(()=>{
+    //     console.log(LatLng);
+
+    //     if(map && LatLng){
+    //         let ll = new window.google.maps.LatLng(LatLng.lat, LatLng.lng);
+    //         map.panTo(ll);
+    //     }
+    // },[LatLng])
 
     return (<>
         <div ref={mapRef} style={mapStyle}>

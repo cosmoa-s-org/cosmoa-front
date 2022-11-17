@@ -1,4 +1,5 @@
 import { Wrapper } from "@googlemaps/react-wrapper";
+import { useEffect } from "react";
 import { GOOGLE_KEY } from "../service/app-config";
 import AddPlaceMaps from "./AddPlaceMaps";
 import GoogleMaps from "./GoogleMaps";
@@ -18,14 +19,18 @@ export function MapWrapper(props) {
 export default MapWrapper;
 
 export function AddPlaceMapWrapper(props) {
-
+    const latlng = props.latlng;
     const render = (status) => {
         return <h1>{status}</h1>;
     }
 
+    useEffect(()=>{
+        console.log(props.latlng, latlng);
+    }, [latlng])
+
     return (
         <Wrapper apiKey={GOOGLE_KEY} render={render}>
-            <AddPlaceMaps rows={props.rows} markers={props.markers} setMarkers={props.setMarkers}/>
+            <AddPlaceMaps rows={props.rows} markers={props.markers} setMarkers={props.setMarkers} latlng={props.latlng}/>
         </Wrapper>
     )
 }
@@ -38,7 +43,7 @@ export function CourseMapWrapper(props) {
 
     return (
         <Wrapper apiKey={GOOGLE_KEY} render={render}>
-            <AddPlaceMaps rows={props.rows} markers={props.markers} setMarkers={props.setMarkers}/>
+            <AddPlaceMaps rows={props.rows} markers={props.markers} setMarkers={props.setMarkers} />
         </Wrapper>
     )
 }
