@@ -22,6 +22,8 @@ function AddPlace(props) {
 
   var map, markerOptions, infowindow, contentString ;
 
+  const header = { "Content-Type" : "application/json" }
+
   const [rows, setRows] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState([]);
   const placeListRef = useRef(null);
@@ -95,7 +97,7 @@ function AddPlace(props) {
 
     console.log(url);
 
-    return call(url, "GET", null).then((response) => {
+    return call(url, "GET", header, null).then((response) => {
       // console.log(response.data);
       setRows(response.data);
 

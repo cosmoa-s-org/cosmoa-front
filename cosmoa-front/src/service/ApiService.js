@@ -1,5 +1,8 @@
 import { API_BASE_URL } from "./app-config";
 
+const header = { "Content-Type" : "application/json" }
+
+
 export function call(api, method, header, request) {
     // const header = { "Content-Type" : "application/json" }
     // 과 같은 방식으로 헤더 설정 후
@@ -41,7 +44,8 @@ export function call(api, method, header, request) {
 }
 
 export function signin(member) {
-    return call("/user/login", "POST", member)
+
+    return call("/user/login", "POST", header, member)
     .then((response) => {
         console.log(response.data);
         localStorage.setItem("USER", JSON.stringify(response.data));
@@ -57,7 +61,7 @@ export function signin(member) {
 }
 
 export function signup(member) {
-    return call("/auth/signup", "POST", member)
+    return call("/auth/signup", "POST", header, member)
     .then((response) => {
         console.log(response);
         if (response.data) {
@@ -80,12 +84,13 @@ export function signout() {
 }
 
 export function userUpdate(user) {
-    return call(`/user/${user.email}`, "PUT", JSON.stringify(user))
+
+    return call(`/user/${user.email}`, "PUT", header, JSON.stringify(user))
 }
 
 export function registerPlace(place) {
     const M = window.M;
-    return call("/place", "POST", place)
+    return call("/place", "POST", {}, place)
     .then((response) => {
         if(response.ok) {
             window.location.href = "/main";
@@ -105,7 +110,7 @@ export function registerPlace(place) {
 
 export function registerCourse(place) {
     const M = window.M;
-    return call("/course", "POST", place)
+    return call("/course", "POST", header, place)
     .then((response) => {
         if(response.ok) {
             window.location.href = "/main";

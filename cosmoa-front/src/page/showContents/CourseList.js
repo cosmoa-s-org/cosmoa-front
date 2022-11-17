@@ -43,11 +43,11 @@ function a11yProps(index) {
 
 function CourseList() {
     let navigate = useNavigate();
-
+    const header = { "Content-Type" : "application/json" }
     const [courseList, setCourseList] = useState([]);
 
     useEffect(() => {
-        call("/course", "GET", null)
+        call("/course", "GET", header, null)
             .then((response) => {
                 console.log(response);
                 setCourseList(response.data);

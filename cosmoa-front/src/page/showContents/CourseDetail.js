@@ -55,22 +55,23 @@ function CourseDetail() {
     const cid = params.id
     const M = window.M;
     const placeCard = PlaceCard;
+    const header = { "Content-Type" : "application/json" }
 
 
     const likeClick = () => {
         if (like) {
             setLike(false)
             course.like -= 1;
-            call(`/course-like`, "DELETE", JSON.stringify({ userId: userId, courseId: cid }))
+            call(`/course-like`, "DELETE", header, JSON.stringify({ userId: userId, courseId: cid }))
         } else {
             setLike(true)
             course.like += 1;
-            call(`/course-like`, "POST", JSON.stringify({ userId: userId, courseId: cid }))
+            call(`/course-like`, "POST", header, JSON.stringify({ userId: userId, courseId: cid }))
         }
     }
 
     useEffect(() => {
-        call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", null) // 코스 정보 받아오기
+        call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", header, null) // 코스 정보 받아오기
             .then((response) => {
                 console.log(response);
                 setCourse(response.data);
@@ -80,7 +81,7 @@ function CourseDetail() {
                     setLike(false);
                 }
             })
-        call(`/course-compose/${cid}`, "GET", null) // 코스에 포함된 장소 정보 받아오기
+        call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
             .then((response) => {
                 console.log(response);
                 setplaceList(response.data);
@@ -116,7 +117,7 @@ function CourseDetail() {
     // 댓글
 
     useEffect(() => {
-        call(`/course-reply/${cid}`, "GET", null)
+        call(`/course-reply/${cid}`, "GET", header, null)
             .then((response) => {
                 console.log(response);
                 setComments(response.data);
@@ -144,7 +145,7 @@ function CourseDetail() {
             comment: input,
         }
         console.log(JSON.stringify(joinData));
-        call(`/course-reply`, "POST", JSON.stringify(joinData))
+        call(`/course-reply`, "POST", header, JSON.stringify(joinData))
         setInput("");
         // console.log(comments);
         window.location.reload();
@@ -152,7 +153,7 @@ function CourseDetail() {
 
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
-        call(`/course-reply/${id}`, "DELETE", null)
+        call(`/course-reply/${id}`, "DELETE", header, null)
         // return setComments(comments.filter((comment) => comment.id !== id));
         window.location.reload();
     };

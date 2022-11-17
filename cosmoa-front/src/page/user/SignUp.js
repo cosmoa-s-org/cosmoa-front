@@ -26,6 +26,9 @@ function SignUp() {
     const [gender, setGender] = useState('');
     const [age, setAge] = useState('');
 
+    const header = { "Content-Type" : "application/json" }
+
+
     const SelectBox = (props) => {
         function menuitems() {
             var array = [];
@@ -55,12 +58,13 @@ function SignUp() {
         //const { email, password } = data;
         //const postData = { email, password };
         console.log(data);
-        call("/user", "POST", JSON.stringify(data))
+        call("/user", "POST", header, JSON.stringify(data))
             .then((response) => {
                 console.log(response);
             })
         console.log('성공');
         console.log(data);
+        
         navigate("/signin");
     }
 
