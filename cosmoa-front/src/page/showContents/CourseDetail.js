@@ -7,7 +7,9 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import { positions } from "@mui/system";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styled from "@emotion/styled";
+import PlaceCard from "./PlaceCard";
 
 const Like = styled.button`
   font-size : 30px;
@@ -51,22 +53,25 @@ function CourseDetail() {
 
     const params = useParams();
     const cid = params.id
+    const M = window.M;
+    const placeCard = PlaceCard;
+    const header = { "Content-Type" : "application/json" }
 
 
     const likeClick = () => {
         if (like) {
             setLike(false)
             course.like -= 1;
-            call(`/course-like`, "DELETE", JSON.stringify({ userId: userId, courseId: cid }))
+            call(`/course-like`, "DELETE", header, JSON.stringify({ userId: userId, courseId: cid }))
         } else {
             setLike(true)
             course.like += 1;
-            call(`/course-like`, "POST", JSON.stringify({ userId: userId, courseId: cid }))
+            call(`/course-like`, "POST", header, JSON.stringify({ userId: userId, courseId: cid }))
         }
     }
 
     useEffect(() => {
-        call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", null) // 코스 정보 받아오기
+        call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", header, null) // 코스 정보 받아오기
             .then((response) => {
                 console.log(response);
                 setCourse(response.data);
@@ -76,7 +81,7 @@ function CourseDetail() {
                     setLike(false);
                 }
             })
-        call(`/course-compose/${cid}`, "GET", null) // 코스에 포함된 장소 정보 받아오기
+        call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
             .then((response) => {
                 console.log(response);
                 setplaceList(response.data);
@@ -90,16 +95,29 @@ function CourseDetail() {
             {placeList.map((item, i) => {
                 totalCostTime += Number(item.costTime);
                 return (<>
-                    {item.place.name} {item.costTime}{' => '}
+                <Card>
+                    {item.place.name} 
+                    <img
+                    id="placeImg"
+                    src={"data:image/png;base64," + item.place.image}
+                    width="100px"
+                    height="100px"
+                    />
+                    {item.costTime} 
+                    <placeCard />
+                    <br />
+                    <ArrowDownwardIcon />
+                    </Card>
                 </>)
             })}{totalCostTime}
+            
         </>);
     }, [placeList])
 
     // 댓글
 
     useEffect(() => {
-        call(`/course-reply/${cid}`, "GET", null)
+        call(`/course-reply/${cid}`, "GET", header, null)
             .then((response) => {
                 console.log(response);
                 setComments(response.data);
@@ -110,13 +128,7 @@ function CourseDetail() {
     const onSubmit = (e) => {
         setInput(e.target.value);
         e.preventDefault();
-        // const data = new FormData(e.currentTarget);
-        // const content = {
-        //     content: data.get('content')
-        // }
 
-        // setReply(JSON.stringify(content));
-        // console.log(reply);
     }
 
     const addComment = () => { // 댓글 추가
@@ -133,29 +145,36 @@ function CourseDetail() {
             comment: input,
         }
         console.log(JSON.stringify(joinData));
-        call(`/course-reply`, "POST", JSON.stringify(joinData))
+        call(`/course-reply`, "POST", header, JSON.stringify(joinData))
         setInput("");
         // console.log(comments);
+        window.location.reload();
     };
 
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
-        call(`/course-reply/${id}`, "DELETE", null)
+        call(`/course-reply/${id}`, "DELETE", header, null)
         // return setComments(comments.filter((comment) => comment.id !== id));
+        window.location.reload();
     };
 
     const changeComment = (id, inputWord) => { // 댓글 수정
         setComments(comments.map((comment) => {
-          if (comment.id === id) {
-            return {
-              ...comment,
-              content: inputWord,
-            };
-          }
-          return comment;
+            if (comment.id === id) {
+                return {
+                    ...comment,
+                    content: inputWord,
+                };
+            }
+            return comment;
         }));
         setInput("");
-      };
+    };
+
+    const imageloader = () => {
+
+    }
+
 
     return (<>
         <Box>
@@ -193,6 +212,7 @@ function CourseDetail() {
                     {placeListTable} <br />
                     {course.course.description}</Card>
                 <br />
+
             </Container>
             <hr />
             {/* Reply */}
@@ -226,11 +246,11 @@ function CourseDetail() {
                                 <UserInfoWrapper>
                                     <Typography>{comment.nickname}</Typography>
                                     <div>
-                                    {comment.createdDate}
+                                        {comment.createdDate}
                                         {
                                             userId === comment.userId
                                                 ? <><Button onClick={() => removeComment(comment.courseReplyId)}>삭제</Button>
-                                                <Button onClick={() => changeComment(comment.courseReplyId)}>수정</Button></>
+                                                    <Button onClick={() => changeComment(comment.courseReplyId)}>수정</Button></>
                                                 : null
                                         }
                                     </div>

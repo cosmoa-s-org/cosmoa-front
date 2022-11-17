@@ -43,15 +43,16 @@ function a11yProps(index) {
 
 function CourseList() {
     let navigate = useNavigate();
-
+    const header = { "Content-Type" : "application/json" }
     const [courseList, setCourseList] = useState([]);
 
     useEffect(() => {
-        call("/course", "GET", null)
-        .then((response) => {
-            console.log(response);
-            setCourseList(response.data);
-        })
+        call("/course", "GET", header, null)
+            .then((response) => {
+                console.log(response);
+                setCourseList(response.data);
+                // setCourseList(courseList.name.concat(courseList.replyCount));
+            })
     }, []);
 
     const [partner, setPartner] = useState('');
@@ -61,13 +62,22 @@ function CourseList() {
         setValue(newValue);
     };
 
+
     const handleChange = (event) => {
         setPartner(event.target.value);
     };
+    console.log(courseList);
 
+    // setCourseList.name((courseList.name)+(courseList.replyCount));
+    // setCourseList(
+    //     courseList.concat({
+    //         name: courseList.name + courseList.replyCount
+    //     })
+    // );
     const columns = [
         { field: 'id', headerName: 'no', width: 70 },
-        { field: 'name', headerName: '코스 이름', width: 190 },
+        { field: 'name', headerName: '코스 이름', width: 150 },
+        { field: 'replyCount', headerName: '댓글', width: 20 },
         { field: 'like', headerName: '추천 수', width: 70 },
         { field: 'nickname', headerName: '등록자', width: 80 },
     ];
@@ -81,10 +91,10 @@ function CourseList() {
     return (<>
         <Typography variant="h4" > 여행 코스</Typography>
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleTab} aria-label="basic tabs example" style={{display:"flex", justifyContent:"center", flexDirection:"row"}}>
-                    <Tab label="리스트" {...a11yProps(0)} style={{"flex-grow": 1, width:"50%"}} /> 
-                    <Tab label="지도" {...a11yProps(1)} style={{"flex-grow": 1, width:"50%"}} />
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs value={value} onChange={handleTab} aria-label="basic tabs example" style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
+                    <Tab label="리스트" {...a11yProps(0)} style={{ "flex-grow": 1, width: "50%" }} />
+                    <Tab label="지도" {...a11yProps(1)} style={{ "flex-grow": 1, width: "50%" }} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
