@@ -202,6 +202,8 @@ function RegisterCourse(props) {
                 required
                 id="courseDescription"
                 label="코스 설명"
+                multiline
+                rows={4}
                 onChange={onChangeDescription}
                 value={courseDescription}
               />

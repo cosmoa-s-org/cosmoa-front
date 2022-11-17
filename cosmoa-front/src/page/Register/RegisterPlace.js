@@ -63,6 +63,7 @@ function RegisterPlace() {
     const [value, setValue] = useState(0);
     const [openPostcode, setOpenPostcode] = useState(false);
     const [address, setAddress] = useState("");
+    let userId = JSON.parse(localStorage.getItem("USER")).id
 
 
     const handleChange = (event, newValue) => {
@@ -166,7 +167,7 @@ function RegisterPlace() {
         event.preventDefault();
         
         const data = new FormData(event.currentTarget);
-        data.append('userId', 1)
+        data.append('userId', userId)
         data.append('name', data.get('placeName'))
         data.append('address', pinPlace.addr)
         data.append('lat', pinPlace.lat)
