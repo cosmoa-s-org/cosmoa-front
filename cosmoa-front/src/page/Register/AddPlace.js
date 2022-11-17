@@ -14,16 +14,20 @@ import {
 } from "@material-ui/core";
 import { IconButton } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import MapWrapper from "../../map/MapWrapper";
+import MapWrapper, { AddPlaceMapWrapper } from "../../map/MapWrapper";
 import SearchIcon from "@mui/icons-material/Search";
 import { call } from "../../service/ApiService";
 
 function AddPlace(props) {
 
+  var map, markerOptions, infowindow, contentString ;
+
   const [rows, setRows] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState([]);
   const placeListRef = useRef(null);
   const [data, setData] = useState([]);
+  const [addPlaceMap, setAddPlaceMap] = useState("");
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     let placeList = placeListRef.current;
@@ -31,7 +35,7 @@ function AddPlace(props) {
     for (let i = 1; i < placeList.rows.length; i++) {
       placeList.rows[i].cells[0].addEventListener("click", (e) => {
         // console.log(placeList.rows[i].cells[0].innerText);
-        onPlaceClick(i);
+        makeOverlay(placeList.rows[i].cells[3].innerText);
       });
     }
 
@@ -41,6 +45,8 @@ function AddPlace(props) {
         onSelcBtnClick(i);
       });
     }
+    setMarkers([]);
+    setAddPlaceMap(<AddPlaceMapWrapper rows={rows} markers={markers} setMarkers={setMarkers}/>);
   }, [rows]);
 
   const onSelcBtnClick = function (i) {
@@ -62,17 +68,22 @@ function AddPlace(props) {
     window.location.href = "/RegisterCourse";
   };
 
-  const onPlaceClick = function (i) {
-    let lat = placeListRef.current.rows[i].cells[4].innerText;
-    let lng = placeListRef.current.rows[i].cells[5].innerText;
-    let placeId = placeListRef.current.rows[i].cells[3].innerText;
+  const makeOverlay = function (id) {
+    closeOverlay();
+    // let lat = placeListRef.current.rows[i].cells[4].innerText;
+    // let lng = placeListRef.current.rows[i].cells[5].innerText;
+    // let placeId = placeListRef.current.rows[i].cells[3].innerText;
 
-    console.log(lat, lng);
-    console.log(placeId);
+    // console.log(lat, lng);
+    // console.log(placeId);
     // rows.map((row) =>{
     //   console.log(row.lat)
     // })
   };
+
+  const closeOverlay = function (){
+    if (infowindow != null) infowindow.close();
+  }
 
   // 작성중
   const onSearchBtnClick = (e) => {
@@ -85,7 +96,7 @@ function AddPlace(props) {
     console.log(url);
 
     return call(url, "GET", null).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setRows(response.data);
 
       //지도에 마커 생성
@@ -98,7 +109,7 @@ function AddPlace(props) {
       <h1>Add Place Page</h1>
 
       {/* 지도 표시 */}
-      <MapWrapper />
+      {addPlaceMap}
 
       {/* <Grid item xs={12} style={{margin:'auto'}}> */}
       <Paper
@@ -153,7 +164,7 @@ function AddPlace(props) {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" align="center"
-                onClick={onPlaceClick}>
+                onClick={makeOverlay}>
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.address}</TableCell>

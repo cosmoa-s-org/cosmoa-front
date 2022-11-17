@@ -1,10 +1,13 @@
 import { API_BASE_URL } from "./app-config";
 
-export function call(api, method, request) {
-    let headers = new Headers({
-        //"Content-Type" : "multipart/form-data"
-        "Content-Type" : "application/json"
-    });
+export function call(api, method, header, request) {
+    // const header = { "Content-Type" : "application/json" }
+    // 과 같은 방식으로 헤더 설정 후
+    // 파라미터로 넘겨주고 사용하는 형태로 변경
+    // 장소 등록 및 장소 댓글 등록처럼 데이터가 text + image 인 경우 파라미터 : 빈 객체 {}
+    // text로만 이루어진 json 데이터일 경우 파라미터 : { "Content-Type" : "application/json" }
+
+    let headers = new Headers(header);
 
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
     if (accessToken) {
