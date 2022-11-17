@@ -17,6 +17,7 @@ import CourseList from "./page/showContents/CourseList";
 import AddPlace from "./page/Register/AddPlace";
 import CourseDetail from "./page/showContents/CourseDetail";
 import Splash from "./components/Splash";
+import PlaceDetail from "./page/showContents/PlaceDetail";
 
 function BasicLayout() {
   return (<>
@@ -60,7 +61,7 @@ function AppRouter(props) {
 
             <Route path="courselist" element={<CourseList />} />
             <Route path="coursedetail/:id" element={<CourseDetail />} />
-
+            <Route path="placedetail/:id" element={<PlaceDetail />} />
           </Route>
           <Route path="/signin" element={<UserLayout />}>
             <Route index element={<SignIn />} />

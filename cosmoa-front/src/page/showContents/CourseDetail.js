@@ -55,6 +55,7 @@ function CourseDetail() {
     const cid = params.id
     const M = window.M;
     const header = { "Content-Type": "application/json" }
+    let navigate = useNavigate();
 
 
     const likeClick = () => {
@@ -87,6 +88,12 @@ function CourseDetail() {
             })
     }, []);
 
+    const goPlaceDetail = (event) => {
+        const data = `${event.id}`
+        console.log(data);
+        navigate(`/placedetail/${event.id}`);
+    }
+
     // 소요시간
     var totalCostTime = 0;
     useEffect(() => {
@@ -94,42 +101,44 @@ function CourseDetail() {
             {placeList.map((item, i) => {
                 totalCostTime += Number(item.costTime);
                 return (<>
-                        {/* <img
+                    {/* <img
                             id="placeImg"
                             src={"data:image/png;base64," + item.place.image}
                             width="100px"
                             height="100px"
                         /> */}
-                        <br />
-                        <Card sx={{ maxWidth: 300 }}>
-                            <CardMedia
-                                component="img"
-                                height="auto"
-                                image={"data:image/png;base64," + item.place.image}
-                                alt="green iguana"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {item.place.name}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    {item.place.description} <br />
-                                    {item.costTime}분
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small">자세히 보기</Button>
-                            </CardActions>
-                        </Card>
-                        <br />
-                        <div>
-                        <ArrowDownwardIcon style={{marginLeft:"50%"}} />
-                        </div>
+                    <br />
+                    <Card sx={{ maxWidth: 300 }}>
+                        <CardMedia
+                            component="img"
+                            height="auto"
+                            width
+                            image={atob(item.place.image)}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {item.place.name}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                                {item.place.description} <br />
+                                {item.costTime}분
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            {/* <Button size="small" onClick={goPlaceDetail}>자세히 보기</Button> */}
+                        </CardActions>
+                    </Card>
+                    <br />
+                    <div>
+                        <ArrowDownwardIcon style={{ marginLeft: "50%" }} />
+                    </div>
                 </>)
-            })}<div style={{textAlign:"center"}}>{totalCostTime}분 소요</div><Divider />
+            })}<div style={{ textAlign: "center" }}>{totalCostTime}분 소요</div><Divider />
 
         </>);
     }, [placeList])
+
+
 
     // 댓글
 
@@ -221,10 +230,10 @@ function CourseDetail() {
                 )}
 
                 <br />
-                    <Typography variant="h5">코스 순서 </Typography>
-                    <Divider />
-                    {placeListTable} <br />
-                    {course.course.description}
+                <Typography variant="h5">코스 순서 </Typography>
+                <Divider />
+                {placeListTable} <br />
+                {course.course.description}
                 <br />
 
             </Container>
