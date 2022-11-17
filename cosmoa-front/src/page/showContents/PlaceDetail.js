@@ -12,7 +12,7 @@ function PlaceDetail() {
         call(`/place/detail/${pid}`, "GET", {}, null)
         .then((response) => {
             console.log(response);
-            setPlace(place);
+            setPlace(response.data);
         });
 
         call(`/place-reply/${pid}`, "GET", {}, null)
