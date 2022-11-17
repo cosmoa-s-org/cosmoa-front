@@ -22,9 +22,10 @@ function PlaceDetail() {
         });        
     }, []);
 
-    
+    console.log(pid);
 
     return(<>
+        
     </>)
 }
 

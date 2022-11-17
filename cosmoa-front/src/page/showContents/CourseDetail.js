@@ -89,10 +89,10 @@ function CourseDetail() {
             })
     }, []);
 
-    const goPlaceDetail = (event) => {
-        const data = `${event.id}`
+    const goPlaceDetail = (id) => { // 장소 상세보기로 이동
+        const data = id
         console.log(data);
-        navigate(`/placedetail/${event.id}`);
+        navigate(`/placedetail/${id}`);
     }
 
     // 소요시간
@@ -103,6 +103,7 @@ function CourseDetail() {
                 totalCostTime += Number(item.costTime);
                 return (<>
                     <br />
+                    {/* 장소 카드 */}
                     <Card sx={{ maxWidth: 300 }}>
                         <CardMedia
                             component="img"
@@ -120,7 +121,7 @@ function CourseDetail() {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            {/* <Button size="small" onClick={goPlaceDetail}>자세히 보기</Button> */}
+                            <Button size="small" onClick={()=>{goPlaceDetail(item.id)}}>자세히 보기</Button>
                         </CardActions>
                     </Card>
                     <br />
