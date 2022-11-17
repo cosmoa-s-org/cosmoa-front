@@ -25,6 +25,7 @@ function AddPlace(props) {
   const header = { "Content-Type" : "application/json" }
 
   const [rows, setRows] = useState([]);
+  const [latlng, setLatlng] = useState({});
   const [searchKeyword, setSearchKeyword] = useState([]);
   const placeListRef = useRef(null);
   const [data, setData] = useState([]);
@@ -37,7 +38,7 @@ function AddPlace(props) {
     for (let i = 1; i < placeList.rows.length; i++) {
       placeList.rows[i].cells[0].addEventListener("click", (e) => {
         // console.log(placeList.rows[i].cells[0].innerText);
-        makeOverlay(placeList.rows[i].cells[3].innerText);
+        //makeOverlay(placeList.rows[i].cells[3].innerText);
       });
     }
 
@@ -48,8 +49,13 @@ function AddPlace(props) {
       });
     }
     setMarkers([]);
-    setAddPlaceMap(<AddPlaceMapWrapper rows={rows} markers={markers} setMarkers={setMarkers}/>);
+    setAddPlaceMap(<AddPlaceMapWrapper rows={rows} markers={markers} setMarkers={setMarkers} latlng={latlng}/>);
   }, [rows]);
+
+  useEffect(() => {
+    console.log(latlng);
+    setAddPlaceMap(<AddPlaceMapWrapper rows={rows} markers={markers} setMarkers={setMarkers} latlng={latlng} />);
+  }, [latlng]);
 
   const onSelcBtnClick = function (i) {
     let placeList = placeListRef.current;
@@ -70,18 +76,6 @@ function AddPlace(props) {
     window.location.href = "/RegisterCourse";
   };
 
-  const makeOverlay = function (id) {
-    closeOverlay();
-    // let lat = placeListRef.current.rows[i].cells[4].innerText;
-    // let lng = placeListRef.current.rows[i].cells[5].innerText;
-    // let placeId = placeListRef.current.rows[i].cells[3].innerText;
-
-    // console.log(lat, lng);
-    // console.log(placeId);
-    // rows.map((row) =>{
-    //   console.log(row.lat)
-    // })
-  };
 
   const closeOverlay = function (){
     if (infowindow != null) infowindow.close();
@@ -100,9 +94,6 @@ function AddPlace(props) {
     return call(url, "GET", header, null).then((response) => {
       // console.log(response.data);
       setRows(response.data);
-
-      //지도에 마커 생성
-      // set
     });
   };
 
@@ -160,13 +151,15 @@ function AddPlace(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, index) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row" align="center"
-                onClick={makeOverlay}>
+                onClick={()=>{
+                  setLatlng({lat: row.lat, lng: row.lng})
+                  }}>
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.address}</TableCell>
