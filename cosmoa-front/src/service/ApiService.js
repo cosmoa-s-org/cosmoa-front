@@ -110,9 +110,7 @@ export function registerCourse(place) {
     const M = window.M;
     return call("/course", "POST", header, place)
     .then((response) => {
-        if(response.ok) {
-            window.location.href = "/main";
-        }
+        window.location.href = "/main";
     })
     .catch((error)=>{
         console.log("Oops!"); 

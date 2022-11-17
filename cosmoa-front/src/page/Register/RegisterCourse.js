@@ -88,7 +88,6 @@ function RegisterCourse(props) {
     localStorage.setItem("courseDescription", "");
     localStorage.setItem("placeItems", "");
 
-    window.location.href = "/main";
 
   };
 

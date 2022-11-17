@@ -84,6 +84,7 @@ function CourseDetail() {
         call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
             .then((response) => {
                 console.log(response);
+                console.log(response.data);
                 setplaceList(response.data);
             })
     }, []);
@@ -99,7 +100,7 @@ function CourseDetail() {
                     {item.place.name} 
                     <img
                     id="placeImg"
-                    src={"data:image/png;base64," + item.place.image}
+                    src={atob(item.place.image)}
                     width="100px"
                     height="100px"
                     />
