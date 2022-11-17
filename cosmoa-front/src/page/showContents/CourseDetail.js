@@ -1,4 +1,4 @@
-import { Box, Button, Card, Container, Divider, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Container, Divider, Grid, Paper, TextField, Typography, Card, CardContent, CardActions, CardMedia } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
 import MapWrapper from "../../map/MapWrapper";
@@ -54,8 +54,7 @@ function CourseDetail() {
     const params = useParams();
     const cid = params.id
     const M = window.M;
-    const placeCard = PlaceCard;
-    const header = { "Content-Type" : "application/json" }
+    const header = { "Content-Type": "application/json" }
 
 
     const likeClick = () => {
@@ -95,22 +94,40 @@ function CourseDetail() {
             {placeList.map((item, i) => {
                 totalCostTime += Number(item.costTime);
                 return (<>
-                <Card>
-                    {item.place.name} 
-                    <img
-                    id="placeImg"
-                    src={"data:image/png;base64," + item.place.image}
-                    width="100px"
-                    height="100px"
-                    />
-                    {item.costTime} 
-                    <placeCard />
-                    <br />
-                    <ArrowDownwardIcon />
-                    </Card>
+                        {/* <img
+                            id="placeImg"
+                            src={"data:image/png;base64," + item.place.image}
+                            width="100px"
+                            height="100px"
+                        /> */}
+                        <br />
+                        <Card sx={{ maxWidth: 300 }}>
+                            <CardMedia
+                                component="img"
+                                height="auto"
+                                image={"data:image/png;base64," + item.place.image}
+                                alt="green iguana"
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {item.place.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {item.place.description} <br />
+                                    {item.costTime}분
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">자세히 보기</Button>
+                            </CardActions>
+                        </Card>
+                        <br />
+                        <div>
+                        <ArrowDownwardIcon style={{marginLeft:"50%"}} />
+                        </div>
                 </>)
-            })}{totalCostTime}
-            
+            })}<div style={{textAlign:"center"}}>{totalCostTime}분 소요</div><Divider />
+
         </>);
     }, [placeList])
 
@@ -171,10 +188,6 @@ function CourseDetail() {
         setInput("");
     };
 
-    const imageloader = () => {
-
-    }
-
 
     return (<>
         <Box>
@@ -207,10 +220,11 @@ function CourseDetail() {
                     </Like>
                 )}
 
-                <Card>{course.course.name}<br />
-                    코스 순서 <br />
+                <br />
+                    <Typography variant="h5">코스 순서 </Typography>
+                    <Divider />
                     {placeListTable} <br />
-                    {course.course.description}</Card>
+                    {course.course.description}
                 <br />
 
             </Container>
