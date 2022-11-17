@@ -63,6 +63,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Header() {
+  const M = window.M;
+  // const history = useHistory();
+  M.onBack(() => {
+    console.log("test")
+    console.dir(navigate);
+      navigate(-1);
+  });
   
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);

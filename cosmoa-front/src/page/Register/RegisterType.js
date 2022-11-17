@@ -1,21 +1,7 @@
 import React from "react";
 import { Paper, Link } from "@material-ui/core";
-import { useLocation, useNavigate } from "react-router-dom";
 
 function RegisterType() {
-  const M = window.M;
-  const location = useLocation();
-  // const history = useHistory();
-  let navigate = useNavigate();
-
-  M.onBack(() => {
-    if (["/signin", "/main"].include(location.path)) {
-      // signin, main 화면에서 뒤로가기 버튼 클릭시
-      if (window.confirm("앱을 종료하시겠습니까?")) M.sys.exit();
-    } else {
-      navigate.back();
-    }
-  });
 
   return (
     <>

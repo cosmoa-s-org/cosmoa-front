@@ -4,7 +4,11 @@ import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 
 function Main() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
+
+  const onRegisterTypeClick = ()=>{
+    navigate('/registertype');
+  }
 
   return (<>
     
@@ -12,13 +16,14 @@ function Main() {
       <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>MainPage</h1></Box>
     </Container>
 
-    {/* <Link href="/registertype"> */}
+    <Link href="/registertype">
       <Paper variant="contained"
             style={{height:150, lineHeight:"150px", fontSize:24, width:"90%", margin:"0 auto", backgroundColor:"#B1DCF8"}}
-            onClick={ () => { navigate("/registertype")} }>
+            // onClick={ onRegisterTypeClick }
+            >
             코스 및 장소 등록
       </Paper>
-    {/* </Link> */}
+    </Link>
 
     <br />
 
