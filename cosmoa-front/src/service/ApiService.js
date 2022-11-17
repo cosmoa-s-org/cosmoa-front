@@ -92,9 +92,7 @@ export function registerPlace(place) {
     const M = window.M;
     return call("/place", "POST", {}, place)
     .then((response) => {
-        if(response.ok) {
-            window.location.href = "/main";
-        }
+        window.location.href = "/main";
     })
     .catch((error)=>{
         console.log("Oops!"); 
