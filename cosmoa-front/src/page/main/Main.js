@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 function Main() {
   const navigate = useNavigate();
 
-  const onRegisterTypeClick = ()=>{
-    navigate('/registertype');
-  }
+  const M = window.M;
+  M.onBack(() => {
+    if(window.confirm('앱을 종료하시겠습니까?')) M.sys.exit(); 
+  })
 
   return (<>
     

@@ -20,6 +20,12 @@ function SignUp() {
     const M = window.M
     const navigate = useNavigate();
 
+    M.onBack(() => {
+        console.log("test")
+        console.dir(navigate);
+        navigate('/signin');
+    });
+
     const [emailError, setEmailError] = useState('');
     const [passwordState, setPasswordState] = useState('');
     const [passwordError, setPasswordError] = useState('');

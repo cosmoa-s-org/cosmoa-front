@@ -12,7 +12,7 @@ import HomeIcon from '@mui/icons-material/Home';
 // import ListItemButton from '@material-ui/core';
 import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 // 사이드 Nav바
 const drawerWidth = 240;
@@ -64,11 +64,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function Header() {
   const M = window.M;
-  // const history = useHistory();
+  const location = useLocation();
+
   M.onBack(() => {
-    console.log("test")
-    console.dir(navigate);
-      navigate(-1);
+    console.log(location.pathname)
+    if(location.pathname==="/main") {}
+    // else {navigate(-1)}
   });
   
   const theme = useTheme();
