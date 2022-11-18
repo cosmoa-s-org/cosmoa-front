@@ -161,8 +161,8 @@ function RegisterCourse(props) {
         placeName: localStorage.getItem("AddPlaceName"),
         placeAddress: localStorage.getItem("AddPlaceAddress"),
         placeId: localStorage.getItem("AddPlaceId"),
-        placeLat: localStorage.getItem("AddPlaceLat"),
-        placeLng: localStorage.getItem("AddPlaceLng"),
+        lat: localStorage.getItem("AddPlaceLat"),
+        lng: localStorage.getItem("AddPlaceLng"),
         costTime: "",
       };
 
@@ -229,36 +229,6 @@ function RegisterCourse(props) {
         <form>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
-                autoComplete="courseName"
-                name="courseName"
-                variant="outlined"
-                required
-                id="courseName"
-                label="코스 이름"
-                onChange={onChangeName}
-                value={courseName}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="courseDescription"
-                name="courseDescription"
-                variant="outlined"
-                required
-                id="courseDescription"
-                label="코스 설명"
-                multiline
-                rows={4}
-                onChange={onChangeDescription}
-                value={courseDescription}
-              />
-            </Grid>
-
-            <br />
-
-            <Grid item xs={12}>
               <Button variant="contained" onClick={onAddPlaceBtnClick}>
                 장소 추가
               </Button>
@@ -302,7 +272,7 @@ function RegisterCourse(props) {
                         align="center"
                         onClick={() => {
                           // console.log(row);
-                          setLatlng({ lat: row.placeLat, lng: row.placeLng });
+                          setLatlng({ lat: row.lat, lng: row.lng });
                         }}
                       >
                         {row.placeName}
@@ -351,6 +321,37 @@ function RegisterCourse(props) {
               </Table>
             </TableContainer>
 
+            <br />
+
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="courseName"
+                name="courseName"
+                variant="outlined"
+                required
+                id="courseName"
+                label="코스 이름"
+                onChange={onChangeName}
+                value={courseName}
+              />
+            </Grid>
+
+            <br />
+
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="courseDescription"
+                name="courseDescription"
+                variant="outlined"
+                required
+                id="courseDescription"
+                label="코스 설명"
+                multiline
+                rows={4}
+                onChange={onChangeDescription}
+                value={courseDescription}
+              />
+            </Grid>
             <br />
 
             <Grid item xs={12}>

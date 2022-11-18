@@ -70,6 +70,7 @@ function CourseDetail() {
   const [comments, setComments] = useState([]);
   const [input, setInput] = useState();
   const [latlng, setLatlng] = useState({});
+  const [rows, setRows] = useState([]);
 
   let userId = JSON.parse(localStorage.getItem("USER")).id;
   let nickname = JSON.parse(localStorage.getItem("USER")).nickname;
@@ -118,16 +119,37 @@ function CourseDetail() {
         console.log(response);
         console.log(response.data);
         setplaceList(response.data);
-      });
-      setCourseMap(
-        <CourseMapWrapper
-          rows={placeList}
-          markers={markers}
-          setMarkers={setMarkers}
-          latlng={latlng}
-        />
-      );
+
+        let newlatlng = []
+        response.data.forEach((item, i) => {
+          let lat = item.place.lat;
+          let lng = item.place.lng;
+
+          newlatlng.push({lat: lat, lng: lng});
+          setRows(newlatlng);
+        });
+        setCourseMap(
+          <CourseMapWrapper
+            rows={newlatlng}
+            markers={markers}
+            setMarkers={setMarkers}
+            latlng={newlatlng}
+          />
+          );
+        });
   }, []);
+
+  useEffect(() => {
+    console.log(latlng);
+    setCourseMap(
+      <CourseMapWrapper
+        markers={markers}
+        setMarkers={setMarkers}
+        rows={rows}
+        latlng={latlng}
+      />
+    );
+  }, [latlng]);
 
   const goPlaceDetail = (id) => {
     // 장소 상세보기로 이동
@@ -155,7 +177,11 @@ function CourseDetail() {
                   image={atob(item.place.image)}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
+                  <Typography gutterBottom variant="h5" component="div"
+                  onClick={() => {
+                    setLatlng({ lat: item.place.lat, lng: item.place.lng });}
+                  }
+                  >
                     {item.place.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">

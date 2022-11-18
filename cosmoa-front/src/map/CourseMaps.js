@@ -35,7 +35,7 @@ function CourseMaps(props) {
       let tmp = [];
       rows.forEach((row, i) => {
         const marker = new window.google.maps.Marker({
-          position: new window.google.maps.LatLng(row.placeLat, row.placeLng),
+          position: new window.google.maps.LatLng(row.lat, row.lng),
           map: map,
         });
         tmp.push(marker);
