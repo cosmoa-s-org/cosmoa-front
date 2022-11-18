@@ -159,14 +159,14 @@ function CourseDetail() {
         console.log(JSON.stringify(joinData));
         call(`/course-reply`, "POST", header, JSON.stringify(joinData))
         setInput("");
-        window.location.reload();
+        // window.location.reload();
     };
 
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
         call(`/course-reply/${id}`, "DELETE", header, null)
         // return setComments(comments.filter((comment) => comment.id !== id));
-        window.location.reload();
+        // window.location.reload();
     };
 
     const changeComment = (id, inputWord) => { // 댓글 수정
