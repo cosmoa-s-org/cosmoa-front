@@ -13,20 +13,24 @@ import {
   TableBody,
   Paper,
 } from "@material-ui/core";
-import MapWrapper from "../../map/MapWrapper";
+import MapWrapper, {
+  AddPlaceMapWrapper,
+  CourseMapWrapper,
+} from "../../map/MapWrapper";
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { registerCourse } from "../../service/ApiService";
 
 function RegisterCourse(props) {
-  const [pinPlace, setPinPlace] = useState({});
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [rows, setRows] = useState([]);
-  const [costTime, setCostTime] = useState("");
   //const [composeList, setComposeList] = useState([]);
-  const [sequence, setSequence] = useState("");
   const courseListRef = useRef(null);
+  const [registerCourseMap, setRegisterCourseMap] = useState("");
+  const placeListRef = useRef(null);
+  const [markers, setMarkers] = useState([]);
+  const [latlng, setLatlng] = useState({});
 
   // 제출 버튼 눌렀을때 이벤트 작성 필요
   const handleSubmit = (event) => {
@@ -38,19 +42,17 @@ function RegisterCourse(props) {
     let composeList = [];
     let checkCostTime = false;
 
-    if(courseName === ""){
+    if (courseName === "") {
       M.pop.alert("코스 이름을 입력하세요!");
-      return ;
+      return;
     }
-
-    if(courseDescription === ""){
+    if (courseDescription === "") {
       M.pop.alert("코스 설명을 입력하세요!");
-      return ;
+      return;
     }
-
-    if(submitTmp.length == 0){
+    if (submitTmp.length == 0) {
       M.pop.alert("장소를 추가하세요!");
-      return ;
+      return;
     }
 
     submitTmp.forEach((row, i) => {
@@ -58,28 +60,30 @@ function RegisterCourse(props) {
       if (row.costTime == null || row.costTime == "") {
         M.pop.alert("소요시간을 입력하세요!");
         checkCostTime = true;
-        return ;
+        return;
       }
       if (row.costTime == "0") {
         M.pop.alert("소요시간에 0이 아닌 수를 입력해주세요!");
         checkCostTime = true;
-        return ;
+        return;
       }
-      
+
       row.sequence = i + 1;
       composeList.push(row);
-    })
+    });
 
-    if(checkCostTime == true){ return ; }
+    if (checkCostTime == true) {
+      return;
+    }
 
     let courseData = {
-      course : {
-        userId : JSON.parse(localStorage.getItem("USER")).id,
-        name : courseName,
-        description: courseDescription
+      course: {
+        userId: JSON.parse(localStorage.getItem("USER")).id,
+        name: courseName,
+        description: courseDescription,
       },
-      compose : composeList
-    }
+      compose: composeList,
+    };
 
     onhandlePost(JSON.stringify(courseData));
 
@@ -87,8 +91,6 @@ function RegisterCourse(props) {
     localStorage.setItem("courseName", "");
     localStorage.setItem("courseDescription", "");
     localStorage.setItem("placeItems", "");
-
-
   };
 
   const onhandlePost = async (data) => {
@@ -118,7 +120,17 @@ function RegisterCourse(props) {
   const onDelBtnClick = (event, idx) => {
     event.preventDefault();
 
-    setRows(rows.filter((row, i) => { return i != idx })) // 배열 재구축 후 다시 세팅
+    setRows(
+      rows.filter((row, i) => {
+        return i != idx;
+      })
+    ); // 배열 재구축 후 다시 세팅
+    // setRegisterCourseMap(
+    //   <CourseMapWrapper
+    //     setMarkers={setMarkers}
+    //     rows={rows}
+    //     latlng={latlng}
+    //   />)
   };
 
   const showAddPlace = () => {
@@ -137,45 +149,81 @@ function RegisterCourse(props) {
     return { num, placeName, placeAddress, costTime };
   }
 
-
   useEffect(() => {
     setCourseName(localStorage.getItem("courseName"));
     setCourseDescription(localStorage.getItem("courseDescription"));
-    
-    if (localStorage.getItem("placeItems") !== "" && localStorage.getItem("placeItems") !== null) {
+
+    if (
+      localStorage.getItem("placeItems") !== "" &&
+      localStorage.getItem("placeItems") !== null
+    ) {
       let place = {
         placeName: localStorage.getItem("AddPlaceName"),
         placeAddress: localStorage.getItem("AddPlaceAddress"),
         placeId: localStorage.getItem("AddPlaceId"),
+        placeLat: localStorage.getItem("AddPlaceLat"),
+        placeLng: localStorage.getItem("AddPlaceLng"),
         costTime: "",
       };
 
       const placeItems = [...JSON.parse(localStorage.getItem("placeItems"))];
       let isExists = false;
-      placeItems.forEach(placeItem => {
-        if(placeItem.placeId === place.placeId){
-          
+      placeItems.forEach((placeItem) => {
+        if (placeItem.placeId === place.placeId) {
           isExists = true;
           return;
         }
       });
 
+      let tmp = [];
       if (isExists) {
-        setRows(placeItems);
+        tmp = [...placeItems];
       } else {
-        setRows([...placeItems, place]);
+        tmp = [...placeItems, place];
       }
+      setRows(tmp);
+      setRegisterCourseMap(
+        <CourseMapWrapper
+          rows={tmp}
+          markers={markers}
+          setMarkers={setMarkers}
+          latlng={latlng}
+        />
+      );
       localStorage.setItem("placeItems", "");
       console.log("setRows");
+      console.log(tmp);
     }
   }, []);
+
+  useEffect(() => {
+    setRegisterCourseMap(
+      <CourseMapWrapper
+        rows={rows}
+        markers={markers}
+        setMarkers={setMarkers}
+        latlng={latlng}
+      />
+    );
+  }, [rows]);
+
+  useEffect(() => {
+    console.log(latlng);
+    setRegisterCourseMap(
+      <CourseMapWrapper
+        markers={markers}
+        setMarkers={setMarkers}
+        rows={rows}
+        latlng={latlng}
+      />
+    );
+  }, [latlng]);
 
   return (
     <>
       <h1>Register Course Page</h1>
 
-      {/* 나중에 CourseMaps.js로 변경 */}
-      <MapWrapper />
+      {registerCourseMap}
 
       <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
         <form>
@@ -221,8 +269,8 @@ function RegisterCourse(props) {
             <br />
 
             <TableContainer component={Paper}>
-              <Table 
-                sx={{ minWidth: 650 }} 
+              <Table
+                sx={{ minWidth: 650 }}
                 aria-label="simple table"
                 ref={courseListRef}
               >
@@ -231,7 +279,9 @@ function RegisterCourse(props) {
                     <TableCell align="center" width={"15%"}>
                       코스 순서
                     </TableCell>
-                    <TableCell align="center" width={"18%"}>장소명</TableCell>
+                    <TableCell align="center" width={"18%"}>
+                      장소명
+                    </TableCell>
                     <TableCell align="center">주소</TableCell>
                     <TableCell align="center" width={"18%"}>
                       소요 시간(분)
@@ -248,7 +298,15 @@ function RegisterCourse(props) {
                       <TableCell component="th" scope="row" align="center">
                         {i + 1}
                       </TableCell>
-                      <TableCell align="center">{row.placeName}</TableCell>
+                      <TableCell
+                        align="center"
+                        onClick={() => {
+                          // console.log(row);
+                          setLatlng({ lat: row.placeLat, lng: row.placeLng });
+                        }}
+                      >
+                        {row.placeName}
+                      </TableCell>
                       <TableCell align="center">{row.placeAddress}</TableCell>
                       <TableCell align="center">
                         <TextField
@@ -256,10 +314,14 @@ function RegisterCourse(props) {
                             let tmp = [...rows];
                             let num = e.currentTarget.value;
                             console.log(num);
-                            if(num.indexOf("-")!==-1) {num = num.slice(0,num.indexOf("-"))}
-                            if(num.indexOf(".")!==-1) {num = num.slice(0,num.indexOf("."))}
+                            if (num.indexOf("-") !== -1) {
+                              num = num.slice(0, num.indexOf("-"));
+                            }
+                            if (num.indexOf(".") !== -1) {
+                              num = num.slice(0, num.indexOf("."));
+                            }
                             tmp[i].costTime = num;
-                            
+
                             console.log(tmp);
                             setRows(tmp);
                           }}
@@ -273,12 +335,16 @@ function RegisterCourse(props) {
                           type="button"
                           sx={{ p: "10px" }}
                           aria-label="search"
-                          onClick={(e) => {onDelBtnClick(e, i)}}
+                          onClick={(e) => {
+                            onDelBtnClick(e, i);
+                          }}
                         >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
-                      <TableCell style={{display:"none"}}>{row.id}</TableCell>
+                      <TableCell style={{ display: "none" }}>
+                        {row.id}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

@@ -17,12 +17,12 @@ import React, { useEffect, useRef, useState } from "react";
 import MapWrapper, { AddPlaceMapWrapper } from "../../map/MapWrapper";
 import SearchIcon from "@mui/icons-material/Search";
 import { call } from "../../service/ApiService";
+import { useNavigate } from "react-router-dom";
 
 function AddPlace(props) {
+  var map, markerOptions, infowindow, contentString;
 
-  var map, markerOptions, infowindow, contentString ;
-
-  const header = { "Content-Type" : "application/json" }
+  const header = { "Content-Type": "application/json" };
 
   const [rows, setRows] = useState([]);
   const [latlng, setLatlng] = useState({});
@@ -31,6 +31,7 @@ function AddPlace(props) {
   const [data, setData] = useState([]);
   const [addPlaceMap, setAddPlaceMap] = useState("");
   const [markers, setMarkers] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let placeList = placeListRef.current;
@@ -49,12 +50,26 @@ function AddPlace(props) {
       });
     }
     setMarkers([]);
-    setAddPlaceMap(<AddPlaceMapWrapper rows={rows} markers={markers} setMarkers={setMarkers} latlng={latlng}/>);
+    setAddPlaceMap(
+      <AddPlaceMapWrapper
+        rows={rows}
+        markers={markers}
+        setMarkers={setMarkers}
+        latlng={latlng}
+      />
+    );
   }, [rows]);
 
   useEffect(() => {
     console.log(latlng);
-    setAddPlaceMap(<AddPlaceMapWrapper rows={rows} markers={markers} setMarkers={setMarkers} latlng={latlng} />);
+    setAddPlaceMap(
+      <AddPlaceMapWrapper
+        rows={rows}
+        markers={markers}
+        setMarkers={setMarkers}
+        latlng={latlng}
+      />
+    );
   }, [latlng]);
 
   const onSelcBtnClick = function (i) {
@@ -63,23 +78,27 @@ function AddPlace(props) {
     let placeName = placeList.rows[i].cells[0].innerText;
     let placeAddress = placeList.rows[i].cells[1].innerText;
     let placeId = placeList.rows[i].cells[3].innerText;
+    let placeLat = placeList.rows[i].cells[4].innerText;
+    let placeLng = placeList.rows[i].cells[5].innerText;
 
     // console.log(placeName, placeAddress);
 
     localStorage.setItem("AddPlaceName", placeName);
     localStorage.setItem("AddPlaceAddress", placeAddress);
     localStorage.setItem("AddPlaceId", placeId);
+    localStorage.setItem("AddPlaceLat", placeLat);
+    localStorage.setItem("AddPlaceLng", placeLng);
 
     // console.log(localStorage.getItem("AddPlaceId"));
 
     // console.log(localStorage.getItem("CourseName"));
     window.location.href = "/RegisterCourse";
+    // navigate("/registercourse", {state: {lat:row.lat,lng:row.lng}});
   };
 
-
-  const closeOverlay = function (){
+  const closeOverlay = function () {
     if (infowindow != null) infowindow.close();
-  }
+  };
 
   // 작성중
   const onSearchBtnClick = (e) => {
@@ -141,13 +160,14 @@ function AddPlace(props) {
         >
           <TableHead>
             <TableRow>
-              <TableCell align="center" width={"25%"}>장소명</TableCell>
+              <TableCell align="center" width={"25%"}>
+                장소명
+              </TableCell>
               <TableCell align="center">주소</TableCell>
               <TableCell align="center">선택</TableCell>
-              <TableCell style={{display:"none"}}>id</TableCell>
-              <TableCell style={{display:"none"}}>lat</TableCell>
-              <TableCell style={{display:"none"}}>lng</TableCell>
-
+              <TableCell style={{ display: "none" }}>id</TableCell>
+              <TableCell style={{ display: "none" }}>lat</TableCell>
+              <TableCell style={{ display: "none" }}>lng</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -156,15 +176,23 @@ function AddPlace(props) {
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row" align="center"
-                onClick={()=>{
-                  setLatlng({lat: row.lat, lng: row.lng})
-                  }}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  align="center"
+                  onClick={() => {
+                    setLatlng({ lat: row.lat, lng: row.lng });
+                  }}
+                >
                   {row.name}
                 </TableCell>
                 <TableCell align="center">{row.address}</TableCell>
                 <TableCell align="center">
-                  <Button variant="outlined" type="button" onClick={onSelcBtnClick}>
+                  <Button
+                    variant="outlined"
+                    type="button"
+                    onClick={onSelcBtnClick}
+                  >
                     장소 선택
                   </Button>
                 </TableCell>
