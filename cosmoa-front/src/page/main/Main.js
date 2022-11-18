@@ -6,14 +6,17 @@ import { useNavigate } from "react-router-dom";
 function Main() {
   const navigate = useNavigate();
 
-  const onRegisterTypeClick = ()=>{
-    navigate('/registertype');
-  }
+  const M = window.M;
+  React.useEffect(() => {
+    M.onBack(() => {
+      if(window.confirm('앱을 종료하시겠습니까?')) M.sys.exit(); 
+    })
+  }, [])
 
   return (<>
     
     <Container maxWidth="sm">
-      <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }}><h1>MainPage</h1></Box>
+      <Box><h1>MainPage</h1></Box>
     </Container>
 
     <Link href="/registertype">

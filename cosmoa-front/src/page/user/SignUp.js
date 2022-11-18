@@ -20,6 +20,12 @@ function SignUp() {
     const M = window.M
     const navigate = useNavigate();
 
+    React.useEffect(() => {
+        M.onBack(() => {
+            navigate('/signin');
+        });
+    }, [])
+    
     const [emailError, setEmailError] = useState('');
     const [passwordState, setPasswordState] = useState('');
     const [passwordError, setPasswordError] = useState('');

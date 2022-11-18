@@ -12,6 +12,12 @@ import { useNavigate } from 'react-router-dom';
 export default function SignIn() {
     const M = window.M
     let navigate = useNavigate();
+    React.useEffect(() => {
+        M.onBack(() => {
+            if(window.confirm('앱을 종료하시겠습니까?')) M.sys.exit(); 
+        })
+    }, [])
+    
     // const [email, setEmail] = useState('');
     // const [password, setPassword] = useState('');
 
