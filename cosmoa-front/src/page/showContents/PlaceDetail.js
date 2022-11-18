@@ -32,16 +32,28 @@ const UserInfoWrapper = styled.div`
   height : 30px;
 `;
 
+function setImage(path) {
+    var img = document.getElementById("placeImg");
+    img.src = "/" + path;
+    img.style.visibility = "visible";
+    console.log(img.src);
+}
+
 function PlaceDetail() {
-    const [place, setPlace] = useState({image: "", isLike: "", like: "", nickname: "", 
-                                        place: { address: "", createdDate: "", description: "", id: "", imgPath: "", lat: "", lng: "", modifiedDate: "", name: "", userId: ""}});
+    const [place, setPlace] = useState({
+        image: "", isLike: "", like: "", nickname: "",
+        place: { address: "", createdDate: "", description: "", id: "", imgPath: "", lat: "", lng: "", modifiedDate: "", name: "", userId: "" }
+    });
     const [comments, setComments] = useState([]);
     const [like, setLike] = useState(false);
     const [input, setInput] = useState();
+    const [path, setPath] = useState("");
+
 
     const params = useParams();
     const pid = params.id; // 장소 id
     const header = { "Content-Type": "application/json" }
+    const M = window.M;
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
 
@@ -85,17 +97,57 @@ function PlaceDetail() {
         e.preventDefault();
     }
 
+    // 댓글 이미지 선택
+    const SelectImgBtnClick = (event) => {
+        // const path = "";
+        M.media.picker({
+            mode: "SINGLE",
+            media: "PHOTO",
+            column: 3,
+            callback: function (status, result) {
+                setPath(result.path);
+                console.log(status + ", " + JSON.stringify(result));
+                console.log(path);
+                if (status === "SUCCESS") {
+                    M.file.read({
+                        path: result.path,
+                        encoding: "BASE64",
+                        indicator: true,
+                        callback: function (status, result) {
+                            console.log(status + JSON.stringify(result));
+
+                            var img = document.getElementById("placeImg");
+
+                            //mime-type은 별도로 스크립트에서 지정 필요
+                            img.src = "data:image/png;base64," + result.data;
+
+                            img.style.width = "250px";
+                            img.style.height = "250px";
+                        },
+                    });
+                }
+            },
+        });
+        console.log("click");
+
+        // 미리보기 이미지 변경
+        setImage(path);
+    };
+
     const addComment = () => { // 댓글 추가
-        const img = ""
+        var img = document.getElementById("placeImg");
+        console.log(img);
         const data = new FormData();
         data.append('userId', userId)
         data.append('placeId', pid)
         data.append('comment', input)
-        // if (img.width !== 0) {
-        //     let imgFile = new File([img.src], "img", { type: "image/png" });
-            data.append('img', img);
-        //     console.log(imgFile);
-        // }
+        if (img.width !== 0) {
+            let imgFile = new File([img.src], "img", { type: "image/png" });
+            data.append('img', imgFile);
+            console.log(imgFile);
+        } else {
+            // data.append('img', 로고사진);
+        }
 
         // const joinData = {
         //     userId: userId,
@@ -103,7 +155,7 @@ function PlaceDetail() {
         //     comment: input,
         //     img: "",
         // }
-        console.log(data);
+        console.dir(data);
         call(`/place-reply`, "POST", {}, data)
         setInput("");
         // window.location.reload();
@@ -116,6 +168,8 @@ function PlaceDetail() {
         // window.location.reload();
     };
 
+
+
     return (<>
         <Box>
             <Typography variant="h4" style={{ marginTop: "15%" }}>{place.place.name}</Typography>
@@ -123,7 +177,7 @@ function PlaceDetail() {
             {/* <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography> */}
         </Box>
         <Box
->
+        >
 
             <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
@@ -151,7 +205,7 @@ function PlaceDetail() {
             <Container spacing={2}>
                 <form onSubmit={onSubmit}>
                     <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
-                        <Grid item xs={10}>
+                        <Grid item xs={8}>
                             <input
                                 type="text"
                                 className="inputComment"
@@ -163,6 +217,11 @@ function PlaceDetail() {
                             ></input>
                         </Grid>
                         <Grid item xs={2}>
+                            <Button onClick={SelectImgBtnClick} style={{ backgroundColor: "lightgray", fontSize: "smaller" }}>
+                                사진선택
+                            </Button>
+                        </Grid>
+                        <Grid item xs={2}>
                             <Button
                                 style={{ backgroundColor: "lightgray" }}
                                 onClick={() => {
@@ -172,7 +231,13 @@ function PlaceDetail() {
                             >
                                 등록
                             </Button>
+                            <br />
                         </Grid>
+                        <img
+                            id="placeImg"
+                            style={{ visibility: "hidden" }}
+                            src=""
+                        />
                         {comments.map((comment, index) => (
                             <CommentWrapper key={`${comment.nickname}_${index}`}>
                                 <UserInfoWrapper>
@@ -184,8 +249,16 @@ function PlaceDetail() {
                                                 ? <Button onClick={() => removeComment(comment.id)}>삭제</Button>
                                                 : null
                                         }
+
                                     </div>
                                 </UserInfoWrapper>
+                                <Card sx={{ maxWidth: 150 }}>
+                                            <CardMedia
+                                                component="img"
+                                                style={{width:"50%"}}
+                                                image={atob(comment.img)}
+                                            />
+                                        </Card>
                                 {comment.comment}
                             </CommentWrapper>
                         ))}
