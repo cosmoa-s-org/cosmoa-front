@@ -66,11 +66,14 @@ function Header() {
   const M = window.M;
   const location = useLocation();
 
-  M.onBack(() => {
+  React.useEffect(() =>{
+    M.onBack(() => {
     console.log(location.pathname)
     if(location.pathname==="/main") {}
-    // else {navigate(-1)}
-  });
+    else if(location.pathname==="/") {}
+    else {navigate(-1)}
+  });},[])
+  
   
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
