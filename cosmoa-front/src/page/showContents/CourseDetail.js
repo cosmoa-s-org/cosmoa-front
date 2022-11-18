@@ -9,7 +9,6 @@ import { positions } from "@mui/system";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styled from "@emotion/styled";
-import PlaceCard from "./PlaceCard";
 
 const Like = styled.button`
   font-size : 30px;
@@ -134,8 +133,6 @@ function CourseDetail() {
         </>);
     }, [placeList])
 
-
-
     // 댓글
 
     useEffect(() => {
@@ -154,13 +151,6 @@ function CourseDetail() {
     }
 
     const addComment = () => { // 댓글 추가
-        // setComments(
-        //     comments.concat({
-        //         id: comments.length + 1,
-        //         comment: input,
-        //         nickname: nickname,
-        //     })
-        // );
         const joinData = {
             userId: userId,
             courseId: cid,
@@ -169,15 +159,14 @@ function CourseDetail() {
         console.log(JSON.stringify(joinData));
         call(`/course-reply`, "POST", header, JSON.stringify(joinData))
         setInput("");
-        // console.log(comments);
-        window.location.reload();
+        // window.location.reload();
     };
 
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
         call(`/course-reply/${id}`, "DELETE", header, null)
         // return setComments(comments.filter((comment) => comment.id !== id));
-        window.location.reload();
+        // window.location.reload();
     };
 
     const changeComment = (id, inputWord) => { // 댓글 수정
@@ -200,16 +189,7 @@ function CourseDetail() {
             <Typography style={{ textAlign: "right" }}>by {course.nickname}</Typography>
             <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography>
         </Box>
-        <Box
-            sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                '& > :not(style)': {
-                    m: 1,
-                    width: 128,
-                    height: 128,
-                },
-            }}>
+        <Box>
             <div style={{ margin: "0 auto" }}>
                 <MapWrapper />
             </div>

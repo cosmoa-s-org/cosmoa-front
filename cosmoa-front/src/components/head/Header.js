@@ -55,11 +55,12 @@ const MuiAppBar = styled(AppBar, {
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
+  // backgroundColor: "red",
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: 'center'
 }));
 
 function Header() {
