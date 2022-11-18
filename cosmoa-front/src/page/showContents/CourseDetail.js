@@ -189,16 +189,7 @@ function CourseDetail() {
             <Typography style={{ textAlign: "right" }}>by {course.nickname}</Typography>
             <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography>
         </Box>
-        <Box
-            sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                '& > :not(style)': {
-                    m: 1,
-                    width: 128,
-                    height: 128,
-                },
-            }}>
+        <Box>
             <div style={{ margin: "0 auto" }}>
                 <MapWrapper />
             </div>

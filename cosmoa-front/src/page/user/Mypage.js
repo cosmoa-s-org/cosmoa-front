@@ -78,7 +78,7 @@ function Mypage() {
 
     return (<>
         <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
-            <Box sx={{ marginTop: 8, alignItems: 'center', display: 'flex' }} >
+            <Box sx={{ marginTop: 8, alignItems: 'center'}} >
                 <Avatar>
                     <PersonPinIcon />
                 </Avatar>

@@ -106,14 +106,14 @@ function PlaceDetail() {
         console.log(data);
         call(`/place-reply`, "POST", {}, data)
         setInput("");
-        window.location.reload();
+        // window.location.reload();
     };
 
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
         call(`/place-reply/${id}`, "DELETE", header, null)
         // return setComments(comments.filter((comment) => comment.id !== id));
-        window.location.reload();
+        // window.location.reload();
     };
 
     return (<>
@@ -123,15 +123,7 @@ function PlaceDetail() {
             {/* <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography> */}
         </Box>
         <Box
-            sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                '& > :not(style)': {
-                    m: 1,
-                    width: 128,
-                    height: 128,
-                },
-            }}>
+>
 
             <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
@@ -189,7 +181,7 @@ function PlaceDetail() {
                                         {comment.createdDate}
                                         {
                                             userId === comment.userId
-                                                ? <Button onClick={() => removeComment(comment.placeReplyId)}>삭제</Button>
+                                                ? <Button onClick={() => removeComment(comment.id)}>삭제</Button>
                                                 : null
                                         }
                                     </div>
