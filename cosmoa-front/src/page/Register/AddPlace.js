@@ -58,10 +58,11 @@ function AddPlace(props) {
         latlng={latlng}
       />
     );
+    // console.log(rows);
   }, [rows]);
 
   useEffect(() => {
-    console.log(latlng);
+    // console.log(latlng);
     setAddPlaceMap(
       <AddPlaceMapWrapper
         rows={rows}
@@ -70,6 +71,7 @@ function AddPlace(props) {
         latlng={latlng}
       />
     );
+    console.log(rows);
   }, [latlng]);
 
   const onSelcBtnClick = function (i) {
@@ -80,6 +82,7 @@ function AddPlace(props) {
     let placeId = placeList.rows[i].cells[3].innerText;
     let placeLat = placeList.rows[i].cells[4].innerText;
     let placeLng = placeList.rows[i].cells[5].innerText;
+    let placeDescription = placeList.rows[i].cells[6].innerText;
 
     // console.log(placeName, placeAddress);
 
@@ -88,6 +91,7 @@ function AddPlace(props) {
     localStorage.setItem("AddPlaceId", placeId);
     localStorage.setItem("AddPlaceLat", placeLat);
     localStorage.setItem("AddPlaceLng", placeLng);
+    localStorage.setItem("AddPlaceDesc", placeDescription);
 
     // console.log(localStorage.getItem("AddPlaceId"));
 
@@ -100,7 +104,6 @@ function AddPlace(props) {
     if (infowindow != null) infowindow.close();
   };
 
-  // 작성중
   const onSearchBtnClick = (e) => {
     e.preventDefault();
 
@@ -111,10 +114,16 @@ function AddPlace(props) {
     console.log(url);
 
     return call(url, "GET", header, null).then((response) => {
-      // console.log(response.data);
+      console.log(response.data);
       setRows(response.data);
     });
   };
+
+  const onPlaceClick = (row) => {
+    // localStorage.setItem("AddPlaceDesc", JSON.stringify(row.description));
+
+    setLatlng({ lat: row.lat, lng: row.lng, pName : row.name, pDesc : row.description });
+  }
 
   return (
     <>
@@ -168,6 +177,7 @@ function AddPlace(props) {
               <TableCell style={{ display: "none" }}>id</TableCell>
               <TableCell style={{ display: "none" }}>lat</TableCell>
               <TableCell style={{ display: "none" }}>lng</TableCell>
+              <TableCell style={{ display: "none" }}>desc</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -181,7 +191,7 @@ function AddPlace(props) {
                   scope="row"
                   align="center"
                   onClick={() => {
-                    setLatlng({ lat: row.lat, lng: row.lng });
+                    onPlaceClick(row)
                   }}
                 >
                   {row.name}
@@ -199,6 +209,7 @@ function AddPlace(props) {
                 <TableCell style={{ display: "none" }}>{row.id}</TableCell>
                 <TableCell style={{ display: "none" }}>{row.lat}</TableCell>
                 <TableCell style={{ display: "none" }}>{row.lng}</TableCell>
+                <TableCell style={{ display: "none" }}>{row.description}</TableCell>
               </TableRow>
             ))}
           </TableBody>

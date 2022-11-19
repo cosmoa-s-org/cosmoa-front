@@ -85,7 +85,7 @@ function CourseList() {
     const goCourseDetail = (event) => {
         const data = `${event.row.id}`
         console.log(data);
-        navigate(`/coursedetail/${event.row.id}`);
+        navigate(`/coursedetail/${event.row.id}`, {lat : 36.1461, lng : 128.3936});
     }
 
     return (<>

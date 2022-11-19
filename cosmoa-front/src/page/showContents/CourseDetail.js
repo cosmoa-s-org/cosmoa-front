@@ -50,6 +50,8 @@ const UserInfoWrapper = styled.div`
 `;
 
 function CourseDetail() {
+  const location = useLocation();
+
   const [CourseMap, setCourseMap] = useState("");
   const [markers, setMarkers] = useState([]);
   const [placeList, setplaceList] = useState([]);
@@ -120,23 +122,25 @@ function CourseDetail() {
         console.log(response.data);
         setplaceList(response.data);
 
-        let newlatlng = []
+        let newlatlng = [];
         response.data.forEach((item, i) => {
-          let lat = item.place.lat;
-          let lng = item.place.lng;
+          let lat = parseFloat(item.place.lat);
+          let lng = parseFloat(item.place.lng);
 
-          newlatlng.push({lat: lat, lng: lng});
+          newlatlng.push({ lat: lat, lng: lng });
           setRows(newlatlng);
+          setLatlng(newlatlng);
         });
+
         setCourseMap(
           <CourseMapWrapper
             rows={newlatlng}
             markers={markers}
             setMarkers={setMarkers}
-            latlng={newlatlng}
+            latlng={latlng}
           />
-          );
-        });
+        );
+      });
   }, []);
 
   useEffect(() => {
@@ -171,16 +175,28 @@ function CourseDetail() {
               {/* 장소 카드 */}
               <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
+                  onClick={() => {
+                    setLatlng({
+                      lat: item.place.lat,
+                      lng: item.place.lng,
+                    });
+                  }}
                   component="img"
                   height="auto"
                   width
                   image={atob(item.place.image)}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div"
-                  onClick={() => {
-                    setLatlng({ lat: item.place.lat, lng: item.place.lng });}
-                  }
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    onClick={() => {
+                      setLatlng({
+                        lat: parseFloat(item.place.lat),
+                        lng: parseFloat(item.place.lng),
+                      });
+                    }}
                   >
                     {item.place.name}
                   </Typography>
@@ -279,9 +295,7 @@ function CourseDetail() {
         </Typography>
       </Box>
       <Box>
-        <div style={{ margin: "0 auto" }}>
-          {CourseMap}
-        </div>
+        <div style={{ margin: "0 auto" }}>{CourseMap}</div>
         <Container style={{ textAlign: "initial" }}>
           추천수 : {course.like}
           {like ? (

@@ -8,8 +8,13 @@ function AddPlaceMaps(props) {
   const rows = [...props.rows];
   const markers = props.markers;
   const setMarkers = props.setMarkers;
+  const [InfoMarker, setInfoMarker] = useState([]);
 
-  const infowindow = new window.google.maps.InfoWindow();
+  const contentString = '<h3>'+ latlng.pName +'</h3>' + latlng.pDesc;
+
+  const infowindow = new window.google.maps.InfoWindow({
+    content: contentString,
+  });
 
   const mapStyle = {
     width: "100%",
@@ -50,10 +55,19 @@ function AddPlaceMaps(props) {
 
   useEffect(() => {
     if (map) {
+      infowindow.close(InfoMarker);
       const ll = new window.google.maps.LatLng(latlng.lat, latlng.lng);
+      const marker = new window.google.maps.Marker({position: ll, map: map});
+      setInfoMarker(marker);
       map.panTo(ll);
       map.setZoom(15);
+      
+      infowindow.open({
+        anchor: marker,
+        map,
+      })
     }
+    console.log(latlng)
   }, [latlng]);
 
   // useEffect(()=>{

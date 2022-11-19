@@ -69,10 +69,14 @@ function Header() {
 
   React.useEffect(() =>{
     M.onBack(() => {
-    console.log(location.pathname)
+    console.log(location.pathname.slice(0,13))
     if(location.pathname==="/main") {}
     else if(location.pathname==="/") {}
-    else {navigate(-1)}
+    // else if(location.pathname.slice(0,13)=="/courselist") {}
+    else {
+      navigate(-1)
+      localStorage.setItem("latlng", JSON.stringify({}))
+    }
   });},[])
   
   

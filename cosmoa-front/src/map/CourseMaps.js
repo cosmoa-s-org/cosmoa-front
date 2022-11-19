@@ -20,6 +20,12 @@ function CourseMaps(props) {
     mapTypeId: "roadmap",
   };
 
+  const contentString = '<h3>'+ latlng.pName +'</h3>' + latlng.pDesc;
+
+  const infowindow = new window.google.maps.InfoWindow({
+    content: contentString,
+  });
+
   React.useEffect(() => {
     if (mapRef.current && !map) {
       setMap(new window.google.maps.Map(mapRef.current, mapOptions));
@@ -47,9 +53,15 @@ function CourseMaps(props) {
   useEffect(() => {
     if (map) {
       const ll = new window.google.maps.LatLng(latlng.lat, latlng.lng);
+      const marker = new window.google.maps.Marker({position: ll, map: map});
       map.panTo(ll);
       map.setZoom(15);
+      infowindow.open({
+        anchor: marker,
+        map,
+      })
     }
+    console.log(rows);
   }, [latlng]);
 
   return (

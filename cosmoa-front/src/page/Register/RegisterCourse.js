@@ -91,6 +91,7 @@ function RegisterCourse(props) {
     localStorage.setItem("courseName", "");
     localStorage.setItem("courseDescription", "");
     localStorage.setItem("placeItems", "");
+    localStorage.setItem("AddPlaceDesc", "");
   };
 
   const onhandlePost = async (data) => {
@@ -163,8 +164,10 @@ function RegisterCourse(props) {
         placeId: localStorage.getItem("AddPlaceId"),
         lat: localStorage.getItem("AddPlaceLat"),
         lng: localStorage.getItem("AddPlaceLng"),
+        placeDescription: localStorage.getItem("AddPlaceDesc"),
         costTime: "",
       };
+      console.log(place);
 
       const placeItems = [...JSON.parse(localStorage.getItem("placeItems"))];
       let isExists = false;
@@ -271,8 +274,8 @@ function RegisterCourse(props) {
                       <TableCell
                         align="center"
                         onClick={() => {
-                          // console.log(row);
-                          setLatlng({ lat: row.lat, lng: row.lng });
+                          console.log(row);
+                          setLatlng({ lat: row.lat, lng: row.lng, pName: row.placeName, pDesc: row.placeDescription });
                         }}
                       >
                         {row.placeName}
