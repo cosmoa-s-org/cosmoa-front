@@ -1,6 +1,6 @@
 import { Box, Button, Container, Divider, Grid, Typography, Card, CardContent, CardActions, CardMedia } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
+import {  useLocation, useNavigate, useParams } from "react-router-dom";
 import MapWrapper, { CourseMapWrapper } from "../../map/MapWrapper";
 import { call } from "../../service/ApiService";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
