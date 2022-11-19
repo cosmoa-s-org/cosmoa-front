@@ -1,7 +1,6 @@
 import React from "react";
 
-import { BrowserRouter, Route, Routes, Navigate, useParams, Outlet } from "react-router-dom";
-import Box from "@material-ui/core/Box";
+import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 
 import Header from "./components/head/Header";
 import Footer from "./components/footer/Footer";
@@ -33,15 +32,9 @@ function UserLayout() {
 
 
 function AppRouter(props) {
-  let isAuthorized = sessionStorage.getItem("isAuthorized");
 
   return (<>
     <BrowserRouter>
-      {/* {!isAuthorized ? <Navigate to="/signin" /> : <Navigate to="/" />}
-      <Routes>
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/" element={<Main />} />
-      </Routes> */}
 
       <div>
         <Routes>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Container, Grid, Typography, TextField, Button, Select, MenuItem, FormHelperText, ToggleButton, ToggleButtonGroup, Avatar } from "@mui/material";
-import signup, { call } from '../../service/ApiService';
+import { call } from '../../service/ApiService';
 import styled from "@emotion/styled";
 import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from "react-router-dom";
@@ -25,14 +25,14 @@ function SignUp() {
             navigate('/signin');
         });
     }, [])
-    
+
     const [emailError, setEmailError] = useState('');
     const [passwordState, setPasswordState] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [gender, setGender] = useState('');
     const [age, setAge] = useState('');
 
-    const header = { "Content-Type" : "application/json" }
+    const header = { "Content-Type": "application/json" }
 
 
     const SelectBox = (props) => {
@@ -70,7 +70,7 @@ function SignUp() {
             })
         console.log('성공');
         console.log(data);
-        
+
         navigate("/signin");
     }
 
@@ -117,8 +117,8 @@ function SignUp() {
         }
     }
     return (<>
-        <h1>Cosmoa</h1>
-        <Container component="main" maxWidth="xs" style={{ marginTop: "4%" }}>
+        <Container component="main" maxWidth="xs" style={{ marginTop: "20%" }}>
+            <h1>Cosmoa</h1>
             <Avatar>
                 <PersonIcon />
             </Avatar>

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Link,
   Button,
   Container,
   Grid,
@@ -19,7 +18,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { registerCourse } from "../../service/ApiService";
 
 function RegisterCourse(props) {
-  const [pinPlace, setPinPlace] = useState({});
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [rows, setRows] = useState([]);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 // import { useNavigate } from 'react-router-dom';
-import { call, signin } from '../../service/ApiService';
+import { signin } from '../../service/ApiService';
 import { Button, TextField, Link, Grid, Box, Typography, Container, Avatar } from '@material-ui/core';
 // import { authService } from '../../fbase';
 // import { onSocialClick } from '../../service/Auth';
@@ -43,6 +43,7 @@ export default function SignIn() {
 
         signin(JSON.stringify(joinData));
         console.log("전송 성공");
+        M.pop.alert('로그인 성공');
         // navigate("/");
 
     };
@@ -81,10 +82,10 @@ export default function SignIn() {
 
 
     return (<>
-        <h1>Cosmoa</h1>
         {/* <button onClick={onLogOutClick}>Log out</button> */}
-        <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
-            <Box sx={{ marginTop: 8, alignItems: 'center', display: 'flex' }} >
+        <Container component="main" maxWidth="xs" style={{ marginTop: "30%" }}>
+        <h1>Cosmoa</h1>
+            <Box sx={{ marginTop: 8, alignItems: 'center' }} >
                 <Avatar>
                     <LockOpenIcon />
                 </Avatar>

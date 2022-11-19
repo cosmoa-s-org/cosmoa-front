@@ -1,12 +1,10 @@
-import { Box, Button, Container, Divider, Grid, Paper, TextField, Typography, Card, CardContent, CardActions, CardMedia } from "@material-ui/core";
+import { Box, Button, Container, Divider, Grid, Typography, Card, CardContent, CardActions, CardMedia } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams, Link } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import MapWrapper from "../../map/MapWrapper";
 import { call } from "../../service/ApiService";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import { positions } from "@mui/system";
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import styled from "@emotion/styled";
 
@@ -48,7 +46,6 @@ function CourseDetail() {
     const [input, setInput] = useState();
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
-    let nickname = JSON.parse(localStorage.getItem("USER")).nickname
 
     const params = useParams();
     const cid = params.id

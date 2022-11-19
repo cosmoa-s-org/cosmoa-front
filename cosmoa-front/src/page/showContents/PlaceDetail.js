@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { call } from "../../service/ApiService";
-import { Box, Button, Container, Divider, Grid, Paper, TextField, Typography, Card, CardMedia } from "@material-ui/core";
+import { Box, Button, Container, Grid, Typography, Card, CardMedia } from "@material-ui/core";
 import styled from "@emotion/styled";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';

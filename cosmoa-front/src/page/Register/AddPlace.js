@@ -1,8 +1,6 @@
 import {
   Button,
-  Grid,
   InputBase,
-  Link,
   Paper,
   Table,
   TableBody,
@@ -10,11 +8,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
 } from "@material-ui/core";
 import { IconButton } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import MapWrapper, { AddPlaceMapWrapper } from "../../map/MapWrapper";
+import { AddPlaceMapWrapper } from "../../map/MapWrapper";
 import SearchIcon from "@mui/icons-material/Search";
 import { call } from "../../service/ApiService";
 
