@@ -110,7 +110,7 @@ function Header() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar style={{backgroundColor: "lightsalmon", color: "white"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -179,7 +179,7 @@ function Header() {
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><PostAddIcon /></ListItemIcon>
-              <ListItemText>코스 및 장소 등록</ListItemText>
+              <ListItemText>코스 & 장소 등록</ListItemText>
             </Button>
           </ListItem>
           </Link>
@@ -187,7 +187,7 @@ function Header() {
           <ListItem disablePadding>
             <Button>
               <ListItemIcon><DynamicFeedIcon /></ListItemIcon>
-              <ListItemText>코스 및 장소 조회</ListItemText>
+              <ListItemText>코스 & 장소 조회</ListItemText>
             </Button>
           </ListItem>
           </Link>

@@ -112,6 +112,7 @@ export default function SignIn() {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                type="password"
                                 id="password"
                                 label="패스워드" name="password"
                                 autoComplete="password"

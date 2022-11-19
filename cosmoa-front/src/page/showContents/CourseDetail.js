@@ -15,6 +15,7 @@ const Like = styled.button`
   margin-left: 3%;
   border: 0;
   background-color: floralwhite;
+  margin-top : 5px;
 `;
 const CommentWrapper = styled.div`
   border: 1px solid black;
@@ -25,6 +26,7 @@ const CommentWrapper = styled.div`
   height: auto;
   text-align: left;
   margin-top: 5px;
+  padding : 5px;
 `;
 
 const UserInfoWrapper = styled.div`
@@ -32,6 +34,7 @@ const UserInfoWrapper = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid #eeeeee;
   height: 30px;
+
 `;
 
 function CourseDetail() {
@@ -124,17 +127,17 @@ function CourseDetail() {
         });
   }, []);
 
-  useEffect(() => {
-    console.log(latlng);
-    setCourseMap(
-      <CourseMapWrapper
-        markers={markers}
-        setMarkers={setMarkers}
-        rows={rows}
-        latlng={latlng}
-      />
-    );
-  }, [latlng]);
+//   useEffect(() => {
+//     console.log(latlng);
+//     setCourseMap(
+//       <CourseMapWrapper
+//         markers={markers}
+//         setMarkers={setMarkers}
+//         rows={rows}
+//         latlng={latlng}
+//       />
+//     );
+//   }, [latlng]);
 
   const goPlaceDetail = (id) => {
     // 장소 상세보기로 이동
@@ -192,7 +195,7 @@ function CourseDetail() {
             </>
           );
         })}
-        <div style={{ textAlign: "center" }}>{totalCostTime}분 소요</div>
+        <div style={{ textAlign: "center", marginLeft:"20px" }}>{totalCostTime}분 소요</div>
         <Divider />
       </>
     );
@@ -253,13 +256,13 @@ function CourseDetail() {
   return (
     <>
       <Box>
-        <Typography variant="h4" style={{ marginTop: "15%" }}>
+        <Typography variant="h4" style={{ marginTop: "5%", fontWeight:"600"}}>
           {course.course.name}
         </Typography>
-        <Typography style={{ textAlign: "right" }}>
+        <Typography style={{ textAlign: "right", marginRight:"10px" }}>
           by {course.nickname}
         </Typography>
-        <Typography style={{ textAlign: "right" }}>
+        <Typography style={{ textAlign: "right", marginRight:"10px" }}>
           {course.course.createdDate}
         </Typography>
       </Box>
@@ -268,6 +271,16 @@ function CourseDetail() {
           {CourseMap}
         </div>
         <Container style={{ textAlign: "initial" }}>
+
+          <br />
+          <Typography variant="h5" style={{fontWeight:"500"}}>코스 순서 </Typography>
+          <Divider />
+          {placeListTable} <br />
+          <Typography style={{fontSize:"medium"}}>
+          {course.course.description}
+          </Typography>
+          <br />
+        <Divider />
           추천수 : {course.like}
           {like ? (
             <Like size="20px" onClick={likeClick}>
@@ -278,12 +291,6 @@ function CourseDetail() {
               <ThumbUpOffAltIcon />
             </Like>
           )}
-          <br />
-          <Typography variant="h5">코스 순서 </Typography>
-          <Divider />
-          {placeListTable} <br />
-          {course.course.description}
-          <br />
         </Container>
         <hr />
         {/* Reply */}

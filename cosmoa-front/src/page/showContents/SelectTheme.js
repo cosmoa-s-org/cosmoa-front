@@ -16,9 +16,7 @@ function SelectTheme() {
     return(<>
         
         <h1>Select Theme Page</h1>
-
-            <Item style={{backgroundColor:"lightgreen"}}>인기 코스</Item>
-
+            <Item style={{backgroundColor:"lightgreen" }}>인기 코스</Item>
             <Link href="/courselist">
                 <Item style={{backgroundColor:"yellow"}}>item1</Item>
             </Link>

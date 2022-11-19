@@ -35,15 +35,13 @@ function AppRouter(props) {
 
   return (<>
     <BrowserRouter>
-
+      
       <div>
         <Routes>
           <Route path="/" element={<BasicLayout />}>
             <Route index element={<Main />} />
 
             <Route path="main" element={<Main />} />
-
-            <Route path="/splash" element={<Splash />} />
 
             <Route path="Mypage" element={<Mypage />} />
             <Route path="SelectTheme" element={<SelectTheme />} />
@@ -61,6 +59,9 @@ function AppRouter(props) {
           </Route>
           <Route path="/signup" element={<UserLayout />}>
             <Route index element={<SignUp />} />
+          </Route>
+          <Route path="/splash" element={<UserLayout />}>
+            <Route index element={<Splash />} />
           </Route>
 
         </Routes>
