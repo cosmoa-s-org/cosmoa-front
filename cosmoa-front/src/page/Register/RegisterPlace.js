@@ -9,7 +9,6 @@ import {
     Tab,
     Tabs,
     Table,
-    Input,
 } from "@material-ui/core";
 import imgName from "../../images/test.png";
 import MapWrapper from "../../map/MapWrapper";

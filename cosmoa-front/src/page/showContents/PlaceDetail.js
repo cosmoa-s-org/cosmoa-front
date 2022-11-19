@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { call } from "../../service/ApiService";
-import { Box, Button, Container, Divider, Grid, Paper, TextField, Typography, Card, CardMedia } from "@material-ui/core";
+import { Box, Button, Container, Grid, Typography, Card, CardMedia } from "@material-ui/core";
 import styled from "@emotion/styled";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -13,6 +13,7 @@ const Like = styled.button`
   margin-left : 3%;
   border : 0;
   background-color : floralwhite;
+  margin-top : 5px;
 `
 const CommentWrapper = styled.div`
   border: 1px solid black;
@@ -23,6 +24,8 @@ const CommentWrapper = styled.div`
   height : auto;
   text-align : left;
   margin-top : 5px;
+  padding : 10px;
+
 `;
 
 const UserInfoWrapper = styled.div`
@@ -168,12 +171,10 @@ function PlaceDetail() {
         // window.location.reload();
     };
 
-
-
     return (<>
         <Box>
-            <Typography variant="h4" style={{ marginTop: "15%" }}>{place.place.name}</Typography>
-            <Typography style={{ textAlign: "right" }}>by {place.nickname}</Typography>
+            <Typography variant="h4" style={{ marginTop: "5%" }}>{place.place.name}</Typography>
+            <Typography style={{ textAlign: "right", marginRight: "10px" }}>by {place.nickname}</Typography>
             {/* <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography> */}
         </Box>
         <Box
@@ -183,11 +184,12 @@ function PlaceDetail() {
                 <CardMedia
                     component="img"
                     height="auto"
+                    style={{padding:"5px"}}
                     width
                     image={atob(place.image)}
                 />
             </Card>
-            <Container style={{ textAlign: "initial" }}>
+            <Container style={{ textAlign: "initial"}}>
                 추천수 : {place.like}
                 {like ? (
                     <Like size="20px" onClick={likeClick}>
@@ -198,7 +200,8 @@ function PlaceDetail() {
                         <ThumbUpOffAltIcon />
                     </Like>
                 )}
-                <Typography>{place.place.description}</Typography>
+                <Typography style={{ fontSize: "medium" }}>
+                    {place.place.description}</Typography>
             </Container>
             <hr />
             {/* Reply */}
@@ -253,12 +256,12 @@ function PlaceDetail() {
                                     </div>
                                 </UserInfoWrapper>
                                 <Card sx={{ maxWidth: 150 }}>
-                                            <CardMedia
-                                                component="img"
-                                                style={{width:"50%"}}
-                                                image={atob(comment.img)}
-                                            />
-                                        </Card>
+                                    <CardMedia
+                                        component="img"
+                                        style={{ width: "50%" }}
+                                        image={atob(comment.img)}
+                                    />
+                                </Card>
                                 {comment.comment}
                             </CommentWrapper>
                         ))}

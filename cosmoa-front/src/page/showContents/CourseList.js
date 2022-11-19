@@ -1,4 +1,4 @@
-import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Link, Tab, Tabs } from "@material-ui/core";
+import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Tab, Tabs } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
@@ -89,7 +89,7 @@ function CourseList() {
     }
 
     return (<>
-        <Typography variant="h4" > 여행 코스</Typography>
+        <Typography variant="h4" style={{marginTop: "5%"}}> 여행 코스</Typography>
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
                 <Tabs value={value} onChange={handleTab} aria-label="basic tabs example" style={{ display: "flex", justifyContent: "center", flexDirection: "row" }}>
