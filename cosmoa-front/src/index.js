@@ -12,14 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     <div className="App" >
-      {/* {
-      setTimeout(function() {
-      return (<>
-        <Splash />
-      </>)
-      }, 5000)
-    } */}
-      <AppRouter />
+      <App />
     </div>
   </>
 );

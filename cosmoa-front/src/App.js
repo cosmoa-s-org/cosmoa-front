@@ -6,20 +6,6 @@ import Splash from "./components/Splash";
 
 function App() {
   const [time,setTime] = useState(<Splash />);
-  const location = useLocation();
-
-  // useEffect(()=>{
-  //   if(location.pathname==="/"){
-  //     setTimeout(function() {
-  //       setTime(<AppRouter />)
-  //     }, 3000)}
-  //   else if(location.pathname==="/signin"){
-  //     setTimeout(function() {
-  //       setTime(<AppRouter />)
-  //     }, 3000)
-  //   }
-  //   else{setTime(<AppRouter />)}
-  // },[])
 
   return (
     <>
@@ -30,7 +16,7 @@ function App() {
       {
         setTimeout(function() {
           setTime(<AppRouter />)
-        }, 3000)
+        }, 1000)
       }
 
       </div>
