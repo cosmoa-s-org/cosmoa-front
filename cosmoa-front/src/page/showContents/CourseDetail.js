@@ -182,8 +182,8 @@ function CourseDetail() {
                       setLatlng({
                         lat: parseFloat(item.place.lat),
                         lng: parseFloat(item.place.lng),
-                        // pName: row.placeName,
-                        // pDesc: row.placeDescription
+                        pName: item.place.name,
+                        pDesc: item.place.description
                       });
                     }}
                   >
