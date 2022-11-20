@@ -1,7 +1,7 @@
 import { Box, Button, Container, Divider, Grid, Typography, Card, CardContent, CardActions, CardMedia } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import {  useLocation, useNavigate, useParams } from "react-router-dom";
-import MapWrapper, { CourseMapWrapper } from "../../map/MapWrapper";
+import MapWrapper, { CourseDetailMapWrapper, CourseMapWrapper } from "../../map/MapWrapper";
 import { call } from "../../service/ApiService";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -107,14 +107,17 @@ function CourseDetail() {
         response.data.forEach((item, i) => {
           let lat = parseFloat(item.place.lat);
           let lng = parseFloat(item.place.lng);
+          let pName = item.place.name;
+          let pDesc = item.place.description;
 
-          newlatlng.push({ lat: lat, lng: lng });
+          newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc});
           setRows(newlatlng);
           setLatlng(newlatlng);
+          console.log(newlatlng);
         });
 
         setCourseMap(
-          <CourseMapWrapper
+          <CourseDetailMapWrapper
             rows={newlatlng}
             markers={markers}
             setMarkers={setMarkers}
@@ -157,9 +160,12 @@ function CourseDetail() {
               <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
                   onClick={() => {
+                    console.log(item);
                     setLatlng({
                       lat: item.place.lat,
                       lng: item.place.lng,
+                      pName: item.place.name,
+                      pDesc: item.place.description
                     });
                   }}
                   component="img"
@@ -176,6 +182,8 @@ function CourseDetail() {
                       setLatlng({
                         lat: parseFloat(item.place.lat),
                         lng: parseFloat(item.place.lng),
+                        // pName: row.placeName,
+                        // pDesc: row.placeDescription
                       });
                     }}
                   >
