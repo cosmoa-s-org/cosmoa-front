@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { call } from "../../service/ApiService";
-import { Box, Button, Container, Grid, Typography, Card, CardMedia } from "@material-ui/core";
+import { Box, Button, Container, Grid, Typography, Card, CardMedia, Select, MenuItem } from "@material-ui/core";
 import styled from "@emotion/styled";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -51,6 +51,7 @@ function PlaceDetail() {
     const [like, setLike] = useState(false);
     const [input, setInput] = useState();
     const [path, setPath] = useState("");
+    const [report, setReport] = useState([]);
 
 
     const params = useParams();
@@ -171,6 +172,35 @@ function PlaceDetail() {
         // window.location.reload();
     };
 
+    // 장소 삭제
+    const placeDelete = (e) => {
+        call(`/place/${pid}`, "DELETE", header, null)
+      }
+    
+    // 신고 기능
+      const reportAppear = (e) => {
+        const div = document.getElementById('reportDiv');
+        
+        if(div.style.display === 'none')  {
+          div.style.display = 'block';
+        }else {
+          div.style.display = 'none';
+        }
+      }
+    
+      const reportReason = (e) => {
+        setReport(e.target.value)
+      }
+    
+      function reportClick() {
+        console.log(report);
+        console.log(pid);
+        console.log(userId);
+        let data = {placeId: pid, userId: userId, type: report}
+        call(`/place-report`, "POST", header, JSON.stringify(data))
+        // M.pop.alert("신고 완료")
+      }
+
     return (<>
         <Box>
             <Typography variant="h4" style={{ marginTop: "5%" }}>{place.place.name}</Typography>
@@ -184,12 +214,12 @@ function PlaceDetail() {
                 <CardMedia
                     component="img"
                     height="auto"
-                    style={{padding:"5px"}}
+                    style={{ padding: "5px" }}
                     width
                     image={atob(place.image)}
                 />
             </Card>
-            <Container style={{ textAlign: "initial"}}>
+            <Container style={{ textAlign: "initial" }}>
                 추천수 : {place.like}
                 {like ? (
                     <Like size="20px" onClick={likeClick}>
@@ -202,6 +232,36 @@ function PlaceDetail() {
                 )}
                 <Typography style={{ fontSize: "medium" }}>
                     {place.place.description}</Typography>
+
+                {/* 장소 삭제 및 신고 */}
+                <div style={{ textAlign: "right" }}>
+                    {userId === place.place.userId ? (
+                        <>
+                            <Button onClick={placeDelete} style={{ marginBottom: "5px", backgroundColor: "lightgray" }}>장소 삭제</Button>
+                        </>
+                    ) : <>
+                        <Button variant="outlined" color="red" onClick={reportAppear} style={{ marginBottom: "5px" }}>장소 신고</Button>
+                        <div id="reportDiv" hidden>
+                            <Box width="50%" style={{ marginLeft: "auto" }}>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={report}
+                                    label="신고사유"
+                                    onChange={reportReason}
+                                    fullWidth
+                                    style={{ textAlign: "justify" }}
+                                >
+                                    <MenuItem value={1}>부적절한 내용의 게시물</MenuItem>
+                                    <MenuItem value={2}>음란물이 포함된 게시물</MenuItem>
+                                    <MenuItem value={3}>광고성 게시물</MenuItem>
+                                </Select>
+                                <Button onClick={reportClick}>신고하기</Button>
+                            </Box>
+                        </div>
+                    </>
+                    }
+                </div>
             </Container>
             <hr />
             {/* Reply */}

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Divider, Grid, Typography, Card, CardContent, CardActions, CardMedia } from "@material-ui/core";
+import { Box, Button, Container, Divider, Grid, Typography, Card, CardContent, CardActions, CardMedia, Select, MenuItem } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import {  useLocation, useNavigate, useParams } from "react-router-dom";
 import MapWrapper, { CourseDetailMapWrapper, CourseMapWrapper } from "../../map/MapWrapper";
@@ -61,6 +61,7 @@ function CourseDetail() {
   const [input, setInput] = useState();
   const [latlng, setLatlng] = useState({});
   const [rows, setRows] = useState([]);
+  const [report, setReport] = useState([]);
 
   let userId = JSON.parse(localStorage.getItem("USER")).id;
   let nickname = JSON.parse(localStorage.getItem("USER")).nickname;
@@ -274,6 +275,30 @@ function CourseDetail() {
     call(`/course/${cid}`, "DELETE", header, null)
   }
 
+// 신고 기능
+  const reportAppear = (e) => {
+    const div = document.getElementById('reportDiv');
+    
+    if(div.style.display === 'none')  {
+      div.style.display = 'block';
+    }else {
+      div.style.display = 'none';
+    }
+  }
+
+  const reportReason = (e) => {
+    setReport(e.target.value)
+  }
+
+  function reportClick() {
+    console.log(report);
+    console.log(cid);
+    console.log(userId);
+    let data = {courseId: cid, userId: userId, type: report}
+    call(`/course-report`, "POST", header, JSON.stringify(data))
+    // M.pop.alert("신고 완료")
+  }
+
   return (
     <>
       <Box>
@@ -305,8 +330,29 @@ function CourseDetail() {
                 <>
                 <Button onClick={courseDelete} style={{marginBottom:"5px", backgroundColor:"lightgray"}}>코스 삭제</Button>
                 </>
-            ) : null}
+            ) : <>
+                <Button variant="outlined" color="red" onClick={reportAppear} style={{marginBottom:"5px"}}>코스 신고</Button>
+                <div id="reportDiv" hidden>
+                    <Box width="50%" style={{marginLeft:"auto"}}>
+                    <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={report}
+                                label="신고사유"
+                                onChange={reportReason}
+                                fullWidth
+                                style={{textAlign:"justify"}}
+                            >
+                                <MenuItem value={1}>부적절한 내용의 게시물</MenuItem>
+                                <MenuItem value={2}>음란물이 포함된 게시물</MenuItem>
+                                <MenuItem value={3}>광고성 게시물</MenuItem>
+                    </Select>
+                    <Button onClick={reportClick}>신고하기</Button>
+                    </Box>
+                </div>
+            </>}
           </div>
+
         <Divider />
           추천수 : {course.like}
           {like ? (
