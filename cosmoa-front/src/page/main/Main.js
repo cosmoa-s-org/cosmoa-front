@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { call } from "../../service/ApiService";
 
 
-const Item = styled(Button)(({ theme }) => ({
+const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   // ...theme.typography.body2,
   padding: theme.spacing(1),

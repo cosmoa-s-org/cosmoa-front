@@ -75,23 +75,16 @@ function CourseDetail() {
     if (like) {
       setLike(false);
       course.like -= 1;
-      call(
-        `/course-like`,
-        "DELETE",
-        header,
-        JSON.stringify({ userId: userId, courseId: cid })
+      call(`/course-like`, "DELETE", header, JSON.stringify({ userId: userId, courseId: cid })
       );
     } else {
       setLike(true);
       course.like += 1;
-      call(
-        `/course-like`,
-        "POST",
-        header,
-        JSON.stringify({ userId: userId, courseId: cid })
+      call(`/course-like`, "POST", header, JSON.stringify({ userId: userId, courseId: cid })
       );
     }
   };
+  console.log(userId);
 
   useEffect(() => {
     call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", header, null) // 코스 정보 받아오기
@@ -131,17 +124,17 @@ function CourseDetail() {
       });
   }, []);
 
-//   useEffect(() => {
-//     console.log(latlng);
-//     setCourseMap(
-//       <CourseMapWrapper
-//         markers={markers}
-//         setMarkers={setMarkers}
-//         rows={rows}
-//         latlng={latlng}
-//       />
-//     );
-//   }, [latlng]);
+  useEffect(() => {
+    console.log(latlng);
+    setCourseMap(
+      <CourseMapWrapper
+        markers={markers}
+        setMarkers={setMarkers}
+        rows={rows}
+        latlng={latlng}
+      />
+    );
+  }, [latlng]);
 
   const goPlaceDetail = (id) => {
     // 장소 상세보기로 이동
@@ -269,6 +262,10 @@ function CourseDetail() {
     setInput("");
   };
 
+  const courseDelete = (e) => {
+    call(`/course/${cid}`, "DELETE", header, null)
+  }
+
   return (
     <>
       <Box>
@@ -294,6 +291,14 @@ function CourseDetail() {
           {course.course.description}
           </Typography>
           <br />
+          {/* 코스 삭제 버튼 */}
+          <div style={{textAlign:"right"}}>
+            {userId === course.course.userId ? (
+                <>
+                <Button onClick={courseDelete} style={{marginBottom:"5px", backgroundColor:"lightgray"}}>코스 삭제</Button>
+                </>
+            ) : null}
+          </div>
         <Divider />
           추천수 : {course.like}
           {like ? (
@@ -305,6 +310,7 @@ function CourseDetail() {
               <ThumbUpOffAltIcon />
             </Like>
           )}
+          
         </Container>
         <hr />
         {/* Reply */}

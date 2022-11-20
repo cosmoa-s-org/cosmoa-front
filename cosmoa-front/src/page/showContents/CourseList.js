@@ -46,6 +46,7 @@ function CourseList() {
     const header = { "Content-Type" : "application/json" }
     const [courseList, setCourseList] = useState([]);
 
+
     useEffect(() => {
         call("/course", "GET", header, null)
             .then((response) => {
