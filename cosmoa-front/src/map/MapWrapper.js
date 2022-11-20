@@ -2,6 +2,7 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import { useEffect } from "react";
 import { GOOGLE_KEY } from "../service/app-config";
 import AddPlaceMaps from "./AddPlaceMaps";
+import CourseDetialMaps from "./CourseDetailMaps";
 import CourseMaps from "./CourseMaps";
 import GoogleMaps from "./GoogleMaps";
 
@@ -49,6 +50,23 @@ export function CourseMapWrapper(props) {
   return (
     <Wrapper apiKey={GOOGLE_KEY} render={render}>
       <CourseMaps
+        rows={props.rows}
+        markers={props.markers}
+        setMarkers={props.setMarkers}
+        latlng={props.latlng}
+      />
+    </Wrapper>
+  );
+}
+
+export function CourseDetailMapWrapper(props) {
+  const render = (status) => {
+    return <h1>{status}</h1>;
+  };
+
+  return (
+    <Wrapper apiKey={GOOGLE_KEY} render={render}>
+      <CourseDetialMaps
         rows={props.rows}
         markers={props.markers}
         setMarkers={props.setMarkers}

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function CourseMaps(props) {
+function CourseDetialMaps(props) {
   const mapRef = React.useRef(null);
   const [map, setMap] = React.useState();
   const latlng = props.latlng;
@@ -46,7 +46,14 @@ function CourseMaps(props) {
           map: map,
         });
         tmp.push(marker);
-        
+        const contentAll = '<h3>'+ row.pName +'</h3>' + row.pDesc;
+        const showAllInfo = new window.google.maps.InfoWindow({
+          content: contentAll,
+        })
+        showAllInfo.open({
+          anchor: marker,
+          map,
+        })
       });
       setMarkers(tmp);
     }
@@ -74,4 +81,4 @@ function CourseMaps(props) {
   );
 }
 
-export default CourseMaps;
+export default CourseDetialMaps;
