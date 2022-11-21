@@ -3,9 +3,6 @@ import * as React from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { signin } from '../../service/ApiService';
 import { Button, TextField, Link, Grid, Box, Typography, Container, Avatar } from '@material-ui/core';
-// import { authService } from '../../fbase';
-// import { onSocialClick } from '../../service/Auth';
-import { authService, firebaseInstance } from '../../fbase';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,7 +46,6 @@ export default function SignIn() {
     };
 
 
-
     // const signin = async (data) => {
     //     signin("", "", JSON.stringify(data))
     //         .then((response) => {
@@ -61,24 +57,19 @@ export default function SignIn() {
 
     const onSocialClick = async (event) => {
         // console.log(event.target.name);
-        const {
-            target: { name },
-        } = event;
-        let provider = '';
-        if (name === 'google') {
-            provider = new firebaseInstance.auth.GoogleAuthProvider();
-        } else if (name === 'github') {
-            provider = new firebaseInstance.auth.GithubAuthProvider();
-        }
+        // const {
+        //     target: { name },
+        // } = event;
+        // let provider = '';
+        // if (name === 'google') {
+        //     provider = new firebaseInstance.auth.GoogleAuthProvider();
+        // } else if (name === 'github') {
+        //     provider = new firebaseInstance.auth.GithubAuthProvider();
+        // }
 
-        const data = await authService.signInWithPopup(provider);
-        console.log(data);
+        // const data = await authService.signInWithPopup(provider);
+        // console.log(data);
     };
-    //   const history = useNavigate();
-    //   const onLogOutClick = () => {
-    //     authService.signOut();
-    //      history.push('/'); // location.href
-    //   };
 
 
     return (<>

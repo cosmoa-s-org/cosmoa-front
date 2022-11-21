@@ -1,6 +1,9 @@
 import React from "react";
-import { Grid, Link, Paper } from "@material-ui/core";
+import { Grid, Link, Paper, Container, Box, Typography } from "@material-ui/core";
 import { Stack, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { call } from "../../service/ApiService";
 
 const Item = styled(Paper)(({ theme }) => ({
     // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -8,25 +11,42 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    marginTop: "5px"
 }));
 
 function SelectTheme() {
 
+    const header = { "Content-Type": "application/json" };
+    const navigate = useNavigate();
+    const [likeCourse, setLikeCourse] = useState([]);
+  
+    useEffect(() => {
+      call("/course/hot", "GET", header, null)
+        .then((response) => {
+          console.log(response);
+          setLikeCourse(response.data);
+        })
+        }, []);
+  
+
+    const likeClick = (id) => {
+        console.log(id);
+        navigate(`/coursedetail/${id}`);
+      }
 
     return(<>
         
-        <h1>Select Theme Page</h1>
-            <Item style={{backgroundColor:"lightgreen" }}>인기 코스</Item>
-            <Link href="/courselist">
-                <Item style={{backgroundColor:"yellow"}}>item1</Item>
-            </Link>
-
-            <Link href="/main">
-                <Item style={{backgroundColor:"yellow"}}>item2</Item>
-            </Link>
-
-        <br/>
-
+        <Container maxWidth="sm">
+        <Box><h1></h1></Box>
+        <Typography style={{width:"100%", marginTop: "5px"}}>인기 코스</Typography>
+          <Item style={{ backgroundColor: "yellow", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
+            {likeCourse.length > 0 ? likeCourse[0].name : ""}
+            </Item>
+        <Item style={{ backgroundColor: "yellow", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
+        {likeCourse.length > 0 ? likeCourse[1].name : ""}
+        </Item>
+      </Container>
+        <br />
         <Grid  spacing={2} style={{display:"inline-block", padding:"5px"}}>
 
         <Link href="/courselist">

@@ -171,6 +171,7 @@ function PlaceDetail() {
         // return setComments(comments.filter((comment) => comment.id !== id));
         // window.location.reload();
     };
+    console.log(pid);
 
     // 장소 삭제
     const placeDelete = (e) => {

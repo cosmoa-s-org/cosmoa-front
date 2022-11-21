@@ -76,10 +76,10 @@ function CourseList() {
     //     })
     // );
     const columns = [
-        { field: 'id', headerName: 'no', width: 70 },
-        { field: 'name', headerName: '코스 이름', width: 150 },
+        { field: 'id', headerName: 'no', width: 20 },
+        { field: 'name', headerName: '코스 이름', width: 130 },
         { field: 'replyCount', headerName: '댓글', width: 20 },
-        { field: 'like', headerName: '추천 수', width: 70 },
+        { field: 'like', headerName: '추천', width: 20 },
         { field: 'nickname', headerName: '등록자', width: 80 },
     ];
 
@@ -120,7 +120,7 @@ function CourseList() {
                     </Box>
                     <Divider />
                     {/* 코스 리스트 */}
-                    <div style={{ height: 400, width: '100%' }}>
+                    <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
                             rows={courseList}
                             columns={columns}
