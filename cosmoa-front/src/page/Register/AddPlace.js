@@ -189,6 +189,7 @@ function AddPlace(props) {
                   align="center"
                   onClick={() => {
                     onPlaceClick(row)
+                    window.scrollTo(0,0);
                   }}
                 >
                   {row.name}

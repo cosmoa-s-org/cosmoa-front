@@ -13,12 +13,13 @@ function App() {
         
       {time}
       
-      {
-        setTimeout(function() {
-          setTime(<AppRouter />)
-        }, 1000)
-      }
-
+        <div style={{display : "none"}}>
+          {
+            setTimeout(function() {
+              setTime(<AppRouter />)
+            }, 1000)
+          }
+        </div>
       </div>
     </>
   );
