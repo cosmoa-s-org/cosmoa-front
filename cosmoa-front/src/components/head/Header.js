@@ -157,7 +157,9 @@ function Header() {
         </DrawerHeader>
         <Divider />
         <List>
+          <ListItem disablePadding>
           <Typography>{nickname}님 안녕하세요!</Typography>
+          </ListItem>
           <Divider />
         <Link href="/Mypage">
           <ListItem disablePadding>

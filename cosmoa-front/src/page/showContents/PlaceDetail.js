@@ -210,7 +210,11 @@ function PlaceDetail() {
         console.log(userId);
         let data = {placeId: pid, userId: userId, type: report}
         call(`/place-report`, "POST", header, JSON.stringify(data))
-        // M.pop.alert("신고 완료")
+        .then((response) => {
+            console.log("신고완료임");
+            M.pop.alert("신고 완료")
+        })
+
       }
 
     return (<>

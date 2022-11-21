@@ -4,6 +4,8 @@ import { Stack, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { call } from "../../service/ApiService";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
 
 const Item = styled(Paper)(({ theme }) => ({
     // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -37,13 +39,13 @@ function SelectTheme() {
     return(<>
         
         <Container maxWidth="sm">
-        <Box><h1></h1></Box>
-        <Typography style={{width:"100%", marginTop: "5px"}}>인기 코스</Typography>
-          <Item style={{ backgroundColor: "yellow", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
-            {likeCourse.length > 0 ? likeCourse[0].name : ""}
+        <Box><h1>Cosmoa</h1></Box>
+        <Paper style={{width:"100%", marginTop: "5px", backgroundColor:"#FFF89A"}}>인기 코스</Paper>
+          <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
+            <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[0].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
             </Item>
-        <Item style={{ backgroundColor: "yellow", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
-        {likeCourse.length > 0 ? likeCourse[1].name : ""}
+        <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
+        <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[1].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
         </Item>
       </Container>
         <br />
