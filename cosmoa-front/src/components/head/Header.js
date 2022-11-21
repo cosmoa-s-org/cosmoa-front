@@ -67,17 +67,21 @@ function Header() {
   const M = window.M;
   const location = useLocation();
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
+    // 안드로이드 이외의 운영체제에서 접속시 onBack 설정하지 않고 return
+    if (navigator.userAgent.indexOf('Android') === -1) return;
+
     M.onBack(() => {
-    console.log(location.pathname.slice(0,13))
-    if(location.pathname==="/main") {}
-    else if(location.pathname==="/") {}
-    // else if(location.pathname.slice(0,13)=="/courselist") {}
-    else {
-      navigate(-1)
-      localStorage.setItem("latlng", JSON.stringify({}))
-    }
-  });},[])
+      console.log(location.pathname.slice(0,13))
+      if(location.pathname==="/main") {}
+      else if(location.pathname==="/") {}
+      // else if(location.pathname.slice(0,13)=="/courselist") {}
+      else {
+        navigate(-1)
+        localStorage.setItem("latlng", JSON.stringify({}))
+      }
+    });
+  },[])
   
   
   const theme = useTheme();
