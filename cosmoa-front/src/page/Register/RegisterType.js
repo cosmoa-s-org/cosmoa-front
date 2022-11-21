@@ -1,11 +1,13 @@
 import React from "react";
-import { Paper, Link, Container } from "@material-ui/core";
+import { Paper, Link, Container, Typography } from "@material-ui/core";
 
 function RegisterType() {
 
   return (
     <>
-    <Container>
+    <Container style={{marginTop:"5%"}}>
+      <Typography variant="h5">등록할 코스 혹은 장소를 골라주세요.</Typography>
+      <br />
       <Link href="/registercourse">
         <Paper
           elevation={4}

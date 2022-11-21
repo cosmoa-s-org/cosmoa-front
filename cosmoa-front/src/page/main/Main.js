@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Stack, styled } from "@mui/material";
 import { useState, useEffect } from "react";
 import { call } from "../../service/ApiService";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import logo from "../../images/cosmoa_icon.png"
 
 const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -43,19 +43,10 @@ function Main() {
     }
 
     return (<>
-
       <Container maxWidth="sm">
-        <Box><h1>Cosmoa</h1></Box>
-        <Paper style={{width:"100%", marginTop: "5px", backgroundColor:"#FFF89A"}}>인기 코스</Paper>
-          <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
-            <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[0].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
-            </Item>
-        <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
-        <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[1].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
-        </Item>
+        <img src={logo} style={{marginTop:"4%", width:"40vw"}}></img>
       </Container>
-      
-      <br />
+
       <Link href="/registertype">
         <Paper variant="contained"
           style={{ height: 150, lineHeight: "150px", fontSize: 24, width: "90%", margin: "0 auto", backgroundColor: "#FFF89A" }}
