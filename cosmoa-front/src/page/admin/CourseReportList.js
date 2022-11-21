@@ -29,6 +29,19 @@ function CourseReportList(props) {
       return items;
   }
 
+  const updateReportStates = (reports) => {
+    // report 상태를 1 -> 2로 바꾸기
+    let data = [];
+    reports.forEach((report, i) => {
+        data.push({id: report.id, state: 2});
+    });
+
+    call(`/course-report/bulk-update`, "POST", {"Content-Type": "application/json"}, JSON.stringify(data))
+    .then((response) => {
+        console.log(response);
+    });
+  }
+
   const onDeleteBtnClicked = (course, reports) => {
     let formData = new FormData();
     formData.append("name", "신고 누적으로 인해 삭제된 코스");
@@ -39,22 +52,12 @@ function CourseReportList(props) {
         window.alert("해당 코스가 관리자의 요청으로 삭제되었습니다.");
     });
 
-    // report 상태를 1 -> 2로 바꾸기
-    let data = [];
-    reports.forEach((report, i) => {
-        data.push(report.id);
-    });
-
-    // call(`/course-report/complete`, "POST", {"Content-Type": "application/json"}, JSON.stringify(data))
-    // .then((response) => {
-    //     console.log(response);
-    // });
+    updateReportStates(reports);
 }
 
-const onRejectBtnClicked = () => {
-    window.alert("해당 코스에 대한 신고 처리가 완료되었습니다.")
-    
-    // report 상태를 1-> 2로 바꾸기
+const onRejectBtnClicked = (reports) => {
+    updateReportStates(reports);
+    window.alert("해당 코스에 대한 신고 처리가 완료되었습니다.")    
 }
 
   return (<>
@@ -67,6 +70,8 @@ const onRejectBtnClicked = () => {
             </TableHead>
             <TableBody>
               {courseReports.map((item) => (
+                item.courseReportUserList.length > 0 ?
+                (
                 <TableRow
                   key={item.id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -133,14 +138,14 @@ const onRejectBtnClicked = () => {
                                           <Grid item xs={6} style={{border: "1px solid black", textAlign: "center"}}>
                                               <Button variant="outlined"
                                               onClick={() => {
-                                                onDeleteBtnClicked(item.course)
+                                                onDeleteBtnClicked(item.course, item.courseReportUserList)
                                               }}
                                               >삭제 처리</Button>
                                           </Grid>
                                           <Grid item xs={6} style={{border: "1px solid black", textAlign: "center"}}>
                                               <Button variant="outlined"
                                               onClick={() => {
-                                                onRejectBtnClicked()
+                                                onRejectBtnClicked(item.courseReportUserList)
                                               }}
                                               >삭제 반려</Button>
                                           </Grid>
@@ -160,6 +165,7 @@ const onRejectBtnClicked = () => {
                       </Accordion>
                   </TableCell>
                 </TableRow>
+                ) : (<></>)
               ))}
             </TableBody>
           </Table>

@@ -37,17 +37,27 @@ function Report() {
     const [value, setValue] = useState(0);
 
     useEffect(() => {
-        call("/place-report", "GET", {}, null)
-        .then((response) => {
-            console.log(response.data);
-            setPlaceReports(response.data);
-        });
+      if (!localStorage.getItem("USER")) {
+        window.location.href = "/signin";
+      }
 
-        call("/course-report", "GET", {}, null)
-        .then((response) => {
-            console.log(response);
-            setCourseReports(response.data);
-        });
+      const user = JSON.parse(localStorage.getItem("USER"));
+      if (user.type !== '2') {
+        window.alert("현재 로그인한 계정은 관리자가 아닙니다.");
+        window.location.href = "/";
+      }
+
+      call("/place-report", "GET", {}, null)
+      .then((response) => {
+          console.log(response.data);
+          setPlaceReports(response.data);
+      });
+
+      call("/course-report", "GET", {}, null)
+      .then((response) => {
+          console.log(response);
+          setCourseReports(response.data);
+      });
     }, []);
 
     const handleChange = (event, newValue) => {

@@ -28,6 +28,19 @@ function PlaceReportList(props) {
         return items;
     }
 
+    const updateReportStates = (reports) => {
+        // report 상태를 1 -> 2로 바꾸기
+        let data = [];
+        reports.forEach((report, i) => {
+            data.push({id: report.id, state: 2});
+        });
+
+        call(`/place-report/bulk-update`, "POST", {"Content-Type": "application/json"}, JSON.stringify(data))
+        .then((response) => {
+            console.log(response);
+        });
+      }
+
     const onDeleteBtnClicked = (place, reports) => {
         let formData = new FormData();
         formData.append("name", "신고 누적으로 인해 삭제된 장소");
@@ -41,22 +54,12 @@ function PlaceReportList(props) {
             window.alert("해당 장소가 관리자의 요청으로 삭제되었습니다.");
         });
 
-        // report 상태를 1 -> 2로 바꾸기
-        let data = [];
-        reports.forEach((report, i) => {
-            data.push(report.id);
-        });
-
-        // call(`/place-report/complete`, "POST", {"Content-Type": "application/json"}, JSON.stringify(data))
-        // .then((response) => {
-        //     console.log(response);
-        // });
+        updateReportStates(reports);
     }
 
-    const onRejectBtnClicked = () => {
+    const onRejectBtnClicked = (reports) => {
+        updateReportStates(reports);
         window.alert("해당 장소에 대한 신고 처리가 완료되었습니다.")
-        
-        // report 상태를 1-> 2로 바꾸기
     }
 
     return (<>
@@ -69,6 +72,8 @@ function PlaceReportList(props) {
               </TableHead>
               <TableBody>
                 {placeReports.map((item) => (
+                item.placeReportUserList.length > 0 ?
+                (
                   <TableRow
                     key={item.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -147,7 +152,7 @@ function PlaceReportList(props) {
                                             <Grid item xs={6} style={{border: "1px solid black", textAlign: "center"}}>
                                                 <Button variant="outlined"
                                                 onClick={() =>{
-                                                    onRejectBtnClicked();
+                                                    onRejectBtnClicked(item.placeReportUserList);
                                                 }}
                                                 >삭제 반려</Button>
                                             </Grid>
@@ -167,6 +172,7 @@ function PlaceReportList(props) {
                         </Accordion>
                     </TableCell>
                   </TableRow>
+                )  : (<></>)
                 ))}
               </TableBody>
             </Table>
