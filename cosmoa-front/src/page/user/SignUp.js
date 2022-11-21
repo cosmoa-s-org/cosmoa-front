@@ -83,6 +83,7 @@ function SignUp() {
             nickname: data.get('nickname'),
             gender: gender,
             age: age,
+            type: 1
         };
         const password2 = data.get('password2')
         console.log(joinData);

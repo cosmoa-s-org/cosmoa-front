@@ -76,11 +76,11 @@ function CourseList() {
     //     })
     // );
     const columns = [
-        { field: 'id', headerName: 'no', width: 20 },
-        { field: 'name', headerName: '코스 이름', width: 130 },
+        // { field: 'id', headerName: 'no', width: 10 },
+        { field: 'name', headerName: '코스 이름', width: 150 },
         { field: 'replyCount', headerName: '댓글', width: 20 },
         { field: 'like', headerName: '추천', width: 20 },
-        { field: 'nickname', headerName: '등록자', width: 80 },
+        { field: 'nickname', headerName: '등록자', width: 50 },
     ];
 
     const goCourseDetail = (event) => {
@@ -119,6 +119,7 @@ function CourseList() {
                         </FormControl>
                     </Box>
                     <Divider />
+
                     {/* 코스 리스트 */}
                     <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
@@ -132,13 +133,15 @@ function CourseList() {
 
                         </DataGrid>
                     </div>
+                    </Container>
 
-                </Container>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <div style={{ margin: "0 auto" }}>
                     <MapWrapper />
                 </div>
+
+
             </TabPanel>
         </Box>
     </>)

@@ -12,7 +12,6 @@ function Splash() {
         src={cosmoaFull}
         style={{ width: "inherit", height: "auto", marginTop: "35%" }}
       />
-      {/* <Link to='/signin'></Link> */}
     </div>
   );
 }
