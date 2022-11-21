@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import MapWrapper from "../../map/MapWrapper";
-import { call } from "../../service/ApiService";
+import { call, CourseListSearch } from "../../service/ApiService";
 
 
 // 탭
@@ -45,7 +45,28 @@ function CourseList() {
     let navigate = useNavigate();
     const header = { "Content-Type" : "application/json" }
     const [courseList, setCourseList] = useState([]);
+    const [pinPlace, setPinPlace] = useState({});
 
+    const onPlacePined = (lat, lng) => {
+        setPinPlace({ lat: lat, lng: lng });
+        // document.getElementById("placeAddress").value = pinPlace.addr;
+    }
+
+    useEffect(() => {
+        const data = new FormData();
+        data.append('lat', pinPlace.lat)
+        data.append('lng', pinPlace.lng)
+        onhandlePost(data);
+    },[pinPlace])
+
+    const onhandlePost = async (data) => {
+        CourseListSearch(data)
+            .then((response) => {
+                console.log(response);
+                console.log('성공');
+                console.log(data);
+            })
+    }
 
     useEffect(() => {
         call("/course", "GET", header, null)
@@ -138,7 +159,7 @@ function CourseList() {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <div style={{ margin: "0 auto" }}>
-                    <MapWrapper />
+                    <MapWrapper onMarked={onPlacePined} />
                 </div>
 
 

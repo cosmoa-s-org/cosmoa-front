@@ -123,3 +123,17 @@ export function registerCourse(place) {
         return Promise.reject(error);
     })
 }
+
+export function CourseListSearch(latlng) {
+    const M = window.M;
+    return call(`/course/location?lat=${latlng.get('lat')}&lng=${latlng.get('lng')}`, "GET", header)
+    .then((response) => {
+        console.log("성공");
+    })
+    .catch((error)=>{
+        console.log("Oops!"); 
+        console.log(error.status); 
+        console.log("Ooops!");
+        return Promise.reject(error);
+    })
+}
