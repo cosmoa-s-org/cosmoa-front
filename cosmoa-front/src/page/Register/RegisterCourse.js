@@ -275,6 +275,7 @@ function RegisterCourse(props) {
                         onClick={() => {
                           console.log(row);
                           setLatlng({ lat: row.lat, lng: row.lng, pName: row.placeName, pDesc: row.placeDescription });
+                          window.scrollTo(0,0);
                         }}
                       >
                         {row.placeName}

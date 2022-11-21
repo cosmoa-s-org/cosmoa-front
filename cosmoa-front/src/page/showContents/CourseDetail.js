@@ -168,6 +168,7 @@ function CourseDetail() {
                       pName: item.place.name,
                       pDesc: item.place.description
                     });
+                    window.scrollTo(0,0);
                   }}
                   component="img"
                   height="auto"
@@ -186,6 +187,7 @@ function CourseDetail() {
                         pName: item.place.name,
                         pDesc: item.place.description
                       });
+                      window.scrollTo(0,0);
                     }}
                   >
                     {item.place.name}

@@ -74,8 +74,6 @@ function Main() {
         </Paper>
       </Link>
 
-      <Button href="/splash">Splash</Button>
-
     </>)
   }
 
