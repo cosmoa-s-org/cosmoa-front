@@ -1,12 +1,11 @@
 import React from "react";
-import { Paper, Link } from "@material-ui/core";
+import { Paper, Link, Container } from "@material-ui/core";
 
 function RegisterType() {
 
   return (
     <>
-      <h1>Select Register Course / Place</h1>
-
+    <Container>
       <Link href="/registercourse">
         <Paper
           elevation={4}
@@ -40,6 +39,7 @@ function RegisterType() {
       </Link>
 
       <br />
+      </Container>
     </>
   );
 }

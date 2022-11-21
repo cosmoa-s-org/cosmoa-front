@@ -151,6 +151,7 @@ function SignUp() {
                             autoComplete="current-password"
                             name="password"
                             variant="outlined"
+                            type="password"
                             required
                             fullWidth
                             id="password"
@@ -163,6 +164,7 @@ function SignUp() {
                             autoComplete="password2"
                             name="password2"
                             variant="outlined"
+                            type="password"
                             required
                             fullWidth
                             id="password2"

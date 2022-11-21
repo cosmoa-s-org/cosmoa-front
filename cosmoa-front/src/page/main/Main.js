@@ -1,11 +1,11 @@
-import { Box, Button, Container, Link, Paper, Typography } from "@material-ui/core";
+import { Box, Button, Container, Divider, Link, Paper, Typography } from "@material-ui/core";
 //import { MenuIcon } from "@material-ui/icons";
 import * as React from 'react';
 import { useNavigate } from "react-router-dom";
 import { Stack, styled } from "@mui/material";
 import { useState, useEffect } from "react";
 import { call } from "../../service/ApiService";
-
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -46,15 +46,15 @@ function Main() {
 
       <Container maxWidth="sm">
         <Box><h1>Cosmoa</h1></Box>
-        <Typography style={{width:"100%", marginTop: "5px"}}>인기 코스</Typography>
-          <Item style={{ backgroundColor: "#FFDCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
-            {likeCourse.length > 0 ? likeCourse[0].name : ""}
+        <Paper style={{width:"100%", marginTop: "5px", backgroundColor:"#FFF89A"}}>인기 코스</Paper>
+          <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
+            <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[0].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
             </Item>
-        <Item style={{ backgroundColor: "#FFDCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
-        {likeCourse.length > 0 ? likeCourse[1].name : ""}
+        <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
+        <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[1].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
         </Item>
       </Container>
-
+      
       <br />
       <Link href="/registertype">
         <Paper variant="contained"

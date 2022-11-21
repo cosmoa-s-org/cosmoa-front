@@ -13,6 +13,8 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import logo from '../../images/cosmoa_icon.png';
 
 // 사이드 Nav바
 const drawerWidth = 240;
@@ -65,6 +67,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function Header() {
   const M = window.M;
   const location = useLocation();
+
+
 
   React.useEffect(() => {
     // 안드로이드 이외의 운영체제에서 접속시 onBack 설정하지 않고 return
@@ -125,10 +129,12 @@ function Header() {
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             <a href="/main" style={{color:"white", "text-decoration-line":"none"}}>
-            CosMoa
+            CosMoa<img src={logo} style={{width:"4vw", marginTop:"1vw"}} ></img>
             </a>
           </Typography>
-          <Typography style={{marginLeft: "auto"}}>{nickname}님 안녕하세요!</Typography>
+          <Link style={{marginLeft: "auto"}} href="/Mypage">
+          <Button ><EmojiEmotionsIcon style={{color:"white"}} /></Button>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -151,6 +157,8 @@ function Header() {
         </DrawerHeader>
         <Divider />
         <List>
+          <Typography>{nickname}님 안녕하세요!</Typography>
+          <Divider />
         <Link href="/Mypage">
           <ListItem disablePadding>
             <Button>

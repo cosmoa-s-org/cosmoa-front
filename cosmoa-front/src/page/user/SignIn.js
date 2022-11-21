@@ -39,8 +39,7 @@ export default function SignIn() {
         // }
 
         signin(JSON.stringify(joinData));
-        console.log("전송 성공");
-        M.pop.alert('로그인 성공');
+        // console.log("전송 성공");
         // navigate("/");
 
     };

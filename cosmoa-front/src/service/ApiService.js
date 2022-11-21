@@ -2,6 +2,7 @@ import { API_BASE_URL } from "./app-config";
 
 const header = { "Content-Type" : "application/json" }
 
+const M = window.M;
 
 export function call(api, method, header, request) {
     // const header = { "Content-Type" : "application/json" }
@@ -47,17 +48,18 @@ export function signin(member) {
 
     return call("/user/login", "POST", header, member)
     .then((response) => {
-        console.log(response.data);
-        localStorage.setItem("USER", JSON.stringify(response.data));
-        window.location.href = "/";
-        // if (response.data.token) {
-        //     localStorage.setItem("USER_KEY", response.data.id);
-        //     // localStorage.setItem("ACCESS_TOKEN", response.data.token);
-        // }
+        if (!response.error ) {
+            localStorage.setItem("USER", JSON.stringify(response.data));
+            window.alert("성공")
+            window.location.href = "/"
+        } else {
+            window.alert("실패")
+
+        }
     })
-    .catch((error) => {
-        window.alert(error.error);
-    });
+    // .catch((error) => {
+    //     window.alert(error.error);
+    // });
 }
 
 export function signup(member) {
