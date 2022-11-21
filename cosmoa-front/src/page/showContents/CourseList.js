@@ -46,6 +46,7 @@ function CourseList() {
     const header = { "Content-Type" : "application/json" }
     const [courseList, setCourseList] = useState([]);
     const [pinPlace, setPinPlace] = useState({});
+    const [courseList2, setCourseList2] = useState([]);
 
     const onPlacePined = (lat, lng) => {
         setPinPlace({ lat: lat, lng: lng });
@@ -65,6 +66,8 @@ function CourseList() {
                 console.log(response);
                 console.log('성공');
                 console.log(data);
+                console.log(response.data);
+                setCourseList2(response);
             })
     }
 
@@ -88,7 +91,6 @@ function CourseList() {
     const handleChange = (event) => {
         setPartner(event.target.value);
     };
-    console.log(courseList);
 
     // setCourseList.name((courseList.name)+(courseList.replyCount));
     // setCourseList(
@@ -98,10 +100,10 @@ function CourseList() {
     // );
     const columns = [
         // { field: 'id', headerName: 'no', width: 10 },
-        { field: 'name', headerName: '코스 이름', width: 150 },
+        { field: 'name', headerName: '코스 이름', width: 180 },
         { field: 'replyCount', headerName: '댓글', width: 20 },
         { field: 'like', headerName: '추천', width: 20 },
-        { field: 'nickname', headerName: '등록자', width: 50 },
+        { field: 'nickname', headerName: '등록자', width: 100 },
     ];
 
     const goCourseDetail = (event) => {
@@ -161,6 +163,19 @@ function CourseList() {
                 <div style={{ margin: "0 auto" }}>
                     <MapWrapper onMarked={onPlacePined} />
                 </div>
+
+                <div style={{ height: 400, width: "100%" }}>
+                        <DataGrid
+                            rows={courseList2}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            onRowClick={goCourseDetail}
+                        >
+                            {/* <Link to={`/coursedetail/${courseList.id}`} ></Link> */}
+
+                        </DataGrid>
+                    </div>
 
 
             </TabPanel>

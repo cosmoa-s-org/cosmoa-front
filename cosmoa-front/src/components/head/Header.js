@@ -55,7 +55,6 @@ const MuiAppBar = styled(AppBar, {
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
-  // backgroundColor: "red",
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
@@ -81,8 +80,8 @@ function Header() {
         localStorage.setItem("latlng", JSON.stringify({}))
       }
     });
+
   },[])
-  
   
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -95,10 +94,6 @@ function Header() {
     }
     setNickname(JSON.parse(localStorage.getItem("USER")).nickname);
   }, []);
-  // React.useEffect(() => {
-  //   nickname = JSON.parse(localStorage.getItem("USER")).nickname;
-  //   console.log(JSON.parse(localStorage.getItem("USER")));
-  // }, [])
 
 
   const handleDrawerOpen = () => {

@@ -39,7 +39,8 @@ function Mypage() {
     let gender = JSON.parse(localStorage.getItem("USER")).gender
     let age = JSON.parse(localStorage.getItem("USER")).age
     let password = ""
-    const [user, setUser] = useState({ email: email, password: password, nickname: nickname, gender: gender, age: age});
+    let type = 1
+    const [user, setUser] = useState({ email: email, password: password, nickname: nickname, gender: gender, age: age, type: type});
 
     const updateStart = (event) => {
         console.log("updateClicked 클릭");

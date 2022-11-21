@@ -5,6 +5,7 @@ import { Box, Button, Container, Grid, Typography, Card, CardMedia, Select, Menu
 import styled from "@emotion/styled";
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import logo from '../../images/cosmoa_full.png';
 
 const Like = styled.button`
   font-size : 30px;
@@ -150,6 +151,7 @@ function PlaceDetail() {
             data.append('img', imgFile);
             console.log(imgFile);
         } else {
+            data.append('img', logo);
             // data.append('img', 로고사진);
         }
 
@@ -161,6 +163,11 @@ function PlaceDetail() {
         // }
         console.dir(data);
         call(`/place-reply`, "POST", {}, data)
+        .then((response) => {
+            call(`/place-reply/${pid}`, "GET", header, null).then((response) => {
+                setComments(response.data);
+              });
+        })
         setInput("");
         // window.location.reload();
     };
@@ -168,10 +175,14 @@ function PlaceDetail() {
     const removeComment = (id) => { // 댓글 삭제
         console.log(id);
         call(`/place-reply/${id}`, "DELETE", header, null)
+        .then((response) => {
+            call(`/place-reply/${id}`, "GET", header, null).then((response) => {
+                setComments(response.data);
+              });
+        })
         // return setComments(comments.filter((comment) => comment.id !== id));
         // window.location.reload();
     };
-    console.log(pid);
 
     // 장소 삭제
     const placeDelete = (e) => {

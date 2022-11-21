@@ -199,7 +199,6 @@ function RegisterPlace() {
                 </Box>
                 <TabPanel value={value} index={0}>
                     {/* 지도로 장소 등록 */}
-                    <h1>Register Place Page</h1>
 
                     <div style={{ margin: "0 auto" }}>
                         <MapWrapper onMarked={onPlacePined} />

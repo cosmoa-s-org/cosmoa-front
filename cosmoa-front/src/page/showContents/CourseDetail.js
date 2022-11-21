@@ -85,7 +85,6 @@ function CourseDetail() {
       );
     }
   };
-  console.log(userId);
 
   useEffect(() => {
     call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", header, null) // 코스 정보 받아오기
@@ -244,33 +243,24 @@ function CourseDetail() {
       comment: input,
     };
     console.log(JSON.stringify(joinData));
-    call(`/course-reply`, "POST", header, JSON.stringify(joinData));
+    call(`/course-reply`, "POST", header, JSON.stringify(joinData))
+    .then((response) => {
+        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
+            setComments(response.data);
+          });
+    })
     setInput("");
-    // window.location.reload();
   };
 
   const removeComment = (id) => {
     // 댓글 삭제
     console.log(id);
-    call(`/course-reply/${id}`, "DELETE", header, null);
-    // return setComments(comments.filter((comment) => comment.id !== id));
-    // window.location.reload();
-  };
-
-  const changeComment = (id, inputWord) => {
-    // 댓글 수정
-    setComments(
-      comments.map((comment) => {
-        if (comment.id === id) {
-          return {
-            ...comment,
-            content: inputWord,
-          };
-        }
-        return comment;
-      })
-    );
-    setInput("");
+    call(`/course-reply/${id}`, "DELETE", header, null)
+    .then((response) => {
+        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
+            setComments(response.data);
+          });
+    })
   };
 
   const courseDelete = (e) => {
@@ -411,11 +401,6 @@ function CourseDetail() {
                             onClick={() => removeComment(comment.courseReplyId)}
                           >
                             삭제
-                          </Button>
-                          <Button
-                            onClick={() => changeComment(comment.courseReplyId)}
-                          >
-                            수정
                           </Button>
                         </>
                       ) : null}

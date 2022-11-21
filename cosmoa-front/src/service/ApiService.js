@@ -129,6 +129,7 @@ export function CourseListSearch(latlng) {
     return call(`/course/location?lat=${latlng.get('lat')}&lng=${latlng.get('lng')}`, "GET", header)
     .then((response) => {
         console.log("성공");
+        return response.data
     })
     .catch((error)=>{
         console.log("Oops!"); 

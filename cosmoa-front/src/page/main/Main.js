@@ -47,10 +47,10 @@ function Main() {
       <Container maxWidth="sm">
         <Box><h1>Cosmoa</h1></Box>
         <Typography style={{width:"100%", marginTop: "5px"}}>인기 코스</Typography>
-          <Item style={{ backgroundColor: "yellow", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
+          <Item style={{ backgroundColor: "#FFDCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
             {likeCourse.length > 0 ? likeCourse[0].name : ""}
             </Item>
-        <Item style={{ backgroundColor: "yellow", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
+        <Item style={{ backgroundColor: "#FFDCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[1].id)}}>
         {likeCourse.length > 0 ? likeCourse[1].name : ""}
         </Item>
       </Container>
@@ -58,7 +58,7 @@ function Main() {
       <br />
       <Link href="/registertype">
         <Paper variant="contained"
-          style={{ height: 150, lineHeight: "150px", fontSize: 24, width: "90%", margin: "0 auto", backgroundColor: "#B1DCF8" }}
+          style={{ height: 150, lineHeight: "150px", fontSize: 24, width: "90%", margin: "0 auto", backgroundColor: "#FFF89A" }}
         // onClick={ onRegisterTypeClick }
         >
           나만의 코스 & 장소 공유하기
@@ -69,7 +69,7 @@ function Main() {
 
       <Link href="/selecttheme">
         <Paper variant="contained"
-          style={{ height: 150, lineHeight: "150px", fontSize: 24, width: "90%", margin: "0 auto", backgroundColor: "#B1DCF8" }}>
+          style={{ height: 150, lineHeight: "150px", fontSize: 24, width: "90%", margin: "0 auto", backgroundColor: "#FFF89A" }}>
           코스 & 장소 구경하기
         </Paper>
       </Link>

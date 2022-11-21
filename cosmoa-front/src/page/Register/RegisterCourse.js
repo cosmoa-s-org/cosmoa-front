@@ -223,11 +223,9 @@ function RegisterCourse(props) {
 
   return (
     <>
-      <h1>Register Course Page</h1>
-
+      <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
       {registerCourseMap}
 
-      <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
         <form>
           <Grid container spacing={2}>
             <Grid item xs={12}>
