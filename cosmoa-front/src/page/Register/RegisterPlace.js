@@ -135,20 +135,19 @@ function RegisterPlace() {
         },
     };
 
-    const M = window.M;
 
     const [path, setPath] = useState("");
     const [pinPlace, setPinPlace] = useState({});
-    const [latLng, setLatLng] = useState({});
+    // const [latLng, setLatLng] = useState({});
 
-    useEffect(() => {
-        getCurrentLocation()
-        .then(({lat, lng}) => {
-            console.log(lat, lng);
-            //center = new window.google.maps.LatLng(lat, lng);
-            setLatLng({lat: lat, lng: lng});
-        })
-    }, [])
+    // useEffect(() => {
+    //     getCurrentLocation()
+    //     .then(({lat, lng}) => {
+    //         console.log(lat, lng);
+    //         //center = new window.google.maps.LatLng(lat, lng);
+    //         setLatLng({lat: lat, lng: lng});
+    //     })
+    // }, [])
 
     const onPlacePined = (lat, lng, addr) => {
         setPinPlace({ lat: lat, lng: lng, addr: addr });
@@ -243,7 +242,7 @@ function RegisterPlace() {
                     {/* 지도로 장소 등록 */}
 
                     <div style={{ margin: "0 auto" }}>
-                        <MapWrapper onMarked={onPlacePined} latLng={latLng}/>
+                        <MapWrapper onMarked={onPlacePined} />
                     </div>
 
 
