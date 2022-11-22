@@ -1,6 +1,8 @@
 import { Button } from "@mui/material";
 import React from "react";
 
+const M = window.M;
+
 function GoogleMaps(props) {
     const mapRef = React.useRef(null);
     const [map, setMap] = React.useState();
@@ -18,7 +20,6 @@ function GoogleMaps(props) {
     }
     const geocoder = new window.google.maps.Geocoder();
     const infowindow = new window.google.maps.InfoWindow();
-    const heunghae = new window.google.maps.LatLng(36.1071, 129.3385);
     
     const mapStyle = {
         width: "100%",
@@ -88,32 +89,6 @@ function GoogleMaps(props) {
             geocodeLatLng(latLng, geocoder, map, marker, infowindow);
         }
     }
-
-    // function onButtonClick() {
-    //     let headers = new Headers({
-    //         "Content-Type": "application/json",
-    //     });
-
-    //     let options = {
-    //         url: "http://localhost:8080/tour/open/3",
-    //         method: "GET",
-    //         headers: headers,
-    //     }
-
-    //     fetch(options.url, options)
-    //     .then((response) => response.json().then((json) => {
-    //         markers = json.data;
-    //         markers.forEach((item) => {
-    //             new window.google.maps.Marker({
-    //                 position: new window.google.maps.LatLng(item.departureLat, item.departureLng),
-    //                 map: map,
-    //             });
-    //         });
-    //     }))
-    //     .catch((error) => {
-    //         console.log(error);
-    //     });
-    // }
 
     return (<>
         <div ref={mapRef} style={mapStyle}>
