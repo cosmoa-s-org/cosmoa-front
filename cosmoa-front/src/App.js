@@ -11,15 +11,16 @@ function App() {
     <>
       <div className="App">
         
-      {time}
+      {/* {time} */}
+      <AppRouter />
       
-        <div style={{display : "none"}}>
+        {/* <div style={{display : "none"}}>
           {
             setTimeout(function() {
               setTime(<AppRouter />)
             }, 1000)
           }
-        </div>
+        </div> */}
       </div>
     </>
   );

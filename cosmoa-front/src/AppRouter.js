@@ -33,14 +33,23 @@ function UserLayout() {
 
 
 function AppRouter(props) {
-
+          {
+            if(window.location.pathname === "/"){
+              setTimeout(function() {
+                window.location.href = "/main";
+              }, 3000)
+            }
+          }
   return (<>
     <BrowserRouter>
       
       <div>
         <Routes>
+          <Route path="/" element={<UserLayout />}>
+          <Route index element={<Splash />} />
+
+          </Route>
           <Route path="/" element={<BasicLayout />}>
-            <Route index element={<Main />} />
 
             <Route path="main" element={<Main />} />
 
