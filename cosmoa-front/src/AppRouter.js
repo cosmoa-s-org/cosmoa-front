@@ -20,65 +20,64 @@ import PlaceDetail from "./page/showContents/PlaceDetail";
 import Report from "./page/admin/Report";
 
 function BasicLayout() {
-  return (<>
-    <Header />
-    <Outlet />
-    <Footer />
-  </>)
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
 
 function UserLayout() {
-  return <Outlet />
+  return <Outlet />;
 }
 
-
 function AppRouter(props) {
-          {
-            if(window.location.pathname === "/"){
-              setTimeout(function() {
-                window.location.href = "/main";
-              }, 3000)
-            }
-          }
-  return (<>
-    <BrowserRouter>
-      
-      <div>
-        <Routes>
-          <Route path="/" element={<UserLayout />}>
-          <Route index element={<Splash />} />
+  {
+    if (window.location.pathname === "/") {
+      setTimeout(function () {
+        window.location.href = "/main";
+      }, 3000);
+    }
+  }
+  return (
+    <>
+      <BrowserRouter>
+        <div>
+          <Routes>
+            <Route path="/" element={<UserLayout />}>
+              <Route index element={<Splash />} />
+            </Route>
+            <Route path="/" element={<BasicLayout />}>
+              <Route path="main" element={<Main />} />
 
-          </Route>
-          <Route path="/" element={<BasicLayout />}>
+              <Route path="Mypage" element={<Mypage />} />
+              <Route path="SelectTheme" element={<SelectTheme />} />
+              <Route path="registerType" element={<RegisterType />} />
+              <Route path="registerCourse" element={<RegisterCourse />} />
+              <Route path="registerPlace" element={<RegisterPlace />} />
+              <Route path="addplace" element={<AddPlace />} />
 
-            <Route path="main" element={<Main />} />
-
-            <Route path="Mypage" element={<Mypage />} />
-            <Route path="SelectTheme" element={<SelectTheme />} />
-            <Route path="registerType" element={<RegisterType />} />
-            <Route path="registerCourse" element={<RegisterCourse />} />
-            <Route path="registerPlace" element={<RegisterPlace />} />
-            <Route path="addplace" element={<AddPlace />} />
-
-            <Route path="courselist" element={<CourseList />} />
-            <Route path="coursedetail/:id" element={<CourseDetail />} />
-            <Route path="placedetail/:id" element={<PlaceDetail />} />
-          </Route>
-          <Route path="/signin" element={<UserLayout />}>
-            <Route index element={<SignIn />} />
-          </Route>
-          <Route path="/signup" element={<UserLayout />}>
-            <Route index element={<SignUp />} />
-          </Route>
-          <Route path="/splash" element={<UserLayout />}>
-            <Route index element={<Splash />} />
-          </Route>
-          <Route path="admin" element={<Report />}/>
-        </Routes>
-      </div>
-
-    </BrowserRouter>
-  </>);
+              <Route path="courselist" element={<CourseList />} />
+              <Route path="coursedetail/:id" element={<CourseDetail />} />
+              <Route path="placedetail/:id" element={<PlaceDetail />} />
+            </Route>
+            <Route path="/signin" element={<UserLayout />}>
+              <Route index element={<SignIn />} />
+            </Route>
+            <Route path="/signup" element={<UserLayout />}>
+              <Route index element={<SignUp />} />
+            </Route>
+            <Route path="/splash" element={<UserLayout />}>
+              <Route index element={<Splash />} />
+            </Route>
+            <Route path="admin" element={<Report />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default AppRouter;
