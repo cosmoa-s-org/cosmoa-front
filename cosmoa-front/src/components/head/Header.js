@@ -75,7 +75,7 @@ function Header() {
     if (navigator.userAgent.indexOf('Android') === -1) return;
 
     M.onBack(() => {
-      console.log(location.pathname.slice(0,13))
+      console.log(location.pathname)
       if(location.pathname==="/main") {}
       else if(location.pathname==="/") {}
       // else if(location.pathname.slice(0,13)=="/courselist") {}
