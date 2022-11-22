@@ -38,7 +38,7 @@ function AppRouter(props) {
     if (window.location.pathname === "/") {
       setTimeout(function () {
         window.location.href = "/main";
-      }, 3000);
+      }, 1500);
     }
   }
   return (
