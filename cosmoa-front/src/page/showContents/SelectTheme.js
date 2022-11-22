@@ -6,6 +6,19 @@ import { useState, useEffect } from "react";
 import { call } from "../../service/ApiService";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
+const PaperItem = styled(Paper)((({theme}) => ({
+    backgroundColor: "lightsalmon",
+    height:150,
+    width: 150,
+    lineHeight:"150px", 
+    fontSize:24,
+    margin:"0 auto",
+    float:"left",
+    color:"white",
+    borderRadius:"20px",
+    margin: "1vw",
+    fontWeight:"700"
+})))
 
 const Item = styled(Paper)(({ theme }) => ({
     // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -13,7 +26,8 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    marginTop: "5px"
+    marginTop: "5px",
+    fontWeight: "700"
 }));
 
 function SelectTheme() {
@@ -39,8 +53,8 @@ function SelectTheme() {
     return(<>
         
         <Container maxWidth="sm">
-        <Box><h1>Cosmoa</h1></Box>
-        <Paper style={{width:"100%", marginTop: "5px", backgroundColor:"#FFF89A"}}>인기 코스</Paper>
+            <br />
+        <Paper style={{width:"100%", marginTop: "5px", backgroundColor:"#FFF89A", fontWeight:700}}>인기 코스</Paper>
           <Item style={{ backgroundColor: "#B1DCF8", width:"100%" }} onClick={() => {likeClick(likeCourse[0].id)}}>
             <AutoAwesomeIcon style={{color: "yellow"}} />{likeCourse.length > 0 ? likeCourse[0].name : ""}<AutoAwesomeIcon style={{color: "yellow"}} />
             </Item>
@@ -52,33 +66,30 @@ function SelectTheme() {
         <Grid  spacing={2} style={{display:"inline-block", padding:"5px"}}>
 
         <Link href="/courselist">
-            <Paper elevation={4}
-            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#B1DCF8" }}>
+            <PaperItem elevation={4}
+            style={{}}>
                 구성 인원
-            </Paper>
+            </PaperItem>
         </Link>
 
         <Link href="/">
-            <Paper elevation={4}
-            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#F8B4E3" }}>
+            <PaperItem elevation={4}>
                 계절 및 기간
-            </Paper>    
+            </PaperItem>
         </Link>
 
         <br />
 
         <Link href="/">
-            <Paper elevation={4}
-            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#B9F9E6" }}>
+            <PaperItem elevation={4}>
                 지역 축제
-            </Paper>
+            </PaperItem>
         </Link>
 
         <Link href="/">
-            <Paper elevation={4}
-            style={{height:150, width: 150, lineHeight:"150px", fontSize:24, margin:"0 auto", float:"left", backgroundColor:"#F5F8AD" }}>
+            <PaperItem elevation={4}>
                 추천 명소
-            </Paper>
+            </PaperItem>
         </Link>
 
         </Grid>

@@ -19,6 +19,8 @@ import Splash from "./components/Splash";
 import PlaceDetail from "./page/showContents/PlaceDetail";
 import Report from "./page/admin/Report";
 
+
+
 function BasicLayout() {
   return (<>
     <Header />
@@ -36,8 +38,7 @@ function AppRouter(props) {
 
   return (<>
     <BrowserRouter>
-      
-      <div>
+      <div className="wrapper">
         <Routes>
           <Route path="/" element={<BasicLayout />}>
             <Route index element={<Main />} />
@@ -66,10 +67,14 @@ function AppRouter(props) {
           </Route>
           <Route path="admin" element={<Report />}/>
         </Routes>
+        <br />
+        <br />
       </div>
-
     </BrowserRouter>
   </>);
 }
+
+
+
 
 export default AppRouter;

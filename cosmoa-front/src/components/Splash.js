@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 function Splash() {
   return (
     <div
-      style={{ width: "100vw", height: "100vh", backgroundColor: "#ffa07a" }}
+      style={{ width: "100vw", height: "120vh", backgroundColor: "#ffa07a" }}
     >
       <img
         src={cosmoaFull}
-        style={{ width: "inherit", height: "auto", marginTop: "35%" }}
+        style={{ width: "inherit", height: "auto", marginTop: "50%" }}
       />
     </div>
   );

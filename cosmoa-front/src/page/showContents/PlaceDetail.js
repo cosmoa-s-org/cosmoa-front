@@ -211,8 +211,7 @@ function PlaceDetail() {
         let data = {placeId: pid, userId: userId, type: report}
         call(`/place-report`, "POST", header, JSON.stringify(data))
         .then((response) => {
-            console.log("신고완료임");
-            M.pop.alert("신고 완료")
+            M.pop.alert("신고가 완료되었습니다.")
         })
 
       }

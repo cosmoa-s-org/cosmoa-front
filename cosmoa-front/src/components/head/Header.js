@@ -129,7 +129,7 @@ function Header() {
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             <a href="/main" style={{color:"white", "text-decoration-line":"none"}}>
-            CosMoa<img src={logo} style={{width:"4vw", marginTop:"1vw"}} ></img>
+            CosMoa
             </a>
           </Typography>
           <Link style={{marginLeft: "auto"}} href="/Mypage">
