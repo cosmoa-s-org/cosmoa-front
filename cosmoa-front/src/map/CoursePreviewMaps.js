@@ -45,16 +45,16 @@ function CoursePreviewMaps(props) {
     const symbol = {
         path: "M -1 -1 L -3 -1 L -2 -3 z",
         strokeOpacity: 1,
-        scale: 1,
-        strokeColor: "#F00",
-        fillColor: "#F00",
+        scale: 2,
+        strokeColor: "#53A5DB",
+        fillColor: "#53A5DB",
         fillOpacity: 1,
     }
 
     const createIcon = (idx) => {
         let icon = {
             url: icons[idx], // url
-            scaledSize: new window.google.maps.Size(17, 17), // scaled size
+            scaledSize: new window.google.maps.Size(23, 23), // scaled size
             //origin: new window.google.maps.Point(10, 10), // origin
             anchor: new window.google.maps.Point(10, 8), // anchor
         };
@@ -88,10 +88,6 @@ function CoursePreviewMaps(props) {
 
     useEffect(() => {
         if (map) {
-            // markers.forEach((marker, i) => {
-            //     marker.setMap(null);
-            // });
-            // let tmp = [];
             let path = [];
             let coordsA = {};
             let coordsB = {};
@@ -130,7 +126,7 @@ function CoursePreviewMaps(props) {
                     {
                         icon: symbol,
                         offset: "0",
-                        repeat: "5px",
+                        repeat: "10px",
                     },
                 ],
                 map: map,

@@ -106,8 +106,8 @@ function CourseMaps(props) {
         path: "M -1 -1 L -3 -1 L -2 -3 z",
         strokeOpacity: 1,
         scale: 2,
-        strokeColor: "#F00",
-        fillColor: "#F00",
+        strokeColor: "#53A5DB",
+        fillColor: "#53A5DB",
         fillOpacity: 1,
       }
 
