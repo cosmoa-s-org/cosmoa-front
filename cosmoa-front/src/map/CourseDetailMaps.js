@@ -4,6 +4,8 @@ function CourseDetialMaps(props) {
   const mapRef = React.useRef(null);
   const [map, setMap] = React.useState();
   const latlng = props.latlng;
+
+  // 금오공대 좌표
   let center = new window.google.maps.LatLng(36.1461, 128.3936);
   const rows = [...props.rows];
   const markers = props.markers;

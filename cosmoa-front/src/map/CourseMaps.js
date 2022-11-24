@@ -1,3 +1,4 @@
+import { SocialDistance } from "@mui/icons-material";
 import React, { useEffect } from "react";
 import icon1 from "../images/markers/1.png";
 import icon2 from "../images/markers/2.png";
@@ -24,6 +25,7 @@ function CourseMaps(props) {
   const mapRef = React.useRef(null);
   const [map, setMap] = React.useState();
   const latlng = props.latlng;
+
   let center = new window.google.maps.LatLng(36.1461, 128.3936);
   const rows = [...props.rows];
   const markers = props.markers;
@@ -38,6 +40,13 @@ function CourseMaps(props) {
     zoom: 11,
     center: center,
     mapTypeId: "roadmap",
+    //disableDefaultUI: true,
+    controlSize: 25,
+    zoomControl: false,
+    panControl: false,
+    streetViewControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
   };
 
   const contentString = '<h3>'+ latlng.pName +'</h3>' + latlng.pDesc;
@@ -52,22 +61,18 @@ function CourseMaps(props) {
       scaledSize: new window.google.maps.Size(30, 30), // scaled size
       //origin: new window.google.maps.Point(10, 10), // origin
       anchor: new window.google.maps.Point(11, 8), // anchor
-      
     };
-
 
     return icon;
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (mapRef.current && !map) {
       setMap(new window.google.maps.Map(mapRef.current, mapOptions));
     }
   }, [mapRef, map]);
 
   useEffect(() => {
-
-
     if (map) {
       markers.forEach((marker, i) => {
         marker.setMap(null);
@@ -79,6 +84,7 @@ function CourseMaps(props) {
           map.panTo(new window.google.maps.LatLng(row.lat, row.lng));
           map.setZoom(15);
         }
+
         const marker = new window.google.maps.Marker({
           position: new window.google.maps.LatLng(row.lat, row.lng),
           map: map,
@@ -87,6 +93,7 @@ function CourseMaps(props) {
         path.push({lat: row.lat, lng: row.lng});
         tmp.push(marker);
       });
+
       setMarkers(tmp);
 
       const lineSymbol = {
@@ -130,7 +137,6 @@ function CourseMaps(props) {
         map,
       })
     }
-    console.log(rows);
   }, [latlng]);
 
   return (
