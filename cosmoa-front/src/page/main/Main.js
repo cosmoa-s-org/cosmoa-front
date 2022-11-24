@@ -20,6 +20,11 @@ function Main() {
   const header = { "Content-Type": "application/json" };
   const navigate = useNavigate();
   const [likeCourse, setLikeCourse] = useState([]);
+  const [nickname, setNickname] = React.useState("");
+
+  React.useEffect(() => {
+    setNickname(JSON.parse(localStorage.getItem("USER")).nickname);
+  }, []);
 
   useEffect(() => {
     call("/course/hot", "GET", header, null)
@@ -43,6 +48,8 @@ function Main() {
     }
 
     return (<>
+      <Typography>{nickname}님 안녕하세요!</Typography>
+
       <Container maxWidth="sm">
         <img src={logo} style={{marginTop:"4%", width:"40vw"}}></img>
       </Container>
