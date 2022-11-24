@@ -94,15 +94,17 @@ function CoursePreviewMaps(props) {
             let maxDist = 0;
             let centerLat = 0;
 
+            console.log(rows);
             rows.forEach((row, i) => {
+                console.log(row);
                 if (i === 0) {
-                    coordsA = { lat: row.lat, lng: row.lng };
+                    coordsA = { lat: parseFloat(row.lat), lng: parseFloat(row.lng) };
                     map.panTo(new window.google.maps.LatLng(row.lat, row.lng));
                     map.setZoom(15);
                 } else {
                     var dist = calcDistance(coordsA, { lat: row.lat, lng: row.lng });
                     if (maxDist < dist) {
-                        coordsB = { lat: row.lat, lng: row.lng };
+                        coordsB = { lat: parseFloat(row.lat), lng: parseFloat(row.lng) };
                         maxDist = dist;
                         centerLat = (coordsA.lat + coordsB.lat);
                     }
@@ -112,9 +114,9 @@ function CoursePreviewMaps(props) {
                     map: map,
                     icon: createIcon(i),
                 });
-                path.push({ lat: row.lat, lng: row.lng });
+                path.push({ lat: parseFloat(row.lat), lng: parseFloat(row.lng) });
             });
-            console.log("maxDist: " + maxDist);
+            //console.log("maxDist: " + maxDist);
             const zl = Math.log2(38000 * Math.cos(centerLat * Math.PI / 180) / maxDist) + defaultzoom;
             map.panTo(new window.google.maps.LatLng((coordsA.lat + coordsB.lat) / 2, (coordsA.lng + coordsB.lng) / 2));
             map.setZoom(zl);
