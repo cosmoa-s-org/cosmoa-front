@@ -27,10 +27,17 @@ function GoogleMaps(props) {
     };
 
     const mapOptions = {
-        zoom: 11,
+        zoom: 12,
         center: center,
-        mapTypeId: 'roadmap'
-    };
+        mapTypeId: "roadmap",
+        //disableDefaultUI: true,
+        controlSize: 25,
+        zoomControl: false,
+        panControl: false,
+        streetViewControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+      };
 
     const onMarked = props.onMarked;
     
