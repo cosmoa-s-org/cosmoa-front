@@ -25,6 +25,13 @@ function AddPlaceMaps(props) {
     zoom: 11,
     center: center,
     mapTypeId: "roadmap",
+    //disableDefaultUI: true,
+    controlSize: 25,
+    zoomControl: false,
+    panControl: false,
+    streetViewControl: false,
+    mapTypeControl: false,
+    scaleControl: false,
   };
 
   React.useEffect(() => {
