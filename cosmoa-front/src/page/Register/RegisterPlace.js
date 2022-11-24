@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import {
     Button,
     Grid,
@@ -15,6 +15,38 @@ import MapWrapper from "../../map/MapWrapper";
 import PropTypes from "prop-types";
 import DaumPostcode from "react-daum-postcode";
 import { call, registerPlace } from "../../service/ApiService";
+
+const M = window.M;
+
+const coordsApadter = ({ latitude, longitude }) => {
+    return {
+        lat: Number(latitude),
+        lng: Number(longitude),
+    };
+};
+
+const getCurrentLocation = () => {
+    return new Promise((resolve, reject) => {
+        if (navigator.userAgent.indexOf('Android') === -1) {
+            console.log(navigator.userAgent);
+            resolve(coordsApadter({latitude: 36.1461, longitude: 128.3936}));
+        }
+
+        M.plugin("location").current({
+            timeout: 10000,
+            maximumAge: 1,
+            callback: function ({ status, message, coords }) {
+                if (status === "SUCCESS" && coords) {
+                    // 성공
+                    resolve(coordsApadter(coords));
+                } else {
+                    // 실패
+                    reject(new Error("Getting GPS coords is failed"));
+                }
+            },
+        }); 
+    });
+};
 
 // 탭 추가
 function TabPanel(props) {
@@ -103,10 +135,19 @@ function RegisterPlace() {
         },
     };
 
-    const M = window.M;
 
     const [path, setPath] = useState("");
     const [pinPlace, setPinPlace] = useState({});
+    // const [latLng, setLatLng] = useState({});
+
+    // useEffect(() => {
+    //     getCurrentLocation()
+    //     .then(({lat, lng}) => {
+    //         console.log(lat, lng);
+    //         //center = new window.google.maps.LatLng(lat, lng);
+    //         setLatLng({lat: lat, lng: lng});
+    //     })
+    // }, [])
 
     const onPlacePined = (lat, lng, addr) => {
         setPinPlace({ lat: lat, lng: lng, addr: addr });
