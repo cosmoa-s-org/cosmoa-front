@@ -121,14 +121,16 @@ function CoursePreviewMaps(props) {
 
             new window.google.maps.Polyline({
                 path: path,
-                strokeOpacity: 0,
-                icons: [
-                    {
-                        icon: symbol,
-                        offset: "0",
-                        repeat: "10px",
-                    },
-                ],
+                strokeOpacity: 1,
+                strokeColor: "#003399",
+                strokeWeight: 5,
+                // icons: [
+                //     {
+                //         icon: symbol,
+                //         offset: "0",
+                //         repeat: "10px",
+                //     },
+                // ],
                 map: map,
             });
         }

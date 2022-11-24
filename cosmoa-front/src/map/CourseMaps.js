@@ -113,14 +113,16 @@ function CourseMaps(props) {
 
       const line = new window.google.maps.Polyline({
         path: path,
-        strokeOpacity: 0,
-        icons: [
-          {
-            icon: symbol,
-            offset: "0",
-            repeat: "12px",
-          },
-        ],
+        strokeOpacity: 1,
+        strokeColor: "#003399",
+        strokeWeight: 5,
+        // icons: [
+        //   {
+        //     icon: symbol,
+        //     offset: "0",
+        //     repeat: "12px",
+        //   },
+        // ],
         map: map,
       });
     }
