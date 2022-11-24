@@ -1,13 +1,14 @@
-import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Tab, Tabs } from "@material-ui/core";
+import { Box, Container, Select, Typography, InputLabel, MenuItem, FormControl, Divider, Tab, Tabs, Grid, Paper } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
-import MapWrapper from "../../map/MapWrapper";
+import MapWrapper, { CoursePreviewMapWrapper } from "../../map/MapWrapper";
 import { call, CourseListSearch } from "../../service/ApiService";
+import InfoIcon from '@mui/icons-material/Info';
 
 
-// 탭
+// 탭-----------------------------------------------------------------------
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -41,24 +42,21 @@ function a11yProps(index) {
     };
 }
 
+// 탭 끝-----------------------------------------------------------------------
+
 function CourseList() {
     let navigate = useNavigate();
     const header = { "Content-Type" : "application/json" }
     const [courseList, setCourseList] = useState([]);
     const [pinPlace, setPinPlace] = useState({});
     const [courseList2, setCourseList2] = useState([]);
+    const [listGrid, setListGrid] = useState(<></>);
+    const [partner, setPartner] = useState('');
+    const [value, setValue] = useState(0);
 
     const onPlacePined = (lat, lng) => {
         setPinPlace({ lat: lat, lng: lng });
-        // document.getElementById("placeAddress").value = pinPlace.addr;
     }
-
-    useEffect(() => {
-        const data = new FormData();
-        data.append('lat', pinPlace.lat)
-        data.append('lng', pinPlace.lng)
-        onhandlePost(data);
-    },[pinPlace])
 
     const onhandlePost = async (data) => {
         CourseListSearch(data)
@@ -69,6 +67,197 @@ function CourseList() {
                 console.log(response.data);
                 setCourseList2(response);
             })
+    }    
+
+    const handleTab = (event, newValue) => {
+        setValue(newValue);
+    };
+
+    const handleChange = (event) => {
+        setPartner(event.target.value);
+    };
+
+    const goCourseDetail = (event) => {
+        const data = `${event.row.id}`
+        navigate(`/coursedetail/${event.row.id}`);
+    }
+
+    const columns = [
+        { field: 'name', headerName: '코스 이름', width: 180 },
+        { field: 'replyCount', headerName: '댓글', width: 20 },
+        { field: 'like', headerName: '추천', width: 20 },
+        { field: 'nickname', headerName: '등록자', width: 100 },
+    ];
+
+    const str1 = "안녕하세요. 테스트 코스입니다. 금오공대 ~ 옥계 다이소 ~ 인동 파출소 경유합니다.";
+    const str2 = "Hello, This is test tour course. kit ~ okgye dasio ~ indong police ~";
+
+    const testData = [
+        {
+            course: {
+                name: "테스트 코스",
+                description: str1,
+                reply: 23,
+                like: 85,
+            },
+            latlngList: [
+                {lat: 36.146, lng: 128.3937}, 
+                {lat: 36.1373, lng: 128.4179}, 
+                {lat: 36.1047, lng: 128.4197},
+            ]
+        },
+
+        {
+            course: {
+                name: "테스트 코스2",
+                description: str2,
+                reply: 54,
+                like: 99,
+            },
+            latlngList: [
+                {lat: 37.4909, lng: 127.1001}, 
+                {lat: 37.4824, lng: 127.1531}, 
+                {lat: 37.4143, lng: 127.1028},
+                {lat: 37.4441, lng: 127.0261},
+            ]
+        },
+        {
+            course: {
+                name: "테스트 코스",
+                description: str1,
+                reply: 23,
+                like: 85,
+            },
+            latlngList: [
+                {lat: 36.146, lng: 128.3937}, 
+                {lat: 36.1373, lng: 128.4179}, 
+                {lat: 36.1047, lng: 128.4197},
+            ]
+        },
+
+        {
+            course: {
+                name: "테스트 코스2",
+                description: str2,
+                reply: 54,
+                like: 99,
+            },
+            latlngList: [
+                {lat: 37.4909, lng: 127.1001}, 
+                {lat: 37.4824, lng: 127.1531}, 
+                {lat: 37.4143, lng: 127.1028},
+                {lat: 37.4441, lng: 127.0261},
+            ]
+        },
+        {
+            course: {
+                name: "테스트 코스",
+                description: str1,
+                reply: 23,
+                like: 85,
+            },
+            latlngList: [
+                {lat: 36.146, lng: 128.3937}, 
+                {lat: 36.1373, lng: 128.4179}, 
+                {lat: 36.1047, lng: 128.4197},
+            ]
+        },
+
+        {
+            course: {
+                name: "테스트 코스2",
+                description: str2,
+                reply: 54,
+                like: 99,
+            },
+            latlngList: [
+                {lat: 37.4909, lng: 127.1001}, 
+                {lat: 37.4824, lng: 127.1531}, 
+                {lat: 37.4143, lng: 127.1028},
+                {lat: 37.4441, lng: 127.0261},
+            ]
+        },
+        {
+            course: {
+                name: "테스트 코스",
+                description: str1,
+                reply: 23,
+                like: 85,
+            },
+            latlngList: [
+                {lat: 36.146, lng: 128.3937}, 
+                {lat: 36.1373, lng: 128.4179}, 
+                {lat: 36.1047, lng: 128.4197},
+            ]
+        },
+
+        {
+            course: {
+                name: "테스트 코스2",
+                description: str2,
+                reply: 54,
+                like: 99,
+            },
+            latlngList: [
+                {lat: 37.4909, lng: 127.1001}, 
+                {lat: 37.4824, lng: 127.1531}, 
+                {lat: 37.4143, lng: 127.1028},
+                {lat: 37.4441, lng: 127.0261},
+            ]
+        },
+    ];
+
+    const createListGrid = (list) => {
+        let items = [];
+        list.forEach((item, i) => {
+            items.push(createCourseGrid(item));
+        });
+
+        return items;
+    }
+
+    const createCourseGrid = (item) => {
+        return (
+        <Grid item xs={12} style={{marginBottom: "10px", }}>
+            <Paper elevation={3} rounded>
+                <Grid container spacing={2} style={{height: "165px", marginLeft: "2px", }}>
+                    <Grid item xs={5} style={{paddingRight: "0"}}>
+                        <CoursePreviewMapWrapper rows={item.latlngList}/>
+                    </Grid>
+                    <Grid item xs={7}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} style={{height: "25px", lineHeight: "15px", fontWeight: "bolder", }}>
+                                {item.course.name}
+                            </Grid>
+                            <Grid item xs={12} style={{height: "60px", marginBottom: "0", paddingBottom: "0", marginTop: "0", paddingTop: "0"}}>
+                                <p style={{height: "16px", lineHeight: "16px", paddingRight: "15px", marginTop: "5px", }}>
+                                    {item.course.description.slice(0, 40) + " ..."}
+                                </p>
+                            </Grid>
+                            <Grid item xs={4} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
+                                좋아요
+                            </Grid>
+                            <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
+                                {item.course.like}개
+                            </Grid>
+                            <Grid item xs={4} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
+                                댓글수
+                            </Grid>
+                            <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
+                                {item.course.reply}개
+                            </Grid>
+                            <Grid item xs={12} style={{height: "25px"}}>
+                                <p style={{height: "15px", lineHeight: "5px", fontWeight: "bolder", marginTop: "0", }} 
+                                onClick={() => {
+                                    navigate(`/coursedetail/${"22"}`);
+                                }}>{"Read More >"}</p>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </Grid>
+        );
     }
 
     useEffect(() => {
@@ -76,41 +265,25 @@ function CourseList() {
             .then((response) => {
                 console.log(response);
                 setCourseList(response.data);
-                // setCourseList(courseList.name.concat(courseList.replyCount));
             })
     }, []);
 
-    const [partner, setPartner] = useState('');
-    const [value, setValue] = React.useState(0);
+    useEffect(() => {
+        const data = new FormData();
+        data.append('lat', pinPlace.lat)
+        data.append('lng', pinPlace.lng)
+        onhandlePost(data);
+    },[pinPlace])
 
-    const handleTab = (event, newValue) => {
-        setValue(newValue);
-    };
-
-
-    const handleChange = (event) => {
-        setPartner(event.target.value);
-    };
-
-    // setCourseList.name((courseList.name)+(courseList.replyCount));
-    // setCourseList(
-    //     courseList.concat({
-    //         name: courseList.name + courseList.replyCount
-    //     })
-    // );
-    const columns = [
-        // { field: 'id', headerName: 'no', width: 10 },
-        { field: 'name', headerName: '코스 이름', width: 180 },
-        { field: 'replyCount', headerName: '댓글', width: 20 },
-        { field: 'like', headerName: '추천', width: 20 },
-        { field: 'nickname', headerName: '등록자', width: 100 },
-    ];
-
-    const goCourseDetail = (event) => {
-        const data = `${event.row.id}`
-        console.log(data);
-        navigate(`/coursedetail/${event.row.id}`, {lat : 36.1461, lng : 128.3936});
-    }
+    useEffect(() => {
+        console.log("courseList2 changed.");
+        setListGrid(createListGrid(testData));
+    }, [courseList2]);
+    
+    useEffect(() => {
+        console.log("listGrid changed.");
+        console.log(listGrid);
+    }, [listGrid])
 
     return (<>
         <Typography variant="h4" style={{marginTop: "5%"}}> 여행 코스</Typography>
@@ -152,19 +325,18 @@ function CourseList() {
                             rowsPerPageOptions={[5]}
                             onRowClick={goCourseDetail}
                         >
-                            {/* <Link to={`/coursedetail/${courseList.id}`} ></Link> */}
-
                         </DataGrid>
                     </div>
                     </Container>
+                    
 
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <div style={{ margin: "0 auto" }}>
                     <MapWrapper onMarked={onPlacePined} />
                 </div>
-
-                <div style={{ height: 400, width: "100%" }}>
+                {/* 기존 코스 목록 */}
+                {/* <div style={{ height: 400, width: "100%" }}>
                         <DataGrid
                             rows={courseList2}
                             columns={columns}
@@ -172,12 +344,13 @@ function CourseList() {
                             rowsPerPageOptions={[5]}
                             onRowClick={goCourseDetail}
                         >
-                            {/* <Link to={`/coursedetail/${courseList.id}`} ></Link> */}
 
                         </DataGrid>
-                    </div>
-
-
+                </div> */}
+                {/* 코스 목록 리뉴얼 */}
+                <Grid container spacing={2}>
+                    {listGrid}
+                </Grid>
             </TabPanel>
         </Box>
     </>)
