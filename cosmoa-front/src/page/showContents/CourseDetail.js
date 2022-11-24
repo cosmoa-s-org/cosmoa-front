@@ -38,11 +38,13 @@ const UserInfoWrapper = styled.div`
 `;
 
 function CourseDetail() {
+
+  //-----------------------------------------------------함수 및 State 정의부-----------------------------------------------------
   const location = useLocation();
 
   const [CourseMap, setCourseMap] = useState("");
   const [markers, setMarkers] = useState([]);
-  const [placeList, setplaceList] = useState([]);
+  const [placeList, setPlaceList] = useState([]);
   const [course, setCourse] = useState({
     course: {
       id: 0,
@@ -72,6 +74,7 @@ function CourseDetail() {
   const header = { "Content-Type": "application/json" };
   let navigate = useNavigate();
 
+  // 좋아요 기능
   const likeClick = () => {
     if (like) {
       setLike(false);
@@ -86,68 +89,123 @@ function CourseDetail() {
     }
   };
 
-  useEffect(() => {
-    call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", header, null) // 코스 정보 받아오기
-      .then((response) => {
-        console.log(response);
-        setCourse(response.data);
-        if (Number(response.data.isLike) === 1) {
-          setLike(true);
-        } else {
-          setLike(false);
-        }
-      });
-    call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
-      .then((response) => {
-        console.log(response);
-        console.log(response.data);
-        setplaceList(response.data);
-
-        let newlatlng = [];
-        response.data.forEach((item, i) => {
-          let lat = parseFloat(item.place.lat);
-          let lng = parseFloat(item.place.lng);
-          let pName = item.place.name;
-          let pDesc = item.place.description;
-
-          newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc});
-          setRows(newlatlng);
-          setLatlng(newlatlng);
-          console.log(newlatlng);
-        });
-
-        setCourseMap(
-          <CourseDetailMapWrapper
-            rows={newlatlng}
-            markers={markers}
-            setMarkers={setMarkers}
-            latlng={latlng}
-          />
-        );
-      });
-  }, []);
-
-  useEffect(() => {
-    console.log(latlng);
-    setCourseMap(
-      <CourseMapWrapper
-        markers={markers}
-        setMarkers={setMarkers}
-        rows={rows}
-        latlng={latlng}
-      />
-    );
-  }, [latlng]);
-
+  // 장소 상세보기로 이동
   const goPlaceDetail = (id) => {
-    // 장소 상세보기로 이동
     const data = id;
-    console.log(data);
     navigate(`/placedetail/${id}`);
   };
 
   // 소요시간
   var totalCostTime = 0;
+
+  // 댓글
+  const onSubmit = (e) => {
+    setInput(e.target.value);
+    e.preventDefault();
+  };
+
+  // 댓글 추가
+  const addComment = () => {
+    const joinData = {
+      userId: userId,
+      courseId: cid,
+      comment: input,
+    };
+    console.log(JSON.stringify(joinData));
+    call(`/course-reply`, "POST", header, JSON.stringify(joinData))
+    .then((response) => {
+        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
+            setComments(response.data);
+          });
+    })
+    setInput("");
+  };
+
+  // 댓글 삭제
+  const removeComment = (id) => {
+    console.log(id);
+    call(`/course-reply/${id}`, "DELETE", header, null)
+    .then((response) => {
+        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
+            setComments(response.data);
+          });
+    })
+  };
+
+  // 코스 삭제
+  const courseDelete = (e) => {
+    call(`/course/${cid}`, "DELETE", header, null)
+  }
+
+  // 신고창 표시
+  const reportAppear = (e) => {
+    const div = document.getElementById('reportDiv');
+    
+    if(div.style.display === 'none')  {
+      div.style.display = 'block';
+    }else {
+      div.style.display = 'none';
+    }
+  }
+
+  // 신고 상태값 셋팅
+  const reportReason = (e) => {
+    setReport(e.target.value)
+  }
+
+  // 신고하기
+  function reportClick() {
+    console.log(report);
+    console.log(cid);
+    console.log(userId);
+    let data = {courseId: cid, userId: userId, type: report}
+    call(`/course-report`, "POST", header, JSON.stringify(data))
+  }
+  //-----------------------------------------------------함수 및 State 정의부 끝-----------------------------------------------------
+
+  //-----------------------------------------------------useEffect-----------------------------------------------------
+  useEffect(() => {
+    call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", {}, null) // 코스 정보 받아오기
+    .then((response) => {
+      setCourse(response.data);
+      if (Number(response.data.isLike) === 1) {
+        setLike(true);
+      } else {
+        setLike(false);
+      }
+    });
+      
+    call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
+    .then((response) => {
+      setPlaceList(response.data);
+
+      let newlatlng = [];
+      response.data.forEach((item, i) => {
+        let lat = parseFloat(item.place.lat);
+        let lng = parseFloat(item.place.lng);
+        let pName = item.place.name;
+        let pDesc = item.place.description;
+
+        newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc});
+      });
+      setRows(newlatlng);
+      setLatlng(newlatlng);
+      setCourseMap(
+        <CourseMapWrapper
+          rows={newlatlng}
+          markers={markers}
+          setMarkers={setMarkers}
+          latlng={latlng}
+        />
+      );
+    });
+
+      call(`/course-reply/${cid}`, "GET", header, null)
+      .then((response) => {
+        setComments(response.data);
+      });
+  }, []);
+
   useEffect(() => {
     setPlaceListTable(
       <>
@@ -160,13 +218,19 @@ function CourseDetail() {
               <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
                   onClick={() => {
-                    console.log(item);
-                    setLatlng({
-                      lat: item.place.lat,
-                      lng: item.place.lng,
-                      pName: item.place.name,
-                      pDesc: item.place.description
-                    });
+                    setCourseMap(
+                      <CourseMapWrapper
+                        rows={rows}
+                        markers={markers}
+                        setMarkers={setMarkers}
+                        latlng={{
+                          lat: item.place.lat,
+                          lng: item.place.lng,
+                          pName: item.place.name,
+                          pDesc: item.place.description
+                        }}
+                      />
+                    );
                     window.scrollTo(0,0);
                   }}
                   component="img"
@@ -180,12 +244,19 @@ function CourseDetail() {
                     variant="h5"
                     component="div"
                     onClick={() => {
-                      setLatlng({
-                        lat: parseFloat(item.place.lat),
-                        lng: parseFloat(item.place.lng),
-                        pName: item.place.name,
-                        pDesc: item.place.description
-                      });
+                      setCourseMap(
+                        <CourseMapWrapper
+                          rows={rows}
+                          markers={markers}
+                          setMarkers={setMarkers}
+                          latlng={{
+                            lat: item.place.lat,
+                            lng: item.place.lng,
+                            pName: item.place.name,
+                            pDesc: item.place.description
+                          }}
+                        />
+                      );
                       window.scrollTo(0,0);
                     }}
                   >
@@ -220,76 +291,7 @@ function CourseDetail() {
     );
   }, [placeList]);
 
-  // 댓글
-
-  useEffect(() => {
-    call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
-      console.log(response);
-      setComments(response.data);
-      console.log(comments);
-    });
-  }, []);
-
-  const onSubmit = (e) => {
-    setInput(e.target.value);
-    e.preventDefault();
-  };
-
-  const addComment = () => {
-    // 댓글 추가
-    const joinData = {
-      userId: userId,
-      courseId: cid,
-      comment: input,
-    };
-    console.log(JSON.stringify(joinData));
-    call(`/course-reply`, "POST", header, JSON.stringify(joinData))
-    .then((response) => {
-        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
-            setComments(response.data);
-          });
-    })
-    setInput("");
-  };
-
-  const removeComment = (id) => {
-    // 댓글 삭제
-    console.log(id);
-    call(`/course-reply/${id}`, "DELETE", header, null)
-    .then((response) => {
-        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
-            setComments(response.data);
-          });
-    })
-  };
-
-  const courseDelete = (e) => {
-    call(`/course/${cid}`, "DELETE", header, null)
-  }
-
-// 신고 기능
-  const reportAppear = (e) => {
-    const div = document.getElementById('reportDiv');
-    
-    if(div.style.display === 'none')  {
-      div.style.display = 'block';
-    }else {
-      div.style.display = 'none';
-    }
-  }
-
-  const reportReason = (e) => {
-    setReport(e.target.value)
-  }
-
-  function reportClick() {
-    console.log(report);
-    console.log(cid);
-    console.log(userId);
-    let data = {courseId: cid, userId: userId, type: report}
-    call(`/course-report`, "POST", header, JSON.stringify(data))
-    // M.pop.alert("신고 완료")
-  }
+  //-----------------------------------------------------useEffect 끝-----------------------------------------------------
 
   return (
     <>
