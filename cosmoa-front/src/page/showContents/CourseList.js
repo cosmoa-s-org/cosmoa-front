@@ -58,17 +58,6 @@ function CourseList() {
         setPinPlace({ lat: lat, lng: lng });
     }
 
-    const onhandlePost = async (data) => {
-        CourseListSearch(data)
-            .then((response) => {
-                console.log(response);
-                console.log('성공');
-                console.log(data);
-                console.log(response.data);
-                setCourseList2(response);
-            })
-    }    
-
     const handleTab = (event, newValue) => {
         setValue(newValue);
     };
@@ -97,10 +86,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스",
                 description: str1,
-                reply: 23,
+                replyCount: 23,
                 like: 85,
             },
-            latlngList: [
+            latlng: [
                 {lat: 36.146, lng: 128.3937}, 
                 {lat: 36.1373, lng: 128.4179}, 
                 {lat: 36.1047, lng: 128.4197},
@@ -111,10 +100,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스2",
                 description: str2,
-                reply: 54,
+                replyCount: 54,
                 like: 99,
             },
-            latlngList: [
+            latlng: [
                 {lat: 37.4909, lng: 127.1001}, 
                 {lat: 37.4824, lng: 127.1531}, 
                 {lat: 37.4143, lng: 127.1028},
@@ -125,10 +114,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스",
                 description: str1,
-                reply: 23,
+                replyCount: 23,
                 like: 85,
             },
-            latlngList: [
+            latlng: [
                 {lat: 36.146, lng: 128.3937}, 
                 {lat: 36.1373, lng: 128.4179}, 
                 {lat: 36.1047, lng: 128.4197},
@@ -139,10 +128,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스2",
                 description: str2,
-                reply: 54,
+                replyCount: 54,
                 like: 99,
             },
-            latlngList: [
+            latlng: [
                 {lat: 37.4909, lng: 127.1001}, 
                 {lat: 37.4824, lng: 127.1531}, 
                 {lat: 37.4143, lng: 127.1028},
@@ -153,10 +142,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스",
                 description: str1,
-                reply: 23,
+                replyCount: 23,
                 like: 85,
             },
-            latlngList: [
+            latlng: [
                 {lat: 36.146, lng: 128.3937}, 
                 {lat: 36.1373, lng: 128.4179}, 
                 {lat: 36.1047, lng: 128.4197},
@@ -167,10 +156,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스2",
                 description: str2,
-                reply: 54,
+                replyCount: 54,
                 like: 99,
             },
-            latlngList: [
+            latlng: [
                 {lat: 37.4909, lng: 127.1001}, 
                 {lat: 37.4824, lng: 127.1531}, 
                 {lat: 37.4143, lng: 127.1028},
@@ -181,10 +170,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스",
                 description: str1,
-                reply: 23,
+                replyCount: 23,
                 like: 85,
             },
-            latlngList: [
+            latlng: [
                 {lat: 36.146, lng: 128.3937}, 
                 {lat: 36.1373, lng: 128.4179}, 
                 {lat: 36.1047, lng: 128.4197},
@@ -195,10 +184,10 @@ function CourseList() {
             course: {
                 name: "테스트 코스2",
                 description: str2,
-                reply: 54,
+                replyCount: 54,
                 like: 99,
             },
-            latlngList: [
+            latlng: [
                 {lat: 37.4909, lng: 127.1001}, 
                 {lat: 37.4824, lng: 127.1531}, 
                 {lat: 37.4143, lng: 127.1028},
@@ -222,7 +211,7 @@ function CourseList() {
             <Paper elevation={3} rounded>
                 <Grid container spacing={2} style={{height: "165px", marginLeft: "2px", }}>
                     <Grid item xs={5} style={{paddingRight: "0"}}>
-                        <CoursePreviewMapWrapper rows={item.latlngList}/>
+                        <CoursePreviewMapWrapper rows={item.latlng}/>
                     </Grid>
                     <Grid item xs={7}>
                         <Grid container spacing={2}>
@@ -244,12 +233,13 @@ function CourseList() {
                                 댓글수
                             </Grid>
                             <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                {item.course.reply}개
+                                {item.course.replyCount}개
                             </Grid>
                             <Grid item xs={12} style={{height: "25px"}}>
                                 <p style={{height: "15px", lineHeight: "5px", fontWeight: "bolder", marginTop: "0", }} 
                                 onClick={() => {
-                                    navigate(`/coursedetail/${"22"}`);
+                                    //navigate(`/coursedetail/${"22"}`);
+                                    navigate(`/coursedetail/${item.id}`);
                                 }}>{"Read More >"}</p>
                             </Grid>
                         </Grid>
@@ -260,10 +250,18 @@ function CourseList() {
         );
     }
 
+    const onhandlePost = async (data) => {
+        CourseListSearch(data)
+        .then((response) => {
+            console.log('성공');
+            console.log(response);
+            setCourseList2(response);
+        })
+    }   
+
     useEffect(() => {
         call("/course", "GET", header, null)
             .then((response) => {
-                console.log(response);
                 setCourseList(response.data);
             })
     }, []);
@@ -276,13 +274,11 @@ function CourseList() {
     },[pinPlace])
 
     useEffect(() => {
-        console.log("courseList2 changed.");
-        setListGrid(createListGrid(testData));
+        console.log("courseList2:", courseList2);
+        setListGrid(createListGrid(courseList2));
     }, [courseList2]);
     
     useEffect(() => {
-        console.log("listGrid changed.");
-        console.log(listGrid);
     }, [listGrid])
 
     return (<>

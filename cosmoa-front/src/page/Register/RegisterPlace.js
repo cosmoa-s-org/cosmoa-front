@@ -138,20 +138,9 @@ function RegisterPlace() {
 
     const [path, setPath] = useState("");
     const [pinPlace, setPinPlace] = useState({});
-    // const [latLng, setLatLng] = useState({});
-
-    // useEffect(() => {
-    //     getCurrentLocation()
-    //     .then(({lat, lng}) => {
-    //         console.log(lat, lng);
-    //         //center = new window.google.maps.LatLng(lat, lng);
-    //         setLatLng({lat: lat, lng: lng});
-    //     })
-    // }, [])
 
     const onPlacePined = (lat, lng, addr) => {
         setPinPlace({ lat: lat, lng: lng, addr: addr });
-        // document.getElementById("placeAddress").value = pinPlace.addr;
     }
 
     const SelectImgBtnClick = (event) => {

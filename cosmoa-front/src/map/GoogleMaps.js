@@ -16,7 +16,13 @@ function GoogleMaps(props) {
     if (defaultLatLng) {
         center = new window.google.maps.LatLng(defaultLatLng.lat, defaultLatLng.lng);
     } else {
-        center = gumi;
+        if (localStorage.getItem("currentLocation")) {
+            console.log(JSON.parse(localStorage.getItem("currentLocation")));
+            const cur = JSON.parse(localStorage.getItem("currentLocation"));
+            center = new window.google.maps.LatLng(cur.lat, cur.lng);
+        } else {
+            center = gumi;
+        }
     }
     const geocoder = new window.google.maps.Geocoder();
     const infowindow = new window.google.maps.InfoWindow();
