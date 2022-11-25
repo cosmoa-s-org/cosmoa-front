@@ -1,25 +1,30 @@
 import { Container } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { call } from "../../service/ApiService";
+import PlaceGrid from "../../components/Grid/PlaceGrid";
 
 function PlaceScrap() {
 
     let userId = JSON.parse(localStorage.getItem("USER")).id
-    const header = { "Content-Type": "application/json" }
+    const header = { "Content-Type": "application/json" };
+    const [listGrid, setListGrid] = useState(<></>);
+
+
 
 
     useEffect( () => {
-        call(`/place/posted-place?userId=${userId}`, "GET", header, null)
+        call(`/place/scraped-place?userId=${userId}`, "GET", header, null)
         .then((response) => {
-            console.log(response.data);
+            console.log(response);
+            setListGrid(<PlaceGrid list={response.data} />);
         })
-    })
+    }, [])
 
 
 
     return (<>
     <Container style={{marginTop:"10%"}}>
-        스크랩한 장소
+        {listGrid}
     </Container>
     </>)
 }
