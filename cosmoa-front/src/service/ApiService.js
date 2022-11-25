@@ -128,9 +128,9 @@ export function registerCourse(place) {
 
 export function CourseListSearch(latlng) {
     const M = window.M;
+    console.log("latlng: ", latlng.get('lat'));
     return call(`/course/location?lat=${latlng.get('lat')}&lng=${latlng.get('lng')}`, "GET", header)
     .then((response) => {
-        console.log("성공");
         return response.data
     })
     .catch((error)=>{

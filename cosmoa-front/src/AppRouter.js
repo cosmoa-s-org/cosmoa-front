@@ -18,6 +18,11 @@ import CourseDetail from "./page/showContents/CourseDetail";
 import Splash from "./components/Splash";
 import PlaceDetail from "./page/showContents/PlaceDetail";
 import Report from "./page/admin/Report";
+import ChangeInfo from "./page/user/ChangeInfo";
+import CourseScrap from "./page/user/CourseScrap";
+import PlaceScrap from "./page/user/PlaceScrap";
+import PostedPlace from "./page/user/PostedPlace";
+import PostedCourse from "./page/user/PostedCourse";
 
 
 
@@ -55,6 +60,14 @@ function AppRouter(props) {
               <Route path="main" element={<Main />} />
 
               <Route path="Mypage" element={<Mypage />} />
+              <Route path="ChangeInfo" element={<ChangeInfo />} />
+              <Route path="CourseScrap" element={<CourseScrap />} />
+              <Route path="PlaceScrap" element={<PlaceScrap />} />
+              <Route path="PostedPlace" element={<PostedPlace />} />
+              <Route path="PostedCourse" element={<PostedCourse />} />
+
+
+
               <Route path="SelectTheme" element={<SelectTheme />} />
               <Route path="registerType" element={<RegisterType />} />
               <Route path="registerCourse" element={<RegisterCourse />} />

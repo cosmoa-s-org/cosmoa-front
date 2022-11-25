@@ -45,31 +45,6 @@ export default function SignIn() {
     };
 
 
-    // const signin = async (data) => {
-    //     signin("", "", JSON.stringify(data))
-    //         .then((response) => {
-    //             console.log(response);
-    //         })
-    //         navigate("/");
-    //         console.log("전송 성공");
-    // }
-
-    const onSocialClick = async (event) => {
-        // console.log(event.target.name);
-        // const {
-        //     target: { name },
-        // } = event;
-        // let provider = '';
-        // if (name === 'google') {
-        //     provider = new firebaseInstance.auth.GoogleAuthProvider();
-        // } else if (name === 'github') {
-        //     provider = new firebaseInstance.auth.GithubAuthProvider();
-        // }
-
-        // const data = await authService.signInWithPopup(provider);
-        // console.log(data);
-    };
-
 
     return (<>
         {/* <button onClick={onLogOutClick}>Log out</button> */}
@@ -122,21 +97,6 @@ export default function SignIn() {
                     <Link href="/signup" variant="body2">
                         <Grid item xs={12}>가입하러가기 </Grid>
                     </Link>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Grid container spacing={{ xs: 2, md: 3 }} column={{ xs: 4, sm: 8, md: 12 }} >
-                            <Grid item xs={12}>
-                                <br />
-                                <Button
-                                    onClick={onSocialClick}
-                                    fullWidth
-                                    variant="contained"
-                                    name="google"
-                                >
-                                    구글로 로그인하기</Button>
-                            </Grid>
-                        </Grid>
-                        <br />
-                    </Box>
                 </form>
             </Box>
 
