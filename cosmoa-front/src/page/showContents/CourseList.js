@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import MapWrapper, { CoursePreviewMapWrapper } from "../../map/MapWrapper";
 import { call, CourseListSearch } from "../../service/ApiService";
-import ReadMoreIcon from "../../images/ReadMore.png";
+import ReadMoreIcon from "../../images/ReadMore3.png";
 import CommentIcon from '@mui/icons-material/Comment';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
@@ -166,7 +166,7 @@ function CourseList() {
                             <Grid item xs={3} style={countStyle}>
                                 {item.course.replyCount}
                             </Grid>
-                            <Grid item xs={12} style={{height: "40px", marginLeft: "0", paddingLeft: "0", }}>
+                            <Grid item xs={12} style={{height: "40px", marginLeft: "0", marginRight: "10px", paddingLeft: "0",}}>
                                 <img src={ReadMoreIcon} style={{width: "85%", height: "40px", }} onClick={() => {
                                     navigate(`/coursedetail/${item.id}`);
                                 }}/>
