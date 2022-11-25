@@ -140,14 +140,19 @@ function RegisterPlace() {
     const [pinPlace, setPinPlace] = useState({});
     // const [latLng, setLatLng] = useState({});
 
-    // useEffect(() => {
-    //     getCurrentLocation()
-    //     .then(({lat, lng}) => {
-    //         console.log(lat, lng);
-    //         //center = new window.google.maps.LatLng(lat, lng);
-    //         setLatLng({lat: lat, lng: lng});
-    //     })
-    // }, [])
+    useEffect(() => {
+        // getCurrentLocation()
+        // .then(({lat, lng}) => {
+        //     console.log(lat, lng);
+        //     
+        //     setLatLng({lat: lat, lng: lng})
+        // })
+
+        if (localStorage.getItem("currentLocation")) {
+            console.log(localStorage.getItem("currentLocation"));
+            setPinPlace(JSON.parse(localStorage.getItem("currentLocation")));
+        }
+    }, [])
 
     const onPlacePined = (lat, lng, addr) => {
         setPinPlace({ lat: lat, lng: lng, addr: addr });
