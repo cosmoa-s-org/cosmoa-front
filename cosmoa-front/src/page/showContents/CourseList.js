@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import MapWrapper, { CoursePreviewMapWrapper } from "../../map/MapWrapper";
 import { call, CourseListSearch } from "../../service/ApiService";
-import InfoIcon from '@mui/icons-material/Info';
+import ReadMoreIcon from "../../images/ReadMore.png";
+import CommentIcon from '@mui/icons-material/Comment';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 
 // 탭-----------------------------------------------------------------------
@@ -71,6 +73,19 @@ function CourseList() {
         navigate(`/coursedetail/${event.row.id}`);
     }
 
+    const countStyle = {
+        height: "25px", 
+        marginTop: "0", 
+        marginLeft: "0", 
+        paddingLeft: "0", 
+        paddingTop: "0", 
+        textAlign: "left", 
+        fontSize: "18px", 
+        fontWeight: "normal", 
+        fontFamily: "fantasy"
+    };
+
+
     const columns = [
         { field: 'name', headerName: '코스 이름', width: 180 },
         { field: 'replyCount', headerName: '댓글', width: 20 },
@@ -82,90 +97,6 @@ function CourseList() {
     const str2 = "Hello, This is test tour course. kit ~ okgye dasio ~ indong police ~";
 
     const testData = [
-        {
-            course: {
-                name: "테스트 코스",
-                description: str1,
-                replyCount: 23,
-                like: 85,
-            },
-            latlng: [
-                {lat: 36.146, lng: 128.3937}, 
-                {lat: 36.1373, lng: 128.4179}, 
-                {lat: 36.1047, lng: 128.4197},
-            ]
-        },
-
-        {
-            course: {
-                name: "테스트 코스2",
-                description: str2,
-                replyCount: 54,
-                like: 99,
-            },
-            latlng: [
-                {lat: 37.4909, lng: 127.1001}, 
-                {lat: 37.4824, lng: 127.1531}, 
-                {lat: 37.4143, lng: 127.1028},
-                {lat: 37.4441, lng: 127.0261},
-            ]
-        },
-        {
-            course: {
-                name: "테스트 코스",
-                description: str1,
-                replyCount: 23,
-                like: 85,
-            },
-            latlng: [
-                {lat: 36.146, lng: 128.3937}, 
-                {lat: 36.1373, lng: 128.4179}, 
-                {lat: 36.1047, lng: 128.4197},
-            ]
-        },
-
-        {
-            course: {
-                name: "테스트 코스2",
-                description: str2,
-                replyCount: 54,
-                like: 99,
-            },
-            latlng: [
-                {lat: 37.4909, lng: 127.1001}, 
-                {lat: 37.4824, lng: 127.1531}, 
-                {lat: 37.4143, lng: 127.1028},
-                {lat: 37.4441, lng: 127.0261},
-            ]
-        },
-        {
-            course: {
-                name: "테스트 코스",
-                description: str1,
-                replyCount: 23,
-                like: 85,
-            },
-            latlng: [
-                {lat: 36.146, lng: 128.3937}, 
-                {lat: 36.1373, lng: 128.4179}, 
-                {lat: 36.1047, lng: 128.4197},
-            ]
-        },
-
-        {
-            course: {
-                name: "테스트 코스2",
-                description: str2,
-                replyCount: 54,
-                like: 99,
-            },
-            latlng: [
-                {lat: 37.4909, lng: 127.1001}, 
-                {lat: 37.4824, lng: 127.1531}, 
-                {lat: 37.4143, lng: 127.1028},
-                {lat: 37.4441, lng: 127.0261},
-            ]
-        },
         {
             course: {
                 name: "테스트 코스",
@@ -223,24 +154,22 @@ function CourseList() {
                                     {item.course.description.slice(0, 40) + " ..."}
                                 </p>
                             </Grid>
-                            <Grid item xs={4} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                좋아요
+                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "0px", }}>
+                                <ThumbUpIcon />
                             </Grid>
-                            <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                {item.course.like}개
+                            <Grid item xs={3} style={countStyle}>
+                                {item.course.like}
                             </Grid>
-                            <Grid item xs={4} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                댓글수
+                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "2px", }}>
+                                <CommentIcon />
                             </Grid>
-                            <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                {item.course.replyCount}개
+                            <Grid item xs={3} style={countStyle}>
+                                {item.course.replyCount}
                             </Grid>
-                            <Grid item xs={12} style={{height: "25px"}}>
-                                <p style={{height: "15px", lineHeight: "5px", fontWeight: "bolder", marginTop: "0", }} 
-                                onClick={() => {
-                                    //navigate(`/coursedetail/${"22"}`);
+                            <Grid item xs={12} style={{height: "40px", marginLeft: "0", paddingLeft: "0", }}>
+                                <img src={ReadMoreIcon} style={{width: "85%", height: "40px", }} onClick={() => {
                                     navigate(`/coursedetail/${item.id}`);
-                                }}>{"Read More >"}</p>
+                                }}/>
                             </Grid>
                         </Grid>
                     </Grid>
