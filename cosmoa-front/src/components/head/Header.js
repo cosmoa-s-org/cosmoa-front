@@ -130,7 +130,7 @@ function Header() {
           </IconButton>
           <Typography align="center" style={{width:"100%"}}>
             <a href="/main" >
-              <img href="/main" src={TextLogo} style={{marginTop:"4%", width:"30vw"}}></img>
+              <img href="/main" src={TextLogo} style={{marginTop:"0%", width:"35vw"}}></img>
             </a>
           </Typography>
           <Link style={{marginLeft: "auto"}} href="/Mypage">
