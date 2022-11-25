@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import MapWrapper, { CoursePreviewMapWrapper } from "../../map/MapWrapper";
 import { call, CourseListSearch } from "../../service/ApiService";
-import ReadMoreIcon from "../../images/ReadMore.png";
+import ReadMoreIcon from "../../images/ReadMore3.png";
 import CommentIcon from '@mui/icons-material/Comment';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
@@ -80,7 +80,7 @@ function CourseList() {
         paddingLeft: "0", 
         paddingTop: "0", 
         textAlign: "left", 
-        fontSize: "18px", 
+        fontSize: "15px", 
         fontWeight: "normal", 
         fontFamily: "fantasy"
     };
@@ -146,27 +146,27 @@ function CourseList() {
                     </Grid>
                     <Grid item xs={7}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} style={{height: "25px", lineHeight: "15px", fontWeight: "bolder", }}>
+                            <Grid item xs={12} style={{height: "25px", lineHeight: "15px", fontWeight: "bolder", marginRight: "15px",  }}>
                                 {item.course.name}
                             </Grid>
-                            <Grid item xs={12} style={{height: "60px", marginBottom: "0", paddingBottom: "0", marginTop: "0", paddingTop: "0"}}>
-                                <p style={{height: "16px", lineHeight: "16px", paddingRight: "15px", marginTop: "5px", }}>
-                                    {item.course.description.slice(0, 40) + " ..."}
+                            <Grid item xs={12} style={{height: "55px", marginBottom: "0", paddingBottom: "0", marginTop: "5px", paddingTop: "0"}}>
+                                <p style={{height: "16px", lineHeight: "16px", paddingRight: "15px", marginTop: "5px", fontSize: "10px", }}>
+                                    {item.course.description.slice(0, 50) + " ..."}
                                 </p>
                             </Grid>
-                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "0px", }}>
-                                <ThumbUpIcon />
+                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "1px", }}>
+                                <ThumbUpIcon style={{height: "17px"}} />
                             </Grid>
                             <Grid item xs={3} style={countStyle}>
                                 {item.course.like}
                             </Grid>
-                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "2px", }}>
-                                <CommentIcon />
+                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "3px", }}>
+                                <CommentIcon style={{height: "17px"}} />
                             </Grid>
                             <Grid item xs={3} style={countStyle}>
                                 {item.course.replyCount}
                             </Grid>
-                            <Grid item xs={12} style={{height: "40px", marginLeft: "0", paddingLeft: "0", }}>
+                            <Grid item xs={12} style={{height: "40px", marginLeft: "0", marginRight: "10px", paddingLeft: "0",}}>
                                 <img src={ReadMoreIcon} style={{width: "85%", height: "40px", }} onClick={() => {
                                     navigate(`/coursedetail/${item.id}`);
                                 }}/>
