@@ -1,11 +1,27 @@
-import { Box, Button, Container, Divider, Grid, Typography, Card, CardContent, CardActions, CardMedia, Select, MenuItem } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardActions,
+  CardMedia,
+  Select,
+  MenuItem,
+} from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import {  useLocation, useNavigate, useParams } from "react-router-dom";
-import MapWrapper, { CourseDetailMapWrapper, CourseMapWrapper } from "../../map/MapWrapper";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import MapWrapper, {
+  CourseDetailMapWrapper,
+  CourseMapWrapper,
+} from "../../map/MapWrapper";
 import { call } from "../../service/ApiService";
-import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import styled from "@emotion/styled";
 
 const Like = styled.button`
@@ -15,7 +31,7 @@ const Like = styled.button`
   margin-left: 3%;
   border: 0;
   background-color: floralwhite;
-  margin-top : 5px;
+  margin-top: 5px;
 `;
 const CommentWrapper = styled.div`
   border: 1px solid black;
@@ -26,7 +42,7 @@ const CommentWrapper = styled.div`
   height: auto;
   text-align: left;
   margin-top: 5px;
-  padding : 5px;
+  padding: 5px;
 `;
 
 const UserInfoWrapper = styled.div`
@@ -34,11 +50,9 @@ const UserInfoWrapper = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid #eeeeee;
   height: 30px;
-
 `;
 
 function CourseDetail() {
-
   //-----------------------------------------------------함수 및 State 정의부-----------------------------------------------------
   const location = useLocation();
 
@@ -79,12 +93,20 @@ function CourseDetail() {
     if (like) {
       setLike(false);
       course.like -= 1;
-      call(`/course-like`, "DELETE", header, JSON.stringify({ userId: userId, courseId: cid })
+      call(
+        `/course-like`,
+        "DELETE",
+        header,
+        JSON.stringify({ userId: userId, courseId: cid })
       );
     } else {
       setLike(true);
       course.like += 1;
-      call(`/course-like`, "POST", header, JSON.stringify({ userId: userId, courseId: cid })
+      call(
+        `/course-like`,
+        "POST",
+        header,
+        JSON.stringify({ userId: userId, courseId: cid })
       );
     }
   };
@@ -112,98 +134,97 @@ function CourseDetail() {
       comment: input,
     };
     console.log(JSON.stringify(joinData));
-    call(`/course-reply`, "POST", header, JSON.stringify(joinData))
-    .then((response) => {
+    call(`/course-reply`, "POST", header, JSON.stringify(joinData)).then(
+      (response) => {
         call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
-            setComments(response.data);
-          });
-    })
+          setComments(response.data);
+        });
+      }
+    );
     setInput("");
   };
 
   // 댓글 삭제
   const removeComment = (id) => {
     console.log(id);
-    call(`/course-reply/${id}`, "DELETE", header, null)
-    .then((response) => {
-        call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
-            setComments(response.data);
-          });
-    })
+    call(`/course-reply/${id}`, "DELETE", header, null).then((response) => {
+      call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
+        setComments(response.data);
+      });
+    });
   };
 
   // 코스 삭제
   const courseDelete = (e) => {
-    call(`/course/${cid}`, "DELETE", header, null)
-  }
+    call(`/course/${cid}`, "DELETE", header, null);
+  };
 
   // 신고창 표시
   const reportAppear = (e) => {
-    const div = document.getElementById('reportDiv');
-    
-    if(div.style.display === 'none')  {
-      div.style.display = 'block';
-    }else {
-      div.style.display = 'none';
+    const div = document.getElementById("reportDiv");
+
+    if (div.style.display === "none") {
+      div.style.display = "block";
+    } else {
+      div.style.display = "none";
     }
-  }
+  };
 
   // 신고 상태값 셋팅
   const reportReason = (e) => {
-    setReport(e.target.value)
-  }
+    setReport(e.target.value);
+  };
 
   // 신고하기
   function reportClick() {
     console.log(report);
     console.log(cid);
     console.log(userId);
-    let data = {courseId: cid, userId: userId, type: report}
-    call(`/course-report`, "POST", header, JSON.stringify(data))
+    let data = { courseId: cid, userId: userId, type: report };
+    call(`/course-report`, "POST", header, JSON.stringify(data));
   }
   //-----------------------------------------------------함수 및 State 정의부 끝-----------------------------------------------------
 
   //-----------------------------------------------------useEffect-----------------------------------------------------
   useEffect(() => {
     call(`/course/detail?courseId=${cid}&userId=${userId}`, "GET", {}, null) // 코스 정보 받아오기
-    .then((response) => {
-      setCourse(response.data);
-      if (Number(response.data.isLike) === 1) {
-        setLike(true);
-      } else {
-        setLike(false);
-      }
-    });
-      
-    call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
-    .then((response) => {
-      setPlaceList(response.data);
-
-      let newlatlng = [];
-      response.data.forEach((item, i) => {
-        let lat = parseFloat(item.place.lat);
-        let lng = parseFloat(item.place.lng);
-        let pName = item.place.name;
-        let pDesc = item.place.description;
-
-        newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc});
-      });
-      setRows(newlatlng);
-      setLatlng(newlatlng);
-      setCourseMap(
-        <CourseMapWrapper
-          rows={newlatlng}
-          markers={markers}
-          setMarkers={setMarkers}
-          latlng={latlng}
-        />
-      );
-    });
-
-      call(`/course-reply/${cid}`, "GET", header, null)
       .then((response) => {
-        setComments(response.data);
+        setCourse(response.data);
+        if (Number(response.data.isLike) === 1) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
       });
+
+    call(`/course-compose/${cid}`, "GET", {}, null) // 코스에 포함된 장소 정보 받아오기
+      .then((response) => {
+        setPlaceList(response.data);
+
+        let newlatlng = [];
+        response.data.forEach((item, i) => {
+          let lat = parseFloat(item.place.lat);
+          let lng = parseFloat(item.place.lng);
+          let pName = item.place.name;
+          let pDesc = item.place.description;
+
+          newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc });
+        });
+        setRows(newlatlng);
+        setLatlng(newlatlng);
+        setCourseMap(
+          <CourseMapWrapper
+            rows={newlatlng}
+            markers={markers}
+            setMarkers={setMarkers}
+            latlng={latlng}
+          />
+        );
+      });
+
+    call(`/course-reply/${cid}`, "GET", header, null).then((response) => {
+      setComments(response.data);
+    });
   }, []);
 
   useEffect(() => {
@@ -227,11 +248,11 @@ function CourseDetail() {
                           lat: item.place.lat,
                           lng: item.place.lng,
                           pName: item.place.name,
-                          pDesc: item.place.description
+                          pDesc: item.place.description,
                         }}
                       />
                     );
-                    window.scrollTo(0,0);
+                    window.scrollTo(0, 0);
                   }}
                   component="img"
                   height="auto"
@@ -253,11 +274,11 @@ function CourseDetail() {
                             lat: item.place.lat,
                             lng: item.place.lng,
                             pName: item.place.name,
-                            pDesc: item.place.description
+                            pDesc: item.place.description,
                           }}
                         />
                       );
-                      window.scrollTo(0,0);
+                      window.scrollTo(0, 0);
                     }}
                   >
                     {item.place.name}
@@ -285,7 +306,9 @@ function CourseDetail() {
             </>
           );
         })}
-        <div style={{ textAlign: "center", marginLeft:"20px" }}>{totalCostTime}분 소요</div>
+        <div style={{ textAlign: "center", marginLeft: "20px" }}>
+          {totalCostTime}분 소요
+        </div>
         <Divider />
       </>
     );
@@ -296,58 +319,76 @@ function CourseDetail() {
   return (
     <>
       <Box>
-        <Typography variant="h4" style={{ marginTop: "5%", fontWeight:"600"}}>
+        <Typography variant="h3" style={{ marginTop: "5%", fontWeight: "600" }}>
           {course.course.name}
         </Typography>
-        <Typography style={{ textAlign: "right", marginRight:"10px" }}>
+        <Typography
+          style={{ fontSize: "10px", textAlign: "right", marginRight: "10px" }}
+        >
           by {course.nickname}
         </Typography>
-        <Typography style={{ textAlign: "right", marginRight:"10px" }}>
+        <Typography
+          style={{ fontSize: "10px", textAlign: "right", marginRight: "10px" }}
+        >
           {course.course.createdDate}
         </Typography>
       </Box>
       <Box>
         <div style={{ margin: "0 auto" }}>{CourseMap}</div>
         <Container style={{ textAlign: "initial" }}>
-
           <br />
-          <Typography variant="h5" style={{fontWeight:"500"}}>코스 순서 </Typography>
+          <Typography variant="h4" style={{ fontWeight: "500" }}>
+            코스 순서{" "}
+          </Typography>
           <Divider />
           {placeListTable} <br />
-          <Typography style={{fontSize:"medium"}}>
-          {course.course.description}
+          <Typography style={{ fontSize: "medium" }}>
+            {course.course.description}
           </Typography>
           <br />
           {/* 코스 삭제 버튼 */}
-          <div style={{textAlign:"right"}}>
+          <div style={{ textAlign: "right" }}>
             {userId === course.course.userId ? (
-                <>
-                <Button onClick={courseDelete} style={{marginBottom:"5px", backgroundColor:"lightgray"}}>코스 삭제</Button>
-                </>
-            ) : <>
-                <Button variant="outlined" color="red" onClick={reportAppear} style={{marginBottom:"5px"}}>코스 신고</Button>
+              <>
+                <Button
+                  onClick={courseDelete}
+                  style={{ marginBottom: "5px", backgroundColor: "lightgray" }}
+                >
+                  코스 삭제
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="outlined"
+                  color="red"
+                  onClick={reportAppear}
+                  style={{ marginBottom: "5px" }}
+                >
+                  코스 신고
+                </Button>
                 <div id="reportDiv" hidden>
-                    <Box width="50%" style={{marginLeft:"auto"}}>
+                  <Box width="50%" style={{ marginLeft: "auto" }}>
                     <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={report}
-                                label="신고사유"
-                                onChange={reportReason}
-                                fullWidth
-                                style={{textAlign:"justify"}}
-                            >
-                                <MenuItem value={1}>부적절한 내용의 게시물</MenuItem>
-                                <MenuItem value={2}>음란물이 포함된 게시물</MenuItem>
-                                <MenuItem value={3}>광고성 게시물</MenuItem>
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={report}
+                      label="신고사유"
+                      onChange={reportReason}
+                      fullWidth
+                      style={{ textAlign: "justify" }}
+                    >
+                      <MenuItem value={1}>부적절한 내용의 게시물</MenuItem>
+                      <MenuItem value={2}>음란물이 포함된 게시물</MenuItem>
+                      <MenuItem value={3}>광고성 게시물</MenuItem>
                     </Select>
                     <Button onClick={reportClick}>신고하기</Button>
-                    </Box>
+                  </Box>
                 </div>
-            </>}
+              </>
+            )}
           </div>
-
-        <Divider />
+          <Divider />
           추천수 : {course.like}
           {like ? (
             <Like size="20px" onClick={likeClick}>
@@ -358,7 +399,6 @@ function CourseDetail() {
               <ThumbUpOffAltIcon />
             </Like>
           )}
-          
         </Container>
         <hr />
         {/* Reply */}

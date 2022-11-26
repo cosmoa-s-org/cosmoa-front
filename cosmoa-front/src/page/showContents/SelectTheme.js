@@ -29,7 +29,7 @@ const PaperItem = styled(Paper)(({ theme }) => ({
   color: "white",
   borderRadius: "20px",
   margin: "1vw",
-  marginLeft: "8vw",
+  marginLeft: "8.5vw",
   fontWeight: "700",
 }));
 
@@ -37,14 +37,14 @@ const Item = styled(Paper)(({ theme }) => ({
   // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   // ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
+  textAlign: "left",
   color: theme.palette.text.secondary,
   marginTop: "5px",
   fontWeight: "700",
 }));
 
 const IconItem = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#A6D7F7",
+  backgroundColor: "#F2DEBA",
   height: 80,
   width: 80,
   borderRadius: "35px",
@@ -72,14 +72,14 @@ function SelectTheme() {
   return (
     <>
       <Container maxWidth="sm">
-        <br />
         <Paper
+          elevation={0}
           style={{
             width: "100%",
             height: "40px",
             marginTop: "5px",
             marginBottom: "5px",
-            backgroundColor: "#FFF89A",
+            // backgroundColor: "#FFF89A",
             fontWeight: 700,
             fontSize: "28px",
           }}
@@ -115,7 +115,7 @@ function SelectTheme() {
       </Container>
       <br />
 
-      <Grid container spacing={1} style={{ padding: "5px", marginLeft:10 }}>
+      <Grid container spacing={1} style={{ padding: "5px", marginLeft:8 }}>
         <Grid item xs={2}>
           <Link href="/courselist">
             <IconItem elevation={4}>

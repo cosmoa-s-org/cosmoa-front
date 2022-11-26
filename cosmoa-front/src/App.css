@@ -1,7 +1,8 @@
 .App {
-  margin-top: -5%;
+  margin-top: -3%;
   text-align: center;
   background-color: white;
+  overflow-x: hidden;
 }
 
 .App-logo {
