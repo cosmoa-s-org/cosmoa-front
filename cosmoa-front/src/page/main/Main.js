@@ -35,20 +35,20 @@ function Main() {
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
-    maximumAge: 0
+    maximumAge: 0,
   };
-  
+
   function success(pos) {
     const crd = pos.coords;
-  
-    console.log('Your current position is:');
+
+    console.log("Your current position is:");
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`More or less ${crd.accuracy} meters.`);
-    const location = {lat: crd.latitude, lng: crd.longitude};
+    const location = { lat: crd.latitude, lng: crd.longitude };
     localStorage.setItem("currentLocation", JSON.stringify(location));
   }
-  
+
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
@@ -82,10 +82,12 @@ function Main() {
     <>
       <Typography>{nickname}님 안녕하세요!</Typography>
 
-      <Container maxWidth="sm">
-        <img src={place} style={{ marginTop: "4%", width: "90vw" }}></img>
-        <Typography>서울 롯데월드</Typography>
-      </Container>
+      <Link href="/popularplace">
+        <Container maxWidth="sm">
+          <img src={place} style={{ marginTop: "4%", width: "90vw" }}></img>
+          <Typography>서울 롯데월드</Typography>
+        </Container>
+      </Link>
 
       <br />
       <br />

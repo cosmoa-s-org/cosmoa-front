@@ -78,7 +78,7 @@ function SelectTheme() {
             width: "100%",
             height: "40px",
             marginTop: "5px",
-            marginBottom: "5px",
+            marginBottom: "10px",
             // backgroundColor: "#FFF89A",
             fontWeight: 700,
             fontSize: "28px",
@@ -86,7 +86,7 @@ function SelectTheme() {
         >
           인기 코스
         </Paper>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} style={{marginBottom:"10px"}}>
           <Grid item xs={6}>
             <Item
               style={{ backgroundColor: "#B1DCF8", width: "100%" }}
@@ -113,7 +113,9 @@ function SelectTheme() {
           </Grid>
         </Grid>
       </Container>
-      <br />
+
+      {/* <br /> */}
+      <hr />
 
       <Grid container spacing={1} style={{ padding: "5px", marginLeft:8 }}>
         <Grid item xs={2}>
@@ -132,40 +134,40 @@ function SelectTheme() {
         <br />
 
         <Grid item xs={2}>
-          <Link href="/courselist">
+          <Link href="/popularplace">
             <IconItem elevation={4}>
               <CloudIcon style={{color:"white", fontSize: 40,}}/>
             </IconItem>
           </Link>
         </Grid>
         <Grid item xs={10}>
-          <Link href="/courselist">
+          <Link href="/popularplace">
             <PaperItem elevation={4}>계절 및 기간</PaperItem>
           </Link>
         </Grid>
 
         <br /><Grid item xs={2}>
-          <Link href="/courselist">
+          <Link href="/popularplace">
             <IconItem elevation={4} style={{  lineHeight: "120px",}}>
               <AttractionsIcon style={{color:"white", fontSize: 50}}/>
             </IconItem>
           </Link>
         </Grid>
         <Grid item xs={10}>
-          <Link href="/courselist">
+          <Link href="/popularplace">
             <PaperItem elevation={4}>지역 축제</PaperItem>
           </Link>
         </Grid>
 
         <br /><Grid item xs={2}>
-          <Link href="/courselist">
+          <Link href="/popularplace">
             <IconItem elevation={4}>
               <AccountBalanceIcon style={{color:"white", fontSize: 40,}}/>
             </IconItem>
           </Link>
         </Grid>
         <Grid item xs={10}>
-          <Link href="/courselist">
+          <Link href="/popularplace">
             <PaperItem elevation={4}>추천 명소</PaperItem>
           </Link>
         </Grid>

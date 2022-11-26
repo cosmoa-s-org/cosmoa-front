@@ -23,6 +23,7 @@ import CourseScrap from "./page/user/CourseScrap";
 import PlaceScrap from "./page/user/PlaceScrap";
 import PostedPlace from "./page/user/PostedPlace";
 import PostedCourse from "./page/user/PostedCourse";
+import PopularPlace from "./page/showContents/PopularPlace";
 
 
 
@@ -77,6 +78,7 @@ function AppRouter(props) {
               <Route path="courselist" element={<CourseList />} />
               <Route path="coursedetail/:id" element={<CourseDetail />} />
               <Route path="placedetail/:id" element={<PlaceDetail />} />
+              <Route path="popularplace" element={<PopularPlace />} />
             </Route>
             <Route path="/signin" element={<UserLayout />}>
               <Route index element={<SignIn />} />
