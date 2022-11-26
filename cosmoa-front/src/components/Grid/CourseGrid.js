@@ -2,6 +2,22 @@ import React from "react";
 import { Grid, Paper } from "@material-ui/core";
 import CoursePreviewMapWrapper from "../../map/MapWrapper";
 import { useNavigate } from "react-router-dom";
+import ReadMoreIcon from "../../images/ReadMore.png";
+import CommentIcon from '@mui/icons-material/Comment';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+
+const countStyle = {
+    height: "25px", 
+    marginTop: "0", 
+    marginLeft: "0", 
+    paddingLeft: "0", 
+    paddingTop: "0", 
+    textAlign: "left", 
+    fontSize: "18px", 
+    fontWeight: "normal", 
+    fontFamily: "fantasy"
+};
+
 
 function CourseGrid({list}) {
     let navigate = useNavigate();
@@ -16,7 +32,8 @@ function CourseGrid({list}) {
     
     const createCourseGrid = (item) => {
         return (
-        <Grid item xs={12} style={{marginBottom: "10px", }}>
+            <Grid container spacing={2}>
+            <Grid item xs={12} style={{marginBottom: "10px", }}>
             <Paper elevation={3} rounded>
                 <Grid container spacing={2} style={{height: "165px", marginLeft: "2px", }}>
                     <Grid item xs={5} style={{paddingRight: "0"}}>
@@ -32,28 +49,28 @@ function CourseGrid({list}) {
                                     {item.course.description.slice(0, 40) + " ..."}
                                 </p>
                             </Grid>
-                            <Grid item xs={4} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                좋아요
+                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "0px", }}>
+                                <ThumbUpIcon />
                             </Grid>
-                            <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                {item.course.like}개
+                            <Grid item xs={3} style={countStyle}>
+                                {item.course.like}
                             </Grid>
-                            <Grid item xs={4} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                댓글수
+                            <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "2px", }}>
+                                <CommentIcon />
                             </Grid>
-                            <Grid item xs={8} style={{height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                {item.course.replyCount}개
+                            <Grid item xs={3} style={countStyle}>
+                                {item.course.replyCount}
                             </Grid>
-                            <Grid item xs={12} style={{height: "25px"}}>
-                                <p style={{height: "15px", lineHeight: "5px", fontWeight: "bolder", marginTop: "0", }} 
-                                onClick={() => {
+                            <Grid item xs={12} style={{height: "40px", marginLeft: "0", marginRight: "10px", paddingLeft: "0",}}>
+                                <img src={ReadMoreIcon} style={{width: "85%", height: "40px", }} onClick={() => {
                                     navigate(`/coursedetail/${item.id}`);
-                                }}>{"Read More >"}</p>
+                                }}/>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Paper>
+        </Grid>
         </Grid>
         );
     }

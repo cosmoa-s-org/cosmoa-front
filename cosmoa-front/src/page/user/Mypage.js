@@ -35,10 +35,10 @@ function Mypage() {
     return (<>
         <Container  style={{ marginTop: "3%" }}>
             <Box sx={{ marginTop: 8, alignItems: 'center'}} >
-                <Typography>환영합니다, {nickname}님 </Typography>
-                <Typography style={{fontSize:"x-small"}}>{email}</Typography>
+                <Typography style={{fontSize:"large"}}>환영합니다, {nickname}님 </Typography>
+                <Typography style={{fontSize:"small"}}>{email}</Typography>
                 <Divider />
-                <Grid container spacing={2} style={{marginTop:"10%"}}>
+                <Grid container spacing={2} style={{marginTop:"5%"}}>
                 <GridItem item xs={6}>
                 <Item href="/PostedPlace">내가 등록한 장소</Item>
                 </GridItem>

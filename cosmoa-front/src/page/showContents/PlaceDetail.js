@@ -54,7 +54,6 @@ function PlaceDetail() {
     const [path, setPath] = useState("");
     const [report, setReport] = useState([]);
 
-
     const params = useParams();
     const pid = params.id; // 장소 id
     const header = { "Content-Type": "application/json" }
@@ -235,7 +234,7 @@ function PlaceDetail() {
                 />
             </Card>
             <Container style={{ textAlign: "initial" }}>
-                추천수 : {place.like}
+                <Typography>추천수 : {place.like}
                 {like ? (
                     <Like size="20px" onClick={likeClick}>
                         <ThumbUpAltIcon />
@@ -244,7 +243,7 @@ function PlaceDetail() {
                     <Like size="20px" onClick={likeClick}>
                         <ThumbUpOffAltIcon />
                     </Like>
-                )}
+                )}</Typography>
                 <Typography style={{ fontSize: "medium" }}>
                     {place.place.description}</Typography>
 

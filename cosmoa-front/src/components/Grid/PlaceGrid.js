@@ -1,6 +1,22 @@
 import React from "react";
 import { Grid, Paper, Card, CardMedia } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
+import ReadMoreIcon from "../../images/ReadMore.png";
+import CommentIcon from '@mui/icons-material/Comment';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+
+const countStyle = {
+    height: "25px", 
+    marginTop: "0", 
+    marginLeft: "0", 
+    paddingLeft: "0", 
+    paddingTop: "0", 
+    textAlign: "left", 
+    fontSize: "18px", 
+    fontWeight: "normal", 
+    fontFamily: "fantasy"
+};
+
 
 function PlaceGrid({ list }) {
     let navigate = useNavigate();
@@ -15,6 +31,7 @@ function PlaceGrid({ list }) {
 
     const createPlaceGrid = (item) => {
         return (
+            <Grid container spacing={2}>
             <Grid item xs={12} style={{ marginBottom: "10px", }}>
                 <Paper elevation={3} rounded>
                     <Grid container spacing={2} style={{ height: "165px", marginLeft: "2px", }}>
@@ -41,27 +58,27 @@ function PlaceGrid({ list }) {
                                     </p>
                                 </Grid>
                                 <Grid item xs={4} style={{ height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                    좋아요
+                                    <ThumbUpIcon />
                                 </Grid>
-                                <Grid item xs={8} style={{ height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                    {item.like}개
+                                <Grid item xs={3} style={countStyle}>
+                                    {item.like}
                                 </Grid>
-                                <Grid item xs={4} style={{ height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                    댓글수
+                                <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "2px", }}>
+                                    <CommentIcon />
                                 </Grid>
-                                <Grid item xs={8} style={{ height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                    {item.replyCount}개
+                                <Grid item xs={3} style={countStyle}>
+                                    {item.replyCount}
                                 </Grid>
-                                <Grid item xs={12} style={{ height: "25px" }}>
-                                    <p style={{ height: "15px", lineHeight: "5px", fontWeight: "bolder", marginTop: "0", }}
-                                        onClick={() => {
-                                            navigate(`/placedetail/${item.id}`);
-                                        }}>{"Read More >"}</p>
+                                <Grid item xs={12} style={{height: "40px", marginLeft: "0", marginRight: "10px", paddingLeft: "0",}}>
+                                <img src={ReadMoreIcon} style={{width: "85%", height: "40px", }} onClick={() => {
+                                    navigate(`/coursedetail/${item.id}`);
+                                }}/>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Paper>
+            </Grid>
             </Grid>
         );
     }
