@@ -14,7 +14,7 @@ import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Di
 import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
-import logo from '../../images/cosmoa_icon.png';
+import TextLogo from '../../images/cosmoa_textLogo.png';
 
 // 사이드 Nav바
 const drawerWidth = 240;
@@ -116,8 +116,9 @@ function Header() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar style={{backgroundColor: "lightsalmon", color: "white"}}>
+      <AppBar position="fixed" open={open} elevation={0}>
+        <div style={{backgroundColor: "#55A9DD", width:"100vw", height:"15px"}}></div>
+        <Toolbar style={{backgroundColor: "white", color: "#53A5D8", elevation: 0}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -127,13 +128,13 @@ function Header() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            <a href="/main" style={{color:"white", "text-decoration-line":"none"}}>
-            CosMoa
+          <Typography align="center" style={{width:"100%"}}>
+            <a href="/main" >
+              <img href="/main" src={TextLogo} style={{marginTop:"0%", width:"35vw"}}></img>
             </a>
           </Typography>
           <Link style={{marginLeft: "auto"}} href="/Mypage">
-          <Button ><EmojiEmotionsIcon style={{color:"white"}} /></Button>
+          <Button style={{"margin-right":"-4vw"}}><EmojiEmotionsIcon style={{color:"skyblue"}} /></Button>
           </Link>
         </Toolbar>
       </AppBar>
@@ -158,7 +159,7 @@ function Header() {
         <Divider />
         <List>
           <ListItem disablePadding>
-          <Typography>{nickname}님 안녕하세요!</Typography>
+          <Typography align="center" style={{width:"100%"}}>{nickname}님</Typography>
           </ListItem>
           <Divider />
         <Link href="/Mypage">
