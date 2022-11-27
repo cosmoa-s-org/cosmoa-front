@@ -277,7 +277,7 @@ function Main() {
                   height: "100%",
                   fontWeight: "600",
                   fontFamily: "roundExtraBold",
-                  fontSize: "20px",
+                  fontSize: "18px",
                   marginBottom: "10px",
                   paddingTop: "15px",
                 }}
