@@ -187,7 +187,7 @@ function Main() {
             onClick={handleNext}
             disabled={activeStep === maxSteps - 1}
           >
-            다음
+            
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
             ) : (
@@ -202,7 +202,7 @@ function Main() {
             ) : (
               <KeyboardArrowLeft />
             )}
-            이전
+            
           </Button>
         }
         />

@@ -186,16 +186,11 @@ function PlaceDetail() {
       data.append("img", imgFile);
       console.log(imgFile);
     } else {
-      data.append("img", {logo});
+      let imgFile = new File(logo, "img", {type: "image/png"})
+      data.append("img", imgFile);
       // data.append('img', 로고사진);
     }
 
-    // const joinData = {
-    //     userId: userId,
-    //     placeId: pid,
-    //     comment: input,
-    //     img: "",
-    // }
     console.dir(data);
     call(`/place-reply`, "POST", {}, data).then((response) => {
       call(`/place-reply/${pid}`, "GET", header, null).then((response) => {
