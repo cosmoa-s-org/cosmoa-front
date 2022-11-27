@@ -1,11 +1,11 @@
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import "./App.css";
 import AppRouter from "./AppRouter";
-
+import "./font.css";
 
 const theme = createTheme({
   typography: {
-    "font-family": "NanumSquareNeoLight",
+    fontFamily: "neoRegular",
   },
 });
 
