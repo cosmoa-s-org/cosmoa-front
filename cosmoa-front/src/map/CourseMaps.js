@@ -26,7 +26,7 @@ function CourseMaps(props) {
   const [map, setMap] = React.useState();
   const latlng = props.latlng;
 
-  let center = new window.google.maps.LatLng(36.1461, 128.3936);
+  let center = new window.google.maps.LatLng(latlng.lat, latlng.lng);
   const rows = [...props.rows];
   const markers = props.markers;
   const setMarkers = props.setMarkers;
@@ -129,6 +129,7 @@ function CourseMaps(props) {
   }, [rows]);
 
   useEffect(() => {
+    console.log(latlng);
     if (map) {
       const ll = new window.google.maps.LatLng(latlng.lat, latlng.lng);
       const marker = new window.google.maps.Marker({position: ll, map: map, visible: false,});

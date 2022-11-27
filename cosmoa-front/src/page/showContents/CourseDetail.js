@@ -211,13 +211,13 @@ function CourseDetail() {
           newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc });
         });
         setRows(newlatlng);
-        setLatlng(newlatlng);
+        //setLatlng(newlatlng);
         setCourseMap(
           <CourseMapWrapper
             rows={newlatlng}
             markers={markers}
             setMarkers={setMarkers}
-            latlng={latlng}
+            latlng={newlatlng[0]}
           />
         );
       });
