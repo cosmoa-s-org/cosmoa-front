@@ -2,18 +2,21 @@ import React from "react";
 import { Paper, Link, Container, Typography, Grid, styled } from "@material-ui/core";
 import GroupIcon from '@mui/icons-material/Group';
 import CloudIcon from '@mui/icons-material/Cloud';
+import PlaceIcon from '@mui/icons-material/Place';
+import RouteIcon from '@mui/icons-material/Route';
+import MapIcon from '@mui/icons-material/Map';
 
 const PaperItem = styled(Paper)(({ theme }) => ({
   backgroundColor: "#A6D7F7",
   height: 60,
-  width: "55vw",
+  width: "60vw",
   lineHeight: "65px",
   fontSize: 24,
   // margin: "0 auto",
   float: "left",
   color: "white",
   borderRadius: "20px",
-  margin: "1vw",
+  margin: "2vw",
   marginLeft: "10vw",
   fontWeight: "700",
 }));
@@ -23,8 +26,8 @@ const IconItem = styled(Paper)(({ theme }) => ({
   height: 60,
   width: 60,
   borderRadius: "35px",
-  margin: "1vw",
-  lineHeight: "110px",
+  margin: "2vw",
+  lineHeight: "88px",
 }));
 
 function RegisterType() {
@@ -32,39 +35,9 @@ function RegisterType() {
   return (
     <>
     <Container style={{marginTop:"5%"}}>
+      <br />
       <Typography variant="h5">등록할 코스 혹은 장소를 골라주세요.</Typography>
       <br />
-      {/* <Link href="/registercourse">
-        <Paper
-          elevation={4}
-          style={{
-            height: 150,
-            lineHeight: "150px",
-            fontSize: 24,
-            width: "90%",
-            margin: "0 auto",
-          }}
-        >
-          코스 등록
-        </Paper>
-      </Link>
-
-      <br />
-
-      <Link href="/registerplace">
-        <Paper
-          elevation={4}
-          style={{
-            height: 150,
-            lineHeight: "150px",
-            fontSize: 24,
-            width: "90%",
-            margin: "0 auto",
-          }}
-        >
-          장소 등록
-        </Paper>
-      </Link> */}
 
       <br />
       </Container>
@@ -72,7 +45,7 @@ function RegisterType() {
         <Grid item xs={2}>
           <Link href="/registercourse">
             <IconItem elevation={4}>
-              <GroupIcon style={{color:"white", fontSize: 40,}}/>
+              <MapIcon style={{color:"white", fontSize: 35,}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -85,11 +58,15 @@ function RegisterType() {
         </Grid>
 
         <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <Grid item xs={2}>
           <Link href="/registerplace">
             <IconItem elevation={4}>
-              <CloudIcon style={{color:"white", fontSize: 40,}}/>
+              <PlaceIcon style={{color:"white", fontSize: 35,}}/>
             </IconItem>
           </Link>
         </Grid>

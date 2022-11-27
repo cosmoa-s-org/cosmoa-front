@@ -350,7 +350,7 @@ function PlaceDetail() {
                   className="inputComment"
                   placeholder="댓글 적기"
                   style={{
-                    width: "110%",
+                    width: "100%",
                     height: "40px",
                   }}
                   name="content"
@@ -366,7 +366,8 @@ function PlaceDetail() {
                     backgroundColor: "#55A9DD",
                     color: "white",
                     fontWeight: "bold",
-                    marginLeft: "25%",
+                    marginLeft: "5%",
+                    width: "90%",
                   }}
                 >
                   사진선택
