@@ -16,6 +16,7 @@ import styled from "@emotion/styled";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import logo from "../../images/cosmoa_full.png";
+import "../../font.css";
 
 const Like = styled.button`
   font-size: 30px;
@@ -24,7 +25,8 @@ const Like = styled.button`
   margin-left: 3%;
   border: 0;
   background-color: floralwhite;
-  margin-top: 5px;
+  margin-top: 7px;
+  margin-bottom: 10px;
 `;
 const CommentWrapper = styled.div`
   border: 1px solid black;
@@ -251,10 +253,12 @@ function PlaceDetail() {
   return (
     <>
       <Box>
-        <Typography variant="h4" style={{ marginTop: "5%" }}>
+        <Typography variant="h4" style={{ marginTop: "5%", fontFamily: "neoExtraBold" }}>
           {place.place.name}
         </Typography>
-        <Typography style={{ fontSize: "10px", textAlign: "right", marginRight: "10px" }}>
+        <Typography
+          style={{ fontSize: "10px", textAlign: "right", marginRight: "10px" }}
+        >
           by {place.nickname}
         </Typography>
         {/* <Typography style={{ textAlign: "right" }}>{course.course.createdDate}</Typography> */}
@@ -269,8 +273,8 @@ function PlaceDetail() {
             image={atob(place.image)}
           />
         </Card>
-        <Container style={{ textAlign: "initial" }}>
-          추천수 : {place.like}
+        <Container style={{ textAlign: "initial", float:"left" }}>
+          <p style={{marginBottom:"10px", float:"left"}}>추천수 : {place.like}</p>
           {like ? (
             <Like size="20px" onClick={likeClick}>
               <ThumbUpAltIcon />
@@ -289,7 +293,12 @@ function PlaceDetail() {
               <>
                 <Button
                   onClick={placeDelete}
-                  style={{ marginBottom: "5px", backgroundColor: "lightgray" }}
+                  style={{
+                    marginBottom: "5px",
+                    backgroundColor: "red",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                 >
                   장소 삭제
                 </Button>
@@ -300,7 +309,12 @@ function PlaceDetail() {
                   variant="outlined"
                   color="red"
                   onClick={reportAppear}
-                  style={{ marginBottom: "5px" }}
+                  style={{
+                    marginBottom: "5px",
+                    backgroundColor: "red",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                 >
                   장소 신고
                 </Button>
@@ -335,28 +349,42 @@ function PlaceDetail() {
               spacing={{ xs: 2, md: 3 }}
               column={{ xs: 4, sm: 8, md: 12 }}
             >
-              <Grid item xs={8}>
+              <Grid item xs={7}>
                 <input
                   type="text"
                   className="inputComment"
                   placeholder="댓글 적기"
-                  style={{ width: "100%", height: "40px" }}
+                  style={{
+                    width: "110%",
+                    height: "40px",
+                  }}
                   name="content"
                   value={input}
                   onChange={onSubmit}
                 ></input>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={3}>
                 <Button
                   onClick={SelectImgBtnClick}
-                  style={{ backgroundColor: "lightgray", fontSize: "smaller" }}
+                  style={{
+                    height: "100%",
+                    backgroundColor: "#55A9DD",
+                    color: "white",
+                    fontWeight: "bold",
+                    marginLeft: "25%",
+                  }}
                 >
                   사진선택
                 </Button>
               </Grid>
               <Grid item xs={2}>
                 <Button
-                  style={{ backgroundColor: "lightgray" }}
+                  style={{
+                    height: "100%",
+                    backgroundColor: "#55A9DD",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                   onClick={() => {
                     addComment(input);
                     setInput("");

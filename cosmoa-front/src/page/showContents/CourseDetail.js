@@ -23,6 +23,7 @@ import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import styled from "@emotion/styled";
+import "../../font.css";
 
 const Like = styled.button`
   font-size: 30px;
@@ -31,7 +32,7 @@ const Like = styled.button`
   margin-left: 3%;
   border: 0;
   background-color: floralwhite;
-  margin-top: 5px;
+  margin-top: 7px;
 `;
 const CommentWrapper = styled.div`
   border: 1px solid black;
@@ -276,6 +277,7 @@ function CourseDetail() {
                             pName: item.place.name,
                             pDesc: item.place.description,
                           }}
+                          // style={{fontFamily:"neoExtraBold", fontWeight: "bold"}}
                         />
                       );
                       window.scrollTo(0, 0);
@@ -319,7 +321,7 @@ function CourseDetail() {
   return (
     <>
       <Box>
-        <Typography variant="h3" style={{ marginTop: "5%", fontWeight: "600" }}>
+        <Typography variant="h4" style={{ marginTop: "5%", fontWeight: "600" }}>
           {course.course.name}
         </Typography>
         <Typography
@@ -337,7 +339,10 @@ function CourseDetail() {
         <div style={{ margin: "0 auto" }}>{CourseMap}</div>
         <Container style={{ textAlign: "initial" }}>
           <br />
-          <Typography variant="h4" style={{ fontWeight: "500" }}>
+          <Typography
+            variant="h5"
+            style={{ fontWeight: "500", fontFamily: "neoExtraBold" }}
+          >
             코스 순서{" "}
           </Typography>
           <Divider />
@@ -352,7 +357,12 @@ function CourseDetail() {
               <>
                 <Button
                   onClick={courseDelete}
-                  style={{ marginBottom: "5px", backgroundColor: "lightgray" }}
+                  style={{
+                    marginBottom: "5px",
+                    backgroundColor: "red",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                 >
                   코스 삭제
                 </Button>
@@ -363,7 +373,12 @@ function CourseDetail() {
                   variant="outlined"
                   color="red"
                   onClick={reportAppear}
-                  style={{ marginBottom: "5px" }}
+                  style={{ 
+                    marginBottom: "5px",
+                    backgroundColor: "red",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                 >
                   코스 신고
                 </Button>
@@ -389,7 +404,7 @@ function CourseDetail() {
             )}
           </div>
           <Divider />
-          추천수 : {course.like}
+          <p style={{marginBottom:"10px", float:"left"}}>추천수 : {course.like}</p>
           {like ? (
             <Like size="20px" onClick={likeClick}>
               <ThumbUpAltIcon />
@@ -414,7 +429,7 @@ function CourseDetail() {
                   type="text"
                   className="inputComment"
                   placeholder="댓글 적기"
-                  style={{ width: "100%", height: "40px" }}
+                  style={{ width: "98%", height: "40px", marginRight: "2%" }}
                   name="content"
                   value={input}
                   onChange={onSubmit}
@@ -422,7 +437,12 @@ function CourseDetail() {
               </Grid>
               <Grid item xs={2}>
                 <Button
-                  style={{ backgroundColor: "lightgray" }}
+                  style={{
+                    height: "100%",
+                    backgroundColor: "#55A9DD",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                   onClick={() => {
                     addComment(input);
                     setInput("");
