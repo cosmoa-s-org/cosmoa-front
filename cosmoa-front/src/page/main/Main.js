@@ -38,7 +38,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const images = [
   {
-    label: "San Francisco – Oakland Bay Bridge, United States",
+    label: "San Francisco – Oakland Bay Bridge",
     imgPath:
       "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
   },
