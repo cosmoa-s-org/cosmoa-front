@@ -24,6 +24,9 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import styled from "@emotion/styled";
 import "../../font.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Like = styled.button`
   font-size: 30px;
@@ -229,14 +232,23 @@ function CourseDetail() {
   }, []);
 
   useEffect(() => {
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 1000,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
     setPlaceListTable(
       <>
+              {/* 장소 카드 */}
+              <Slider {...settings}>
         {placeList.map((item, i) => {
           totalCostTime += Number(item.costTime);
           return (
+            <div>
             <>
               <br />
-              {/* 장소 카드 */}
               <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
                   onClick={() => {
@@ -249,11 +261,11 @@ function CourseDetail() {
                           lat: item.place.lat,
                           lng: item.place.lng,
                           pName: item.place.name,
-                          pDesc: item.place.description,
+                          pDesc: item.place.description
                         }}
                       />
                     );
-                    window.scrollTo(0, 0);
+                    window.scrollTo(0,0);
                   }}
                   component="img"
                   height="auto"
@@ -275,12 +287,11 @@ function CourseDetail() {
                             lat: item.place.lat,
                             lng: item.place.lng,
                             pName: item.place.name,
-                            pDesc: item.place.description,
+                            pDesc: item.place.description
                           }}
-                          // style={{fontFamily:"neoExtraBold", fontWeight: "bold"}}
                         />
                       );
-                      window.scrollTo(0, 0);
+                      window.scrollTo(0,0);
                     }}
                   >
                     {item.place.name}
@@ -301,16 +312,16 @@ function CourseDetail() {
                   </Button>
                 </CardActions>
               </Card>
-              <br />
-              <div>
-                <ArrowDownwardIcon style={{ marginLeft: "50%" }} />
-              </div>
+              
             </>
+      </div>  
           );
-        })}
-        <div style={{ textAlign: "center", marginLeft: "20px" }}>
-          {totalCostTime}분 소요
-        </div>
+        })
+        
+      }
+      </Slider>
+      <br/>
+        <div style={{ textAlign: "center", marginLeft:"20px" }}>{totalCostTime}분 소요</div>
         <Divider />
       </>
     );
