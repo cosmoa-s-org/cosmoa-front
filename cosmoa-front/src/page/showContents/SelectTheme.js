@@ -15,7 +15,6 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import GroupIcon from '@mui/icons-material/Group';
 import CloudIcon from '@mui/icons-material/Cloud';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import LandscapeIcon from '@mui/icons-material/Landscape';
 import AttractionsIcon from '@mui/icons-material/Attractions';
 
 const PaperItem = styled(Paper)(({ theme }) => ({
@@ -45,11 +44,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const IconItem = styled(Paper)(({ theme }) => ({
   backgroundColor: "#F2DEBA",
-  height: 80,
-  width: 80,
+  height: 50,
+  width: 50,
   borderRadius: "35px",
   margin: "1vw",
-  lineHeight: "110px",
+  lineHeight: "80px",
+  marginTop: "20px"
 }));
 
 function SelectTheme() {
@@ -121,7 +121,7 @@ function SelectTheme() {
         <Grid item xs={2}>
           <Link href="/courselist">
             <IconItem elevation={4}>
-              <GroupIcon style={{color:"white", fontSize: 40,}}/>
+              <GroupIcon style={{color:"white", fontSize: 30,}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -136,7 +136,7 @@ function SelectTheme() {
         <Grid item xs={2}>
           <Link href="/popularplace">
             <IconItem elevation={4}>
-              <CloudIcon style={{color:"white", fontSize: 40,}}/>
+              <CloudIcon style={{color:"white", fontSize: 30,}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -149,7 +149,7 @@ function SelectTheme() {
         <br /><Grid item xs={2}>
           <Link href="/popularplace">
             <IconItem elevation={4} style={{  lineHeight: "120px",}}>
-              <AttractionsIcon style={{color:"white", fontSize: 50}}/>
+              <AttractionsIcon style={{color:"white", fontSize: 40}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -162,7 +162,7 @@ function SelectTheme() {
         <br /><Grid item xs={2}>
           <Link href="/popularplace">
             <IconItem elevation={4}>
-              <AccountBalanceIcon style={{color:"white", fontSize: 40,}}/>
+              <AccountBalanceIcon style={{color:"white", fontSize: 30,}}/>
             </IconItem>
           </Link>
         </Grid>

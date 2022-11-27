@@ -224,12 +224,21 @@ function RegisterCourse(props) {
   return (
     <>
       <Container component="main" maxWidth="xs" style={{ marginTop: "3%" }}>
-      {registerCourseMap}
+        {registerCourseMap}
 
         <form>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <Button variant="contained" onClick={onAddPlaceBtnClick}>
+              <Button
+                variant="contained"
+                onClick={onAddPlaceBtnClick}
+                style={{
+                  backgroundColor: "#55A9DD",
+                  color: "white",
+                  fontWeight: "bold",
+                  width: "50vw",
+                }}
+              >
                 장소 추가
               </Button>
             </Grid>
@@ -247,14 +256,16 @@ function RegisterCourse(props) {
                 <TableHead>
                   <TableRow>
                     <TableCell align="center" width={"15%"}>
-                      코스 순서
+                      순서
                     </TableCell>
-                    <TableCell align="center" width={"18%"}>
+                    <TableCell align="center" width={"45%"}>
                       장소명
                     </TableCell>
-                    <TableCell align="center">주소</TableCell>
-                    <TableCell align="center" width={"18%"}>
-                      소요 시간(분)
+                    <TableCell align="center" style={{ display: "none" }}>
+                      주소
+                    </TableCell>
+                    <TableCell align="center" width={"23%"}>
+                      소요 <br /> 시간(분)
                     </TableCell>
                     <TableCell align="center">삭제</TableCell>
                   </TableRow>
@@ -265,20 +276,41 @@ function RegisterCourse(props) {
                       key={i}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row" align="center">
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        align="center"
+                        onClick={() => {
+                          console.log(row);
+                          setLatlng({
+                            lat: row.lat,
+                            lng: row.lng,
+                            pName: row.placeName,
+                            pDesc: row.placeDescription,
+                          });
+                          window.scrollTo(0, 0);
+                        }}
+                      >
                         {i + 1}
                       </TableCell>
                       <TableCell
                         align="center"
                         onClick={() => {
                           console.log(row);
-                          setLatlng({ lat: row.lat, lng: row.lng, pName: row.placeName, pDesc: row.placeDescription });
-                          window.scrollTo(0,0);
+                          setLatlng({
+                            lat: row.lat,
+                            lng: row.lng,
+                            pName: row.placeName,
+                            pDesc: row.placeDescription,
+                          });
+                          window.scrollTo(0, 0);
                         }}
                       >
                         {row.placeName}
                       </TableCell>
-                      <TableCell align="center">{row.placeAddress}</TableCell>
+                      <TableCell align="center" style={{ display: "none" }}>
+                        {row.placeAddress}
+                      </TableCell>
                       <TableCell align="center">
                         <TextField
                           onChange={(e) => {
@@ -324,33 +356,53 @@ function RegisterCourse(props) {
 
             <br />
 
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: "15px" }}>
+              <p
+                style={{
+                  marginLeft: "-70vw",
+                  marginBottom: "5px",
+                  marginTop: "0px",
+                }}
+              >
+                코스 이름
+              </p>
               <TextField
                 autoComplete="courseName"
                 name="courseName"
                 variant="outlined"
                 required
                 id="courseName"
-                label="코스 이름"
                 onChange={onChangeName}
                 value={courseName}
+                style={{ width: "90vw" }}
+                defaultValue="ㅤ"
               />
             </Grid>
 
             <br />
 
             <Grid item xs={12}>
+              <p
+                style={{
+                  marginLeft: "-70vw",
+                  marginBottom: "5px",
+                  marginTop: "0px",
+                }}
+              >
+                코스 설명
+              </p>
               <TextField
                 autoComplete="courseDescription"
                 name="courseDescription"
                 variant="outlined"
                 required
                 id="courseDescription"
-                label="코스 설명"
                 multiline
                 rows={4}
                 onChange={onChangeDescription}
                 value={courseDescription}
+                style={{ width: "90vw" }}
+                defaultValue="ㅤ"
               />
             </Grid>
             <br />
@@ -363,6 +415,7 @@ function RegisterCourse(props) {
                 size="large"
                 color="primary"
                 onClick={handleSubmit}
+                style={{ backgroundColor: "#55A9DD", color: "white", fontWeight: "bold" }}
               >
                 제출하기
               </Button>
@@ -371,11 +424,6 @@ function RegisterCourse(props) {
         </form>
       </Container>
 
-      <br />
-
-      <Button variant="contained" href="/main">
-        메인으로
-      </Button>
     </>
   );
 }

@@ -1,0 +1,46 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: "neoLight";
+    src: url("/cosmoa-front/src/font/nanum-neo/NanumSquareNeo-aLt.ttf");
+}
+
+@font-face {
+    font-family: "neoRegular";
+    src: url("/cosmoa-front/src/font/nanum-neo/NanumSquareNeo-bRg.ttf");
+}
+
+@font-face {
+    font-family: "neoBold";
+    src: url("/cosmoa-front/src/font/nanum-neo/NanumSquareNeo-cBd.ttf");
+}
+
+@font-face {
+    font-family: "neoExtraBold";
+    src: url("/cosmoa-front/src/font/nanum-neo/NanumSquareNeo-dEb.ttf");
+}
+
+@font-face {
+    font-family: "neoHeavy";
+    src: url("/cosmoa-front/src/font/nanum-neo/NanumSquareNeo-eHv.ttf");
+}
+
+@font-face {
+    font-family: "roundLight";
+    src: url("/cosmoa-front/src/font/nanum-round/NanumSquareRoundL.ttf");
+}
+
+@font-face {
+    font-family: "roundRegular";
+    src: url("/cosmoa-front/src/font/nanum-round/NanumSquareRoundR.ttf");
+}
+
+@font-face {
+    font-family: "roundBold";
+    src: url("/cosmoa-front/src/font/nanum-round/NanumSquareRoundB.ttf");
+}
+
+@font-face {
+    font-family: "roundExtraBold";
+    src: url("/cosmoa-front/src/font/nanum-round/NanumSquareRoundEB.ttf");
+}

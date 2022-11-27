@@ -201,7 +201,7 @@ function AddPlace(props) {
                     type="button"
                     onClick={onSelcBtnClick}
                   >
-                    장소 선택
+                    장소<br />선택
                   </Button>
                 </TableCell>
                 <TableCell style={{ display: "none" }}>{row.id}</TableCell>
