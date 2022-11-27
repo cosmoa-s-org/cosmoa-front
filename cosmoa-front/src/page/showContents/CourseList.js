@@ -87,45 +87,11 @@ function CourseList() {
 
 
     const columns = [
-        { field: 'name', headerName: '코스 이름', width: 180 },
-        { field: 'replyCount', headerName: '댓글', width: 20 },
-        { field: 'like', headerName: '추천', width: 20 },
-        { field: 'nickname', headerName: '등록자', width: 100 },
+        { field: 'name', headerName: '코스 이름', width: 200 },
+        { field: 'replyCount', headerName: '댓글', width: 40 },
+        { field: 'like', headerName: '추천', width: 40 },
     ];
 
-    const str1 = "안녕하세요. 테스트 코스입니다. 금오공대 ~ 옥계 다이소 ~ 인동 파출소 경유합니다.";
-    const str2 = "Hello, This is test tour course. kit ~ okgye dasio ~ indong police ~";
-
-    const testData = [
-        {
-            course: {
-                name: "테스트 코스",
-                description: str1,
-                replyCount: 23,
-                like: 85,
-            },
-            latlng: [
-                {lat: 36.146, lng: 128.3937}, 
-                {lat: 36.1373, lng: 128.4179}, 
-                {lat: 36.1047, lng: 128.4197},
-            ]
-        },
-
-        {
-            course: {
-                name: "테스트 코스2",
-                description: str2,
-                replyCount: 54,
-                like: 99,
-            },
-            latlng: [
-                {lat: 37.4909, lng: 127.1001}, 
-                {lat: 37.4824, lng: 127.1531}, 
-                {lat: 37.4143, lng: 127.1028},
-                {lat: 37.4441, lng: 127.0261},
-            ]
-        },
-    ];
 
     const createListGrid = (list) => {
         let items = [];
@@ -191,7 +157,14 @@ function CourseList() {
     useEffect(() => {
         call("/course", "GET", header, null)
             .then((response) => {
-                setCourseList(response.data);
+                let tmp = response.data;
+                console.log(response.data);
+                const arr = [];
+                tmp.forEach((item, i) => {
+                    item.course.id = item.id;
+                    arr.push(item.course);
+                })
+                setCourseList(arr);
             })
     }, []);
 

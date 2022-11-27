@@ -186,7 +186,7 @@ function PlaceDetail() {
       data.append("img", imgFile);
       console.log(imgFile);
     } else {
-      data.append("img", logo);
+      data.append("img", {logo});
       // data.append('img', 로고사진);
     }
 

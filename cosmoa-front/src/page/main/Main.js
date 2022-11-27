@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Card,
   Container,
   Divider,
   Grid,
@@ -108,10 +109,7 @@ function Main() {
     });
   }, []);
 
-  const likeClick = (id) => {
-    console.log(id);
-    navigate(`/coursedetail/${id}`);
-  };
+
 
   // carousel
   const handleNext = () => {
@@ -129,87 +127,88 @@ function Main() {
   return (
     <>
       <Typography>{nickname}님 안녕하세요!</Typography>
-      <br />
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
+    <br />
+    <Grid container spacing={1}>
+
+      <Grid item xs={12}>
+      <Paper>
           {/* <img src={place} style={{ marginTop: "4%", width: "90vw" }}></img>
           <Typography>서울 롯데월드</Typography> */}
-          <Box sx={{ flexGrow: 1 }}>
-            <Paper
-              square
-              elevation={0}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                height: 50,
-                pl: 2,
-                bgcolor: "background.default",
-              }}
-            >
-              <Typography>{images[activeStep].label}</Typography>
-            </Paper>
-            <Link href="/popularplace">
-              <AutoPlaySwipeableViews
-                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                index={activeStep}
-                onChangeIndex={handleStepChange}
-                enableMouseEvents
-              >
-                {images.map((step, index) => (
-                  <div key={step.label}>
-                    {Math.abs(activeStep - index) <= 2 ? (
-                      <Box
-                        component="img"
-                        sx={{
-                          marginLeft: "5vw",
-                          height: 255,
-                          display: "block",
-                          overflow: "hidden",
-                        }}
-                        src={step.imgPath}
-                        alt={step.label}
-                      />
-                    ) : null}
-                  </div>
-                ))}
-              </AutoPlaySwipeableViews>
-            </Link>
+      <Box sx={{ flexGrow: 1}}>
+      <Paper
+        square
+        elevation={0}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          height: 50,
+          pl: 2,
+          bgcolor: 'background.default',
+        }}
+      >
+        <Typography>{images[activeStep].label}</Typography>
+      </Paper>
+      <Link href="/popularplace">
+      <AutoPlaySwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={activeStep}
+        onChangeIndex={handleStepChange}
+        enableMouseEvents
+        
+      >
+        {images.map((step, index) => (
+          <div key={step.label} style={{display:"flex", justifyContent:"center"}}>
+            {Math.abs(activeStep - index) <= 2 ? (
+              <Box
+                component="img"
+                sx={{
+                  marginLeft:"5vw",
+                  height: 255,
+                  display: 'block',
+                  overflow: 'hidden',
+                }}
+                src={step.imgPath}
+                alt={step.label}
+                style={{display:"flex", justifyContent:"center", margin:"2vw", overflow:"hidden"}}
+              />
+            ) : null}
+          </div>
+        ))}
+      </AutoPlaySwipeableViews>
+      </Link>
 
-            <MobileStepper
-              steps={maxSteps}
-              position="static"
-              activeStep={activeStep}
-              nextButton={
-                <Button
-                  size="small"
-                  onClick={handleNext}
-                  disabled={activeStep === maxSteps - 1}
-                >
-                  다음
-                  {theme.direction === "rtl" ? (
-                    <KeyboardArrowLeft />
-                  ) : (
-                    <KeyboardArrowRight />
-                  )}
-                </Button>
-              }
-              backButton={
-                <Button
-                  size="small"
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                >
-                  {theme.direction === "rtl" ? (
-                    <KeyboardArrowRight />
-                  ) : (
-                    <KeyboardArrowLeft />
-                  )}
-                  이전
-                </Button>
-              }
-            />
-          </Box>
-        </Grid>
+      <MobileStepper
+        steps={maxSteps}
+        position="static"
+        activeStep={activeStep}
+        nextButton={
+          <Button
+            size="small"
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+          >
+            다음
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
+        }
+        backButton={
+          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+            이전
+          </Button>
+        }
+        />
+      </Box>
+      </Paper>
+      </Grid>
 
         <br />
         <br />
