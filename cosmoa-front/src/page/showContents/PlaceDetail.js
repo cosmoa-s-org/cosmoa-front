@@ -215,7 +215,10 @@ function PlaceDetail() {
 
   // 장소 삭제
   const placeDelete = (e) => {
-    call(`/place/${pid}`, "DELETE", header, null);
+    call(`/place/${pid}`, "DELETE", header, null)
+    .then((response) => {
+      M.pop.alert("삭제가 완료되었습니다.")
+    })
   };
 
   // 신고 기능

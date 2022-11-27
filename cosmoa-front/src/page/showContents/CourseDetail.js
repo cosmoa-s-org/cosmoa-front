@@ -157,7 +157,10 @@ function CourseDetail() {
 
   // 코스 삭제
   const courseDelete = (e) => {
-    call(`/course/${cid}`, "DELETE", header, null);
+    call(`/course/${cid}`, "DELETE", header, null)
+    .then((response) => {
+      M.pop.alert("삭제가 완료되었습니다.");
+    })
   };
 
   // 신고창 표시
@@ -182,7 +185,10 @@ function CourseDetail() {
     console.log(cid);
     console.log(userId);
     let data = { courseId: cid, userId: userId, type: report };
-    call(`/course-report`, "POST", header, JSON.stringify(data));
+    call(`/course-report`, "POST", header, JSON.stringify(data))
+    .then((response) => {
+      M.pop.alert("신고가 정상적으로 접수되었습니다.")
+    })
   }
   //-----------------------------------------------------함수 및 State 정의부 끝-----------------------------------------------------
 

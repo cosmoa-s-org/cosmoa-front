@@ -151,14 +151,25 @@ function PopularPlace() {
               </Grid>
               <Grid item xs={2}>
                 <Button
-                  style={{ backgroundColor: "lightgray", fontSize: "smaller" }}
+                  style={{ 
+                  height: "100%",
+                  backgroundColor: "#55A9DD",
+                  color: "white",
+                  fontWeight: "bold",
+                  marginLeft: "5%",
+                  width: "90%", }}
                 >
                   사진선택
                 </Button>
               </Grid>
               <Grid item xs={2}>
                 <Button
-                  style={{ backgroundColor: "lightgray" }}
+                  style={{
+                    height: "100%",
+                    backgroundColor: "#55A9DD",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
                 >
                   등록
                 </Button>
