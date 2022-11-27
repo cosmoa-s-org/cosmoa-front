@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { call } from "../../service/ApiService";
 import CourseGrid from "../../components/Grid/CourseGrid";
@@ -17,9 +17,9 @@ function PostedCourse() {
     },[])
 
     return (<>
-        <Container style={{ marginTop: "10%" }}>
+        <Grid container spacing={2}>
         {listGrid}
-        </Container>
+        </Grid>
     </>)
 }
 

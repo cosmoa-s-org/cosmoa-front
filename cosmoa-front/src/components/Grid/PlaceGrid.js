@@ -12,7 +12,7 @@ const countStyle = {
     paddingLeft: "0", 
     paddingTop: "0", 
     textAlign: "left", 
-    fontSize: "18px", 
+    fontSize: "15px", 
     fontWeight: "normal", 
     fontFamily: "fantasy"
 };
@@ -31,8 +31,7 @@ function PlaceGrid({ list }) {
 
     const createPlaceGrid = (item) => {
         return (
-            <Grid container spacing={2}>
-            <Grid item xs={12} style={{ marginBottom: "10px", }}>
+            <Grid item xs={12} style={{marginBottom: "10px", }}>
                 <Paper elevation={3} rounded>
                     <Grid container spacing={2} style={{ height: "165px", marginLeft: "2px", }}>
                         <Grid item xs={5} style={{ paddingRight: "0" }}>
@@ -49,22 +48,22 @@ function PlaceGrid({ list }) {
                         </Grid>
                         <Grid item xs={7}>
                             <Grid container spacing={2}>
-                                <Grid item xs={12} style={{ height: "25px", lineHeight: "15px", fontWeight: "bolder", }}>
+                                <Grid item xs={12} style={{ height: "25px", lineHeight: "15px", fontWeight: "bolder", marginRight: "15px" }}>
                                     {item.name}
                                 </Grid>
-                                <Grid item xs={12} style={{ height: "60px", marginBottom: "0", paddingBottom: "0", marginTop: "0", paddingTop: "0" }}>
-                                    <p style={{ height: "16px", lineHeight: "16px", paddingRight: "15px", marginTop: "5px", }}>
+                                <Grid item xs={12} style={{ height: "55px", marginBottom: "0", paddingBottom: "0", marginTop: "5px", paddingTop: "0" }}>
+                                    <p style={{height: "16px", lineHeight: "16px", paddingRight: "15px", marginTop: "5px", fontSize: "10px", }}>
                                         {item.description.slice(0, 40) + " ..."}
                                     </p>
                                 </Grid>
-                                <Grid item xs={4} style={{ height: "25px", marginTop: "0", paddingTop: "0", }}>
-                                    <ThumbUpIcon />
+                                <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "1px", }}>
+                                    <ThumbUpIcon style={{height: "17px"}} />
                                 </Grid>
                                 <Grid item xs={3} style={countStyle}>
                                     {item.like}
                                 </Grid>
-                                <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "2px", }}>
-                                    <CommentIcon />
+                                <Grid item xs={3} style={{height: "25px", marginTop: "0", marginRight: "0", paddingTop: "3px", }}>
+                                    <CommentIcon style={{height: "17px"}} />
                                 </Grid>
                                 <Grid item xs={3} style={countStyle}>
                                     {item.replyCount}
@@ -78,7 +77,6 @@ function PlaceGrid({ list }) {
                         </Grid>
                     </Grid>
                 </Paper>
-            </Grid>
             </Grid>
         );
     }
