@@ -35,6 +35,7 @@ function RegisterType() {
   return (
     <>
     <Container style={{marginTop:"5%"}}>
+      <br />
       <Typography variant="h5">등록할 코스 혹은 장소를 골라주세요.</Typography>
       <br />
 
@@ -56,6 +57,10 @@ function RegisterType() {
           </Link>
         </Grid>
 
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
 
         <Grid item xs={2}>
