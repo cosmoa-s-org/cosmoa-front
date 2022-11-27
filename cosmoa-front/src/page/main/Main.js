@@ -107,7 +107,12 @@ function Main() {
                 "border-radius": "15%",
               }}
             >
-              <Typography style={{ verticalAlign: "middle", height: "100%" }}>
+              <Typography
+                style={{
+                  verticalAlign: "middle",
+                  height: "100%",
+                }}
+              >
                 나만의 코스 & 장소 <br /> 공유하기
               </Typography>
             </Paper>
