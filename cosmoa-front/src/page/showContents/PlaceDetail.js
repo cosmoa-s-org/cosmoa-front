@@ -371,7 +371,8 @@ function PlaceDetail() {
                     backgroundColor: "#55A9DD",
                     color: "white",
                     fontWeight: "bold",
-                    marginLeft: "18%",
+                    marginLeft: "12%",
+                    width: "80%",
                   }}
                 >
                   사진선택
