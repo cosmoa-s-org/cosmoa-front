@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Card,
   Container,
   Divider,
   Grid,
@@ -108,10 +109,7 @@ function Main() {
     });
   }, []);
 
-  const likeClick = (id) => {
-    console.log(id);
-    navigate(`/coursedetail/${id}`);
-  };
+
 
   // carousel 
     const handleNext = () => {
@@ -131,7 +129,9 @@ function Main() {
       <Typography>{nickname}님 안녕하세요!</Typography>
     <br />
     <Grid container spacing={1}>
+
       <Grid item xs={12}>
+      <Paper>
           {/* <img src={place} style={{ marginTop: "4%", width: "90vw" }}></img>
           <Typography>서울 롯데월드</Typography> */}
       <Box sx={{ flexGrow: 1}}>
@@ -154,9 +154,10 @@ function Main() {
         index={activeStep}
         onChangeIndex={handleStepChange}
         enableMouseEvents
+        
       >
         {images.map((step, index) => (
-          <div key={step.label}>
+          <div key={step.label} style={{display:"flex", justifyContent:"center"}}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box
                 component="img"
@@ -168,6 +169,7 @@ function Main() {
                 }}
                 src={step.imgPath}
                 alt={step.label}
+                style={{display:"flex", justifyContent:"center", margin:"2vw", overflow:"hidden"}}
               />
             ) : null}
           </div>
@@ -205,6 +207,7 @@ function Main() {
         }
         />
       </Box>
+      </Paper>
       </Grid>
 
       <br />
@@ -225,10 +228,9 @@ function Main() {
               }}
             >
               <Typography style={{ verticalAlign: "middle", height: "100%", fontWeight:"600" }}>
-                코스 & 장소 공유하기
+                코스 공유하기
                 </Typography>
-                <br />
-                <Typography>
+                <Typography style={{ textAlign:"left", padding:"1vw"}}>
                   나만의 장소를 등록한 후 코스에 추가해 등록해보세요!
                 </Typography>
                 <img src={travelImg_1} style={{ height:"25vw",width: "40vw" }}></img> 
@@ -254,8 +256,7 @@ function Main() {
               <Typography style={{ verticalAlign: "middle", height: "100%", fontWeight:"600" }}>
                 코스 구경하기
                 </Typography>
-                <br />
-                <Typography>
+                <Typography style={{ textAlign:"left", padding:"1vw"}}>
                   다른 여행자들이 공유한 코스를 구경해보세요!
                 </Typography>
                 <img src={travelImg_2} style={{ height: "25vw", width: "40vw" }}></img> 

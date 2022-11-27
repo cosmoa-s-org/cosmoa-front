@@ -10,11 +10,12 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import HomeIcon from '@mui/icons-material/Home';
 // import ListItemButton from '@material-ui/core';
-import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Button, Box, Drawer, CssBaseline, AppBar, Toolbar, List, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
 import BookmarkAddedTwoTone from '@mui/icons-material/BookmarkAddedTwoTone';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import TextLogo from '../../images/cosmoa_textLogo.png';
+
 
 // 사이드 Nav바
 const drawerWidth = 240;
@@ -113,7 +114,7 @@ function Header() {
     navigate("/signin");
   }
 
-  return (
+  return (<>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} elevation={0}>
@@ -170,22 +171,6 @@ function Header() {
             </Button>
           </ListItem>
           </Link>
-          <Link href="/Mypage">
-          <ListItem disablePadding>
-            <Button>
-              <ListItemIcon><CreateTwoToneIcon /></ListItemIcon>
-              <ListItemText>내가 쓴 글</ListItemText>
-            </Button>
-          </ListItem>
-          </Link>
-          <Link href="/Mypage">
-          <ListItem disablePadding>
-            <Button>
-              <ListItemIcon><BookmarkAddedTwoToneIcon /></ListItemIcon>
-              <ListItemText>스크랩</ListItemText>
-            </Button>
-          </ListItem>
-          </Link>
           <Divider />
         </List>        
         <List>
@@ -214,7 +199,7 @@ function Header() {
 
       </Main>
     </Box>
-  );
+    </>);
 }
 
 export default Header;
