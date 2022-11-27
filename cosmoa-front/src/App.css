@@ -1,4 +1,4 @@
-@import url('https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css');
+@import url("./font.css");
 
 .App {
   margin-top: -3%;
@@ -10,6 +10,7 @@
   /* font-family: 'NanumSquareNeoBold'; */
   /* font-family: 'NanumSquareNeoExtraBold'; */
   /* font-family: 'NanumSquareNeoHeavy'; */
+  font-family: 'neoRegular';
 }
 
 .App-logo {

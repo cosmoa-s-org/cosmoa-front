@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, Paper } from "@material-ui/core";
-import CoursePreviewMapWrapper from "../../map/MapWrapper";
+import { CoursePreviewMapWrapper } from "../../map/MapWrapper";
 import { useNavigate } from "react-router-dom";
 import ReadMoreIcon from "../../images/ReadMore.png";
 import CommentIcon from '@mui/icons-material/Comment';

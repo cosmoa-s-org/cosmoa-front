@@ -188,6 +188,10 @@ function RegisterPlace() {
 
   // 제출 버튼 눌렀을때 이벤트
   const handleSubmit = (event) => {
+    if(pinPlace.addr==null||pinPlace.addr==undefined){
+      M.pop.alert("주소를 설정하세요!");
+      return;
+    }
     var img = document.getElementById("placeImg");
 
     event.preventDefault();
@@ -256,7 +260,19 @@ function RegisterPlace() {
                 placeholder="주소"
                 style={{ display: "none" }}
               />
-              <button onClick={handle.clickButton}>주소 검색</button>
+              <Button
+                sx={{ mt: 4, mb: 2 }}
+                size="large"
+                style={{
+                  backgroundColor: "#55A9DD",
+                  width: "50vw",
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+                onClick={handle.clickButton}
+              >
+                주소 검색
+              </Button>
             </Table>
             {openPostcode && (
               <DaumPostcode
@@ -279,7 +295,12 @@ function RegisterPlace() {
           type="submit"
           sx={{ mt: 4, mb: 2 }}
           size="large"
-          style={{ backgroundColor: "#55A9DD", width: "50vw", color: "white", fontWeight: "bold" }}
+          style={{
+            backgroundColor: "#55A9DD",
+            width: "50vw",
+            color: "white",
+            fontWeight: "bold",
+          }}
           onClick={SelectImgBtnClick}
         >
           사진 선택
@@ -352,8 +373,12 @@ function RegisterPlace() {
                   fullWidth
                   sx={{ mt: 4, mb: 2 }}
                   size="large"
-                  style={{ backgroundColor: "#55A9DD", color: "white", fontWeight: "bold" }}
-                  >
+                  style={{
+                    backgroundColor: "#55A9DD",
+                    color: "white",
+                    fontWeight: "bold",
+                  }}
+                >
                   제출하기
                 </Button>
               </Grid>

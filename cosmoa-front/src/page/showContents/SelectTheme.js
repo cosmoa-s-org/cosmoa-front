@@ -19,9 +19,9 @@ import AttractionsIcon from '@mui/icons-material/Attractions';
 
 const PaperItem = styled(Paper)(({ theme }) => ({
   backgroundColor: "#A6D7F7",
-  height: 80,
+  height: 60,
   width: "66vw",
-  lineHeight: "85px",
+  lineHeight: "65px",
   fontSize: 24,
   // margin: "0 auto",
   float: "left",
@@ -40,16 +40,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
   marginTop: "5px",
   fontWeight: "700",
+  height: 40,
+  lineHeight: "30px",
+  backgroundColor: "#FFF89A",
+  color: "black",
 }));
 
 const IconItem = styled(Paper)(({ theme }) => ({
   backgroundColor: "#F2DEBA",
-  height: 50,
-  width: 50,
+  height: 60,
+  width: 60,
   borderRadius: "35px",
-  margin: "1vw",
-  lineHeight: "80px",
-  marginTop: "20px"
+  margin: "2vw",
+  lineHeight: "85px",
 }));
 
 function SelectTheme() {
@@ -86,10 +89,9 @@ function SelectTheme() {
         >
           인기 코스
         </Paper>
-        <Grid container spacing={2} style={{marginBottom:"10px"}}>
+        <Grid container spacing={2} style={{marginBottom:"15px"}}>
           <Grid item xs={6}>
             <Item
-              style={{ backgroundColor: "#B1DCF8", width: "100%" }}
               onClick={() => {
                 likeClick(likeCourse[0].id);
               }}
@@ -101,7 +103,6 @@ function SelectTheme() {
           </Grid>
           <Grid item xs={6}>
             <Item
-              style={{ backgroundColor: "#B1DCF8", width: "100%" }}
               onClick={() => {
                 likeClick(likeCourse[1].id);
               }}
@@ -114,14 +115,15 @@ function SelectTheme() {
         </Grid>
       </Container>
 
-      {/* <br /> */}
       <hr />
+
+      <br />
 
       <Grid container spacing={1} style={{ padding: "5px", marginLeft:8 }}>
         <Grid item xs={2}>
           <Link href="/courselist">
             <IconItem elevation={4}>
-              <GroupIcon style={{color:"white", fontSize: 30,}}/>
+              <GroupIcon style={{color:"white", fontSize: 35,}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -136,7 +138,7 @@ function SelectTheme() {
         <Grid item xs={2}>
           <Link href="/popularplace">
             <IconItem elevation={4}>
-              <CloudIcon style={{color:"white", fontSize: 30,}}/>
+              <CloudIcon style={{color:"white", fontSize: 35,}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -148,8 +150,8 @@ function SelectTheme() {
 
         <br /><Grid item xs={2}>
           <Link href="/popularplace">
-            <IconItem elevation={4} style={{  lineHeight: "120px",}}>
-              <AttractionsIcon style={{color:"white", fontSize: 40}}/>
+            <IconItem elevation={4} style={{  lineHeight: "95px",}}>
+              <AttractionsIcon style={{color:"white", fontSize: 45}}/>
             </IconItem>
           </Link>
         </Grid>
@@ -162,7 +164,7 @@ function SelectTheme() {
         <br /><Grid item xs={2}>
           <Link href="/popularplace">
             <IconItem elevation={4}>
-              <AccountBalanceIcon style={{color:"white", fontSize: 30,}}/>
+              <AccountBalanceIcon style={{color:"white", fontSize: 35,}}/>
             </IconItem>
           </Link>
         </Grid>

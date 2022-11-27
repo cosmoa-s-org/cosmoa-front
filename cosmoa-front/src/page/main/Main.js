@@ -17,13 +17,13 @@ import { useState, useEffect } from "react";
 import { call } from "../../service/ApiService";
 import travelImg_1 from "../../images/travel_1.png";
 import travelImg_2 from "../../images/travel_2.png";
-import { useTheme } from '@mui/material/styles';
-import { autoPlay } from 'react-swipeable-views-utils';
-import SwipeableViews from 'react-swipeable-views';
-import MobileStepper from '@mui/material/MobileStepper';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-
+import { useTheme } from "@mui/material/styles";
+import { autoPlay } from "react-swipeable-views-utils";
+import SwipeableViews from "react-swipeable-views";
+import MobileStepper from "@mui/material/MobileStepper";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import "../../font.css";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -38,24 +38,24 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const images = [
   {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
+    label: "San Francisco – Oakland Bay Bridge, United States",
     imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
   },
   {
-    label: 'Bird',
+    label: "Bird",
     imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
   },
   {
-    label: 'Bali, Indonesia',
+    label: "Bali, Indonesia",
     imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
   },
   {
-    label: 'Goč, Serbia',
+    label: "Goč, Serbia",
     imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+      "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
   },
 ];
 
@@ -111,18 +111,18 @@ function Main() {
 
 
 
-  // carousel 
-    const handleNext = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-  
-    const handleBack = () => {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-  
-    const handleStepChange = (step) => {
-      setActiveStep(step);
-    }
+  // carousel
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStepChange = (step) => {
+    setActiveStep(step);
+  };
 
   return (
     <>
@@ -210,8 +210,8 @@ function Main() {
       </Paper>
       </Grid>
 
-      <br />
-      <br />
+        <br />
+        <br />
 
         <Grid item xs={6}>
           <Link href="/registertype">
@@ -227,13 +227,30 @@ function Main() {
                 "border-radius": "15%",
               }}
             >
-              <Typography style={{ verticalAlign: "middle", height: "100%", fontWeight:"600" }}>
-                코스 공유하기
-                </Typography>
-                <Typography style={{ textAlign:"left", padding:"1vw"}}>
-                  나만의 장소를 등록한 후 코스에 추가해 등록해보세요!
-                </Typography>
-                <img src={travelImg_1} style={{ height:"25vw",width: "40vw" }}></img> 
+              <Typography
+                style={{
+                  verticalAlign: "middle",
+                  height: "100%",
+                  fontWeight: "600",
+                  fontFamily: "roundExtraBold",
+                  fontSize: "18px",
+                  marginBottom: "10px",
+                  paddingTop: "15px",
+                }}
+              >
+                코스 & 장소 공유하기
+              </Typography>
+              <Typography
+              style={{
+                fontFamily: "roundRegular",
+                fontSize: "13px",
+              }}>
+                나만의 장소를 등록한 후 코스에<br/> 추가해 등록해보세요!
+              </Typography>
+              <img
+                src={travelImg_1}
+                style={{ height: "25vw", width: "40vw" }}
+              ></img>
             </Paper>
           </Link>
         </Grid>
@@ -253,13 +270,30 @@ function Main() {
                 "border-radius": "15%",
               }}
             >
-              <Typography style={{ verticalAlign: "middle", height: "100%", fontWeight:"600" }}>
+              <Typography
+                style={{
+                  verticalAlign: "middle",
+                  height: "100%",
+                  fontWeight: "600",
+                  fontFamily: "roundExtraBold",
+                  fontSize: "20px",
+                  marginBottom: "10px",
+                  paddingTop: "15px",
+                }}
+              >
                 코스 구경하기
-                </Typography>
-                <Typography style={{ textAlign:"left", padding:"1vw"}}>
-                  다른 여행자들이 공유한 코스를 구경해보세요!
-                </Typography>
-                <img src={travelImg_2} style={{ height: "25vw", width: "40vw" }}></img> 
+              </Typography>
+              <Typography
+              style={{
+                fontFamily: "roundRegular",
+                fontSize: "13px",
+              }}>
+                다른 여행자들이 공유한 코스를 <br/>구경해보세요!
+              </Typography>
+              <img
+                src={travelImg_2}
+                style={{ height: "25vw", width: "40vw" }}
+              ></img>
             </Paper>
           </Link>
         </Grid>
