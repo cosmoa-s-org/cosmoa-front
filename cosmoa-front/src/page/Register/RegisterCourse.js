@@ -29,7 +29,7 @@ function RegisterCourse(props) {
   const [registerCourseMap, setRegisterCourseMap] = useState("");
   const placeListRef = useRef(null);
   const [markers, setMarkers] = useState([]);
-  const [latlng, setLatlng] = useState({});
+  const [latlng, setLatlng] = useState({lat:36.1461, lng:128.3936});
 
   // 제출 버튼 눌렀을때 이벤트 작성 필요
   const handleSubmit = (event) => {

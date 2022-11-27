@@ -124,7 +124,7 @@ function AddPlace(props) {
 
   return (
     <>
-      <h1>Add Place Page</h1>
+      <h1>추가할 장소를 검색해 주세요</h1>
 
       {/* 지도 표시 */}
       {addPlaceMap}
@@ -142,6 +142,7 @@ function AddPlace(props) {
             setSearchKeyword(e.currentTarget.value);
           }}
           value={searchKeyword}
+          style={{width: "75%"}}
         />
         <IconButton
           type="button"
