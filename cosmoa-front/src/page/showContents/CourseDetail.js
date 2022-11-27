@@ -211,7 +211,7 @@ function CourseDetail() {
           newlatlng.push({ lat: lat, lng: lng, pName: pName, pDesc: pDesc });
         });
         setRows(newlatlng);
-        setLatlng(newlatlng);
+        //setLatlng(newlatlng);
         setCourseMap(
           <CourseMapWrapper
             rows={newlatlng}
