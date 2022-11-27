@@ -27,7 +27,7 @@ const PaperItem = styled(Paper)(({ theme }) => ({
   float: "left",
   color: "white",
   borderRadius: "20px",
-  margin: "1vw",
+  margin: "2vw",
   marginLeft: "8.5vw",
   fontWeight: "700",
 }));
@@ -52,7 +52,7 @@ const IconItem = styled(Paper)(({ theme }) => ({
   width: 60,
   borderRadius: "35px",
   margin: "2vw",
-  lineHeight: "85px",
+  lineHeight: "88px",
 }));
 
 function SelectTheme() {
