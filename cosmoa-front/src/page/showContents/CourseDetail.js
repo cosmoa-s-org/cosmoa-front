@@ -217,7 +217,7 @@ function CourseDetail() {
             rows={newlatlng}
             markers={markers}
             setMarkers={setMarkers}
-            latlng={latlng}
+            latlng={newlatlng[0]}
           />
         );
       });
