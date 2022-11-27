@@ -234,9 +234,9 @@ function Main() {
                   height: "100%",
                   fontWeight: "600",
                   fontFamily: "roundExtraBold",
-                  fontSize: "20px",
-                  marginTop: "10px",
+                  fontSize: "18px",
                   marginBottom: "10px",
+                  paddingTop: "15px",
                 }}
               >
                 코스 & 장소 공유하기
@@ -278,8 +278,8 @@ function Main() {
                   fontWeight: "600",
                   fontFamily: "roundExtraBold",
                   fontSize: "20px",
-                  marginTop: "10px",
                   marginBottom: "10px",
+                  paddingTop: "15px",
                 }}
               >
                 코스 구경하기
