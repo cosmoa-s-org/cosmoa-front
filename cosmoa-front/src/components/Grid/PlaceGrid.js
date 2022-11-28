@@ -70,7 +70,7 @@ function PlaceGrid({ list }) {
                                 </Grid>
                                 <Grid item xs={12} style={{height: "40px", marginLeft: "0", marginRight: "10px", paddingLeft: "0",}}>
                                 <img src={ReadMoreIcon} style={{width: "85%", height: "40px", }} onClick={() => {
-                                    navigate(`/coursedetail/${item.id}`);
+                                    navigate(`/placedetail/${item.id}`);
                                 }}/>
                                 </Grid>
                             </Grid>
