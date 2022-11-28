@@ -36,7 +36,7 @@ function RegisterType() {
     <>
     <Container style={{marginTop:"5%"}}>
       <br />
-      <Typography variant="h5">등록할 코스 혹은 장소를 골라주세요.</Typography>
+      <Typography variant="h6">등록할 코스 혹은 장소를 골라주세요.</Typography>
       <br />
 
       <br />
