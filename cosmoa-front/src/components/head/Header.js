@@ -111,6 +111,7 @@ function Header() {
 
   const logoutClicked = (event) => {
     localStorage.setItem("USER", "");
+    M.pop.alert("로그아웃 되었습니다.");
     navigate("/signin");
   }
 
