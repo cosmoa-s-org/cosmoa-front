@@ -164,6 +164,8 @@ function CourseDetail() {
     .then((response) => {
       M.pop.alert("삭제가 완료되었습니다.");
     })
+    navigate("/courselist");
+    
   };
 
   // 신고창 표시

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { call } from "../../service/ApiService";
 import {
   Box,
@@ -83,6 +83,7 @@ function PlaceDetail() {
   const pid = params.id; // 장소 id
   const header = { "Content-Type": "application/json" };
   const M = window.M;
+  const navigate = useNavigate();
 
   let userId = JSON.parse(localStorage.getItem("USER")).id;
 
@@ -219,6 +220,7 @@ function PlaceDetail() {
     .then((response) => {
       M.pop.alert("삭제가 완료되었습니다.")
     })
+    navigate("/courselist");
   };
 
   // 신고 기능
