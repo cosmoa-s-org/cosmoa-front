@@ -94,6 +94,7 @@ export function registerPlace(place) {
     const M = window.M;
     return call("/place", "POST", {}, place)
     .then((response) => {
+        M.pop.alert("등록이 완료되었습니다.");
         window.location.href = "/main";
     })
     .catch((error)=>{
@@ -112,6 +113,7 @@ export function registerCourse(place) {
     const M = window.M;
     return call("/course", "POST", header, place)
     .then((response) => {
+        M.pop.alert("등록이 완료되었습니다.");
         window.location.href = "/main";
     })
     .catch((error)=>{
