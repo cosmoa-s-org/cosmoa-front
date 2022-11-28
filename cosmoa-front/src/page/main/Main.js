@@ -43,11 +43,6 @@ const images = [
       "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
   },
   {
-    label: "Bird",
-    imgPath:
-      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
-  },
-  {
     label: "Bali, Indonesia",
     imgPath:
       "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
@@ -187,7 +182,7 @@ function Main() {
             onClick={handleNext}
             disabled={activeStep === maxSteps - 1}
           >
-            다음
+            
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
             ) : (
@@ -202,7 +197,7 @@ function Main() {
             ) : (
               <KeyboardArrowLeft />
             )}
-            이전
+            
           </Button>
         }
         />
@@ -288,7 +283,7 @@ function Main() {
                 fontFamily: "roundRegular",
                 fontSize: "13px",
               }}>
-                다른 여행자들이 공유한 코스를 <br/>구경해보세요!
+                다른 이용자들이 공유한 코스를 <br/>구경해보세요!
               </Typography>
               <img
                 src={travelImg_2}

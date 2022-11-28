@@ -14,11 +14,6 @@ export default function SignIn() {
             if(window.confirm('앱을 종료하시겠습니까?')) M.sys.exit(); 
         })
     }, [])
-    
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
-
-    // var testuser = { email: 'user01@naver.com', password: 'asdf1234!' };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -28,23 +23,11 @@ export default function SignIn() {
             password: data.get('password'),
         };
 
-
-        // if ( joinData.email === testuser.email && joinData.password === testuser.password) {
-        //     M.pop.alert('로그인 성공');
-        //     console.log("로그인 성공!!");
-        //     navigate("/");
-        // } else {
-        //     console.log("로그인 실패");
-        //     M.pop.alert('로그인 실패');
-        // }
-
         signin(JSON.stringify(joinData));
         // console.log("전송 성공");
         // navigate("/");
 
     };
-
-
 
     return (<>
         {/* <button onClick={onLogOutClick}>Log out</button> */}

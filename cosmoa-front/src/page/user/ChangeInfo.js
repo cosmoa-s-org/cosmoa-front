@@ -50,8 +50,7 @@ function ChangeInfo() {
     const updateEnd = (event) => {
         console.log("updateClicked 클릭");
         event.preventDefault();
-        // let password = event.currentTarget
-        // let password2 = event.currentTarget
+
         const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
         if (!passwordRegex.test(user.password)) {
             setPasswordState('패스워드는 숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요');
@@ -70,9 +69,6 @@ function ChangeInfo() {
         ) {
             setReadOnly(true);
             userUpdate(user)
-            console.log(user.password);
-            console.log(password2);
-            console.log(user.nickname);
             M.pop.alert("수정완료!");
         }
     }
@@ -140,19 +136,6 @@ function ChangeInfo() {
                                     value={user.nickname}
                                     onChange={(e) => { 
                                         setUser({...user, nickname: e.currentTarget.value}) }}
-                                ></InputBase>
-                            </ListItemText>
-                            <Divider />
-                            <ListItemText>Gender
-                                <InputBase
-                                    type="text"
-                                    inputProps={{ "aria-label": "naked", readOnly: readOnly }}
-                                    id="gender"
-                                    name="gender"
-                                    fullWidth={true}
-                                    value={user.gender}
-                                    onChange={(e) => { 
-                                        setUser({...user, gender: e.currentTarget.value}) }}
                                 ></InputBase>
                             </ListItemText>
                             <Divider />

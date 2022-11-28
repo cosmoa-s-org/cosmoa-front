@@ -50,10 +50,10 @@ export function signin(member) {
     .then((response) => {
         if (!response.error ) {
             localStorage.setItem("USER", JSON.stringify(response.data));
-            window.alert("성공")
+            window.alert("로그인 성공")
             window.location.href = "/"
         } else {
-            window.alert("실패")
+            window.alert("로그인 실패")
 
         }
     })
